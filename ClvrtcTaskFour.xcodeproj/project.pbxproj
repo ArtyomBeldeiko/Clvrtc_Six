@@ -12,6 +12,8 @@
 		39B74554295B7FED000AACE1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B74553295B7FED000AACE1 /* SceneDelegate.swift */; };
 		39B7455B295B7FEE000AACE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39B7455A295B7FEE000AACE1 /* Assets.xcassets */; };
 		39B7455E295B7FEE000AACE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39B7455C295B7FEE000AACE1 /* LaunchScreen.storyboard */; };
+		39F8E34F295CC37B00C841F7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E34E295CC37B00C841F7 /* MapViewController.swift */; };
+		39F8E351295CC3DF00C841F7 /* ATMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E350295CC3DF00C841F7 /* ATMViewController.swift */; };
 		E70DB38E14C26F9D08D8F4E8 /* Pods_ClvrtcTaskFour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E63CC0523A0FD7B5D2E3E8B /* Pods_ClvrtcTaskFour.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +27,8 @@
 		39B7455A295B7FEE000AACE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39B7455D295B7FEE000AACE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		39B7455F295B7FEE000AACE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39F8E34E295CC37B00C841F7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		39F8E350295CC3DF00C841F7 /* ATMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMViewController.swift; sourceTree = "<group>"; };
 		9D0EB33A37D95188921BD6DA /* Pods-ClvrtcTaskFour.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClvrtcTaskFour.debug.xcconfig"; path = "Target Support Files/Pods-ClvrtcTaskFour/Pods-ClvrtcTaskFour.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -46,7 +50,6 @@
 				9D0EB33A37D95188921BD6DA /* Pods-ClvrtcTaskFour.debug.xcconfig */,
 				2A389867F1043C684F0106F9 /* Pods-ClvrtcTaskFour.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -54,6 +57,8 @@
 			isa = PBXGroup;
 			children = (
 				3935E4C3295B81CC00530BD5 /* MainViewController.swift */,
+				39F8E34E295CC37B00C841F7 /* MapViewController.swift */,
+				39F8E350295CC3DF00C841F7 /* ATMViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -245,9 +250,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39F8E351295CC3DF00C841F7 /* ATMViewController.swift in Sources */,
 				3935E4C4295B81CC00530BD5 /* MainViewController.swift in Sources */,
 				39B74552295B7FED000AACE1 /* AppDelegate.swift in Sources */,
 				39B74554295B7FED000AACE1 /* SceneDelegate.swift in Sources */,
+				39F8E34F295CC37B00C841F7 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
