@@ -8,6 +8,8 @@
 import UIKit
 
 class ATMViewController: UIViewController {
+    
+    var ATMdata = [ATM]()
 
     override func viewDidLoad() {
         super.viewDidLoad()

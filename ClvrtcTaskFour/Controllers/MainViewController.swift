@@ -10,11 +10,9 @@ import SnapKit
 
 class MainViewController: UIViewController {
     
-//    MARK: - Constants
-    
     let containerViewModes = ["Map", "ATM List"]
-    let mapVC = MapViewController()
-    let ATMListVC = ATMViewController()
+    var mapVC = MapViewController()
+    var ATMListVC = ATMViewController()
     
 //    MARK: - UI Elements
     
@@ -42,6 +40,8 @@ class MainViewController: UIViewController {
        
         configureNavigationBar()
         setupViews()
+        fetchATMData()
+
     }
     
     private func configureNavigationBar() {
@@ -85,6 +85,21 @@ class MainViewController: UIViewController {
         ATMListVC.view.frame = containerView.bounds
         
         ATMListVC.view.isHidden = true
+    }
+    
+    private func fetchATMData() {
+        NetworkManager.shared.getATMData { result in
+            switch result {
+            case .success(let data):
+                self.mapVC.ATMdata = data.data.atm
+                self.ATMListVC.ATMdata = data.data.atm
+                print(data.data.atm.count)
+                print(data.data.atm[865].address.geolocation.geographicCoordinates.longitude)
+                print(self.mapVC.ATMdata?[0].address.geolocation.geographicCoordinates)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     @objc private func uploadAction() {
