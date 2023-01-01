@@ -8,7 +8,7 @@
 import Foundation
 
 struct NetworkManagerConstants {
-    static let url = "https://belarusbank.by/api/atm?city"
+    static let url = "https://belarusbank.by/open-banking/v1.0/atms"
 }
 
 class NetworkManager {

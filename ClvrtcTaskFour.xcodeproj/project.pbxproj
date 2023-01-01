@@ -15,7 +15,7 @@
 		39F8E34F295CC37B00C841F7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E34E295CC37B00C841F7 /* MapViewController.swift */; };
 		39F8E351295CC3DF00C841F7 /* ATMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E350295CC3DF00C841F7 /* ATMViewController.swift */; };
 		39F8E354295F338500C841F7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E353295F338500C841F7 /* NetworkManager.swift */; };
-		39F8E357295F33B700C841F7 /* ATM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E356295F33B700C841F7 /* ATM.swift */; };
+		39F8E357295F33B700C841F7 /* ATMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E356295F33B700C841F7 /* ATMData.swift */; };
 		E70DB38E14C26F9D08D8F4E8 /* Pods_ClvrtcTaskFour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E63CC0523A0FD7B5D2E3E8B /* Pods_ClvrtcTaskFour.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,7 +32,7 @@
 		39F8E34E295CC37B00C841F7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		39F8E350295CC3DF00C841F7 /* ATMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMViewController.swift; sourceTree = "<group>"; };
 		39F8E353295F338500C841F7 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		39F8E356295F33B700C841F7 /* ATM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATM.swift; sourceTree = "<group>"; };
+		39F8E356295F33B700C841F7 /* ATMData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMData.swift; sourceTree = "<group>"; };
 		9D0EB33A37D95188921BD6DA /* Pods-ClvrtcTaskFour.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClvrtcTaskFour.debug.xcconfig"; path = "Target Support Files/Pods-ClvrtcTaskFour/Pods-ClvrtcTaskFour.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,7 +127,7 @@
 		39F8E355295F339600C841F7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				39F8E356295F33B700C841F7 /* ATM.swift */,
+				39F8E356295F33B700C841F7 /* ATMData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -277,7 +277,7 @@
 				3935E4C4295B81CC00530BD5 /* MainViewController.swift in Sources */,
 				39B74552295B7FED000AACE1 /* AppDelegate.swift in Sources */,
 				39B74554295B7FED000AACE1 /* SceneDelegate.swift in Sources */,
-				39F8E357295F33B700C841F7 /* ATM.swift in Sources */,
+				39F8E357295F33B700C841F7 /* ATMData.swift in Sources */,
 				39F8E34F295CC37B00C841F7 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
