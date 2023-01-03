@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import CoreLocation
 
 class MainViewController: UIViewController {
     
@@ -34,14 +35,18 @@ class MainViewController: UIViewController {
         return view
     }()
     
+    override func loadView() {
+        super.loadView()
+       
+        fetchATMData()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
         configureNavigationBar()
         setupViews()
-        fetchATMData()
-
     }
     
     private func configureNavigationBar() {
@@ -91,11 +96,15 @@ class MainViewController: UIViewController {
         NetworkManager.shared.getATMData { result in
             switch result {
             case .success(let data):
-                self.mapVC.ATMdata = data.data.atm
-                self.ATMListVC.ATMdata = data.data.atm
-                print(data.data.atm.count)
-                print(data.data.atm[865].address.geolocation.geographicCoordinates.longitude)
-                print(self.mapVC.ATMdata?[0].address.geolocation.geographicCoordinates)
+                for dataItem in data.data.atm {
+                    let mkAnnotatedATM = MKAnnotatedATM(atmID: dataItem.atmID, type: dataItem.type, baseCurrency: dataItem.baseCurrency, currency: dataItem.currency, cards: dataItem.cards, currentStatus: dataItem.currentStatus, address: dataItem.address, services: dataItem.services, availability: dataItem.availability, contactDetails: dataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(dataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(dataItem.address.geolocation.geographicCoordinates.longitude)!))
+                    
+                    DispatchQueue.main.async {
+                        self.mapVC.annotatedATMData?.append(mkAnnotatedATM)
+                        self.mapVC.mapView.addAnnotation(mkAnnotatedATM)
+                    }
+                }
+                
             case .failure(let error):
                 print(error.localizedDescription)
             }
