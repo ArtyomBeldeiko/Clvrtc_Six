@@ -11,9 +11,9 @@ import MapKit
 class MapViewController: UIViewController {
     
     let locationManager = CLLocationManager()
-    var ATMdata: [ATM]?
+    var annotatedATMData: [MKAnnotatedATM]?
     
-    private let mapView: MKMapView = {
+    let mapView: MKMapView = {
         let view = MKMapView()
         view.mapType = .standard
         view.isZoomEnabled = true
@@ -25,8 +25,8 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.delegate = self
-        configureViews()
+        configureMapView()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,7 +38,8 @@ class MapViewController: UIViewController {
         
     }
     
-    private func configureViews() {
+    private func configureMapView() {
+        mapView.delegate = self
         view.addSubview(mapView)
         mapView.frame = view.bounds
     }
@@ -53,14 +54,11 @@ class MapViewController: UIViewController {
     }
     
     private func addAnnotations() {
-        
-        guard let data = ATMdata else { return }
+        guard let data = annotatedATMData else { return }
         
         for ATMItem in data {
-            let CLLocationCoordinate = CLLocationCoordinate2D(latitude: Double(ATMItem.address.geolocation.geographicCoordinates.latitude)!,
-                                                              longitude: Double(ATMItem.address.geolocation.geographicCoordinates.longitude)!)
             let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate
+            annotation.coordinate = ATMItem.coordinate
             mapView.addAnnotation(annotation)
         }
     }
@@ -71,25 +69,13 @@ class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        if annotation is MKUserLocation {
-            return nil
-        } else {
-            let pin = "pin"
-            var pinView: MKMarkerAnnotationView
-            
-            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: pin) as? MKMarkerAnnotationView {
-                dequeuedView.annotation = annotation
-                pinView = dequeuedView
-            } else {
-                pinView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: pin)
-            }
-            return pinView
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        if let mkAnnotatedATM = annotation as? MKAnnotatedATM {
+            annotationView?.canShowCallout = true
+            annotationView?.detailCalloutAccessoryView = ATMCalloutView(mkAnnotatedATM: mkAnnotatedATM)
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .close)
         }
-    }
-    
-    func mapViewWillStartLoadingMap(_ mapView: MKMapView) {
-        addAnnotations()
+        return annotationView
     }
 }
 
