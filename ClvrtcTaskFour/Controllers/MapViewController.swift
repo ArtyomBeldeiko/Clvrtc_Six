@@ -73,7 +73,6 @@ extension MapViewController: MKMapViewDelegate {
         if let mkAnnotatedATM = annotation as? MKAnnotatedATM {
             annotationView?.canShowCallout = true
             annotationView?.detailCalloutAccessoryView = ATMCalloutView(mkAnnotatedATM: mkAnnotatedATM)
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .close)
         }
         return annotationView
     }

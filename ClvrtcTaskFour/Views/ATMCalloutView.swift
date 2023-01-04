@@ -51,8 +51,11 @@ class ATMCalloutView: UIView {
     }
     
     private func setupOperatingHoursLabel() {
+        
+        let formattedDate = dateFormatter(mkAnnotatedATM.availability.standardAvailability.day)
+        
         operatingHoursLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        operatingHoursLabel.text = "Режим работы: \(mkAnnotatedATM.availability.standardAvailability.day.description)"
+        operatingHoursLabel.text = "Режим работы: \(formattedDate)"
         operatingHoursLabel.numberOfLines = 0
         addSubview(operatingHoursLabel)
         operatingHoursLabel.translatesAutoresizingMaskIntoConstraints = false

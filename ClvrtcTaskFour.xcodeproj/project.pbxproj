@@ -18,6 +18,7 @@
 		39F8E357295F33B700C841F7 /* ATMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E356295F33B700C841F7 /* ATMData.swift */; };
 		39F8E3612964218300C841F7 /* MKAnnotatedATM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E3602964218300C841F7 /* MKAnnotatedATM.swift */; };
 		39F8E3652964C46A00C841F7 /* ATMCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E3642964C46A00C841F7 /* ATMCalloutView.swift */; };
+		39F8E3692965B69600C841F7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E3682965B69600C841F7 /* DateFormatter.swift */; };
 		E70DB38E14C26F9D08D8F4E8 /* Pods_ClvrtcTaskFour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E63CC0523A0FD7B5D2E3E8B /* Pods_ClvrtcTaskFour.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		39F8E356295F33B700C841F7 /* ATMData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMData.swift; sourceTree = "<group>"; };
 		39F8E3602964218300C841F7 /* MKAnnotatedATM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKAnnotatedATM.swift; sourceTree = "<group>"; };
 		39F8E3642964C46A00C841F7 /* ATMCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMCalloutView.swift; sourceTree = "<group>"; };
+		39F8E3682965B69600C841F7 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		9D0EB33A37D95188921BD6DA /* Pods-ClvrtcTaskFour.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClvrtcTaskFour.debug.xcconfig"; path = "Target Support Files/Pods-ClvrtcTaskFour/Pods-ClvrtcTaskFour.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +100,7 @@
 				39F8E355295F339600C841F7 /* Models */,
 				39F8E35E29639DC600C841F7 /* Views */,
 				39B74567295B80EC000AACE1 /* Resources */,
+				39F8E36B2965C0CE00C841F7 /* Helpers */,
 			);
 			path = ClvrtcTaskFour;
 			sourceTree = "<group>";
@@ -144,6 +147,14 @@
 				39F8E3642964C46A00C841F7 /* ATMCalloutView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		39F8E36B2965C0CE00C841F7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				39F8E3682965B69600C841F7 /* DateFormatter.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		F726940849EB68394EC23199 /* Frameworks */ = {
@@ -290,6 +301,7 @@
 				39F8E354295F338500C841F7 /* NetworkManager.swift in Sources */,
 				39F8E351295CC3DF00C841F7 /* ATMViewController.swift in Sources */,
 				3935E4C4295B81CC00530BD5 /* MainViewController.swift in Sources */,
+				39F8E3692965B69600C841F7 /* DateFormatter.swift in Sources */,
 				39B74552295B7FED000AACE1 /* AppDelegate.swift in Sources */,
 				39B74554295B7FED000AACE1 /* SceneDelegate.swift in Sources */,
 				39F8E357295F33B700C841F7 /* ATMData.swift in Sources */,
