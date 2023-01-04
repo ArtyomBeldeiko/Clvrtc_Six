@@ -11,6 +11,7 @@ import SnapKit
 
 class ATMCalloutView: UIView {
     
+    private let closeButton = UIButton(frame: .zero)
     private let installationPlaceLabel = UILabel(frame: .zero)
     private let operatingHoursLabel = UILabel(frame: .zero)
     private let currencyLabel = UILabel(frame: .zero)
@@ -30,11 +31,25 @@ class ATMCalloutView: UIView {
     
     private func setupViews() {
         translatesAutoresizingMaskIntoConstraints = false
+        setupCloseButton()
         setupInstallationPlaceLabel()
         setupOperatingHoursLabel()
         setupCurrencyLabel()
         setupCashInAvailabilityLabel()
         setupDetailButton()
+    }
+    
+    private func setupCloseButton() {
+        let image = UIImage(systemName: "xmark.circle")?.withTintColor(.red, renderingMode: .alwaysOriginal)
+        closeButton.setImage(image, for: .normal)
+        addSubview(closeButton)
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.snp.makeConstraints { make in
+            make.top.equalTo(snp.top).offset(-8)
+            make.height.equalTo(25)
+            make.width.equalTo(25)
+            make.right.equalTo(snp.right).offset(5)
+        }
     }
     
     private func setupInstallationPlaceLabel() {
@@ -100,7 +115,7 @@ class ATMCalloutView: UIView {
     
     private func setupDetailButton() {
         detailButton.setTitle("Подробнее", for: .normal)
-        detailButton.setTitleColor(.black, for: .normal)
+        detailButton.setTitleColor(.red, for: .normal)
         addSubview(detailButton)
         detailButton.translatesAutoresizingMaskIntoConstraints = false
         detailButton.snp.makeConstraints { make in
