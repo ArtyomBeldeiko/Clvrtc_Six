@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 import SnapKit
+import MapKit
+
+protocol ATMCalloutViewDelegate: AnyObject {
+    func mapView(_ mapView: MKMapView, didTapCloseButton button: UIButton, for annotation: MKAnnotation)
+}
 
 class ATMCalloutView: UIView {
     
@@ -18,6 +23,15 @@ class ATMCalloutView: UIView {
     private let cashInAvailabilityLabel = UILabel(frame: .zero)
     private let detailButton = UIButton(frame: .zero)
     private let mkAnnotatedATM: MKAnnotatedATM
+    
+    private var mapView: MKMapView? {
+        var view = superview
+        while view != nil {
+            if let mapView = view as? MKMapView { return mapView }
+            view = view?.superview
+        }
+        return nil
+    }
     
     init(mkAnnotatedATM: MKAnnotatedATM) {
         self.mkAnnotatedATM = mkAnnotatedATM
@@ -43,6 +57,7 @@ class ATMCalloutView: UIView {
         let image = UIImage(systemName: "xmark.circle")?.withTintColor(.red, renderingMode: .alwaysOriginal)
         closeButton.setImage(image, for: .normal)
         addSubview(closeButton)
+        closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.snp.makeConstraints { make in
             make.top.equalTo(snp.top).offset(-8)
@@ -117,6 +132,7 @@ class ATMCalloutView: UIView {
         detailButton.setTitle("Подробнее", for: .normal)
         detailButton.setTitleColor(.red, for: .normal)
         addSubview(detailButton)
+        detailButton.addTarget(self, action: #selector(presentDetailedATMInfoVC), for: .touchUpInside)
         detailButton.translatesAutoresizingMaskIntoConstraints = false
         detailButton.snp.makeConstraints { make in
             make.top.equalTo(cashInAvailabilityLabel.snp.bottom).offset(5)
@@ -124,5 +140,17 @@ class ATMCalloutView: UIView {
             make.right.equalTo(snp.right)
             make.bottom.equalTo(snp.bottom)
         }
+    }
+    
+    @objc func didTapCloseButton() {
+        if let mapView = mapView, let delegate = mapView.delegate as? ATMCalloutViewDelegate {
+            delegate.mapView(mapView, didTapCloseButton: UIButton(type: .custom), for: mkAnnotatedATM)
+        }
+    }
+    
+    @objc private func presentDetailedATMInfoVC() {
+        let detailedATMVC = ATMDetailedInfoViewController()
+        
+        print("presented!")
     }
 }

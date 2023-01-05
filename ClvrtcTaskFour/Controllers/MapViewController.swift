@@ -114,3 +114,11 @@ extension MapViewController: CLLocationManagerDelegate {
         }
     }
 }
+
+// MARK: - ATMCalloutViewDelegate
+
+extension MapViewController: ATMCalloutViewDelegate {
+    func mapView(_ mapView: MKMapView, didTapCloseButton button: UIButton, for annotation: MKAnnotation) {
+        mapView.deselectAnnotation(annotation, animated: true)
+    }
+}
