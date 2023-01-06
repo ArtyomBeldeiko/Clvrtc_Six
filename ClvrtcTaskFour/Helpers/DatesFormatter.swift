@@ -1,5 +1,5 @@
 //
-//  DateFormatter.swift
+//  DatesFormatter.swift
 //  ClvrtcTaskFour
 //
 //  Created by Artyom Beldeiko on 4.01.23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-func dateFormatter(_ days: [Day]) -> String {
+func datesFormatter(_ days: [Day]) -> String {
     var output: String = ""
     var monday: String = ""
     var tuesday: String = ""
