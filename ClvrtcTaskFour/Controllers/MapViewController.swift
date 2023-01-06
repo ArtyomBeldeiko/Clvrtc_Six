@@ -121,4 +121,58 @@ extension MapViewController: ATMCalloutViewDelegate {
     func mapView(_ mapView: MKMapView, didTapCloseButton button: UIButton, for annotation: MKAnnotation) {
         mapView.deselectAnnotation(annotation, animated: true)
     }
+    
+    func mapView(_ mapView: MKMapView, didTapDetailButton button: UIButton, for annotation: MKAnnotation) {
+        guard let annotatedATMData = annotation as? MKAnnotatedATM else { return }
+        
+        let atmDetailedVC = ATMDetailedInfoViewController()
+        let operatingHours = datesFormatter(annotatedATMData.availability.standardAvailability.day)
+        let cards = cardsFormatter(annotatedATMData.cards)
+        let services = servicesFormatter(annotatedATMData.services)
+        
+        atmDetailedVC.idLabel.text = "Идентификатор банкомата: \(annotatedATMData.atmID)"
+        
+        if annotatedATMData.type.rawValue.hasPrefix("ATM") {
+            atmDetailedVC.typeLabel.text = "Тип: банкомат"
+        } else {
+            atmDetailedVC.typeLabel.text = "Тип: не установлено"
+        }
+        
+        atmDetailedVC.baseCurrencyLabel.text = "Cтандартная валюта: \(annotatedATMData.baseCurrency.rawValue)"
+        atmDetailedVC.currencyLabel.text = "Выдаваемая валюта: \(annotatedATMData.currency.rawValue)"
+        atmDetailedVC.cardsLabel.text = "Платежные системы: \(cards)"
+        
+        if annotatedATMData.currentStatus.rawValue.hasPrefix("On") {
+            atmDetailedVC.currentStatusLabel.text = "Текущее состояние: работает"
+        } else {
+            atmDetailedVC.currentStatusLabel.text = "Текущее состояние: не работает"
+        }
+        
+        atmDetailedVC.addressLabel.text = "Адрес: \(annotatedATMData.address.townName), \(annotatedATMData.address.streetName) \(annotatedATMData.address.buildingNumber) (\(annotatedATMData.address.addressLine))"
+        atmDetailedVC.geolocationLabel.text = "Географические координаты: долгота - \(annotatedATMData.coordinate.longitude), широта - \(annotatedATMData.coordinate.latitude)"
+        atmDetailedVC.servicesLabel.text = "Услуги: \(services)"
+        
+        if annotatedATMData.availability.access24Hours == true {
+            atmDetailedVC.access24hoursLabel.text = "Работает круглосуточно: да"
+        } else {
+            atmDetailedVC.access24hoursLabel.text = "Работает круглосуточно: нет"
+        }
+        
+        if annotatedATMData.availability.isRestricted == true {
+            atmDetailedVC.restrictedAccessLabel.text = "Доступ ограничен: да"
+        } else {
+            atmDetailedVC.restrictedAccessLabel.text = "Доступ ограничен: нет"
+        }
+        
+        if annotatedATMData.availability.sameAsOrganization == true {
+            atmDetailedVC.organizationOperatingHoursLabel.text = "Работа по графику организации-местонахождения банкомата: да"
+        } else {
+            atmDetailedVC.organizationOperatingHoursLabel.text = "Работа по графику организации-местонахождения банкомата: да"
+        }
+        
+        atmDetailedVC.standardAvailabilityLabel.text = "Режим работы: \(operatingHours)"
+        atmDetailedVC.contactDetailsLabel.text = "Контактный номер телефона: \(annotatedATMData.contactDetails.phoneNumber)"
+        
+        self.present(atmDetailedVC, animated: true)
+    }
 }

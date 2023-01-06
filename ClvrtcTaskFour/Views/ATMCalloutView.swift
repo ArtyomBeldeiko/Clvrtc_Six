@@ -12,6 +12,7 @@ import MapKit
 
 protocol ATMCalloutViewDelegate: AnyObject {
     func mapView(_ mapView: MKMapView, didTapCloseButton button: UIButton, for annotation: MKAnnotation)
+    func mapView(_ mapView: MKMapView, didTapDetailButton button: UIButton, for annotation: MKAnnotation)
 }
 
 class ATMCalloutView: UIView {
@@ -82,7 +83,7 @@ class ATMCalloutView: UIView {
     
     private func setupOperatingHoursLabel() {
         
-        let formattedDate = dateFormatter(mkAnnotatedATM.availability.standardAvailability.day)
+        let formattedDate = datesFormatter(mkAnnotatedATM.availability.standardAvailability.day)
         
         operatingHoursLabel.font = .systemFont(ofSize: 12, weight: .regular)
         operatingHoursLabel.text = "Режим работы: \(formattedDate)"
@@ -149,8 +150,8 @@ class ATMCalloutView: UIView {
     }
     
     @objc private func presentDetailedATMInfoVC() {
-        let detailedATMVC = ATMDetailedInfoViewController()
-        
-        print("presented!")
+        if let mapView = mapView, let delegate = mapView.delegate as? ATMCalloutViewDelegate {
+            delegate.mapView(mapView, didTapDetailButton: UIButton(type: .custom), for: mkAnnotatedATM)
+        }
     }
 }

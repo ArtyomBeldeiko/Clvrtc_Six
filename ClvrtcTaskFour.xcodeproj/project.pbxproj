@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3935E4C4295B81CC00530BD5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3935E4C3295B81CC00530BD5 /* MainViewController.swift */; };
 		399FCA7029662C840050C814 /* ATMDetailedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FCA6F29662C840050C814 /* ATMDetailedInfoViewController.swift */; };
+		399FCA722968C18D0050C814 /* ServicesFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FCA712968C18D0050C814 /* ServicesFormatter.swift */; };
+		399FCA742968CDA80050C814 /* CardsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FCA732968CDA80050C814 /* CardsFormatter.swift */; };
 		39B74552295B7FED000AACE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B74551295B7FED000AACE1 /* AppDelegate.swift */; };
 		39B74554295B7FED000AACE1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B74553295B7FED000AACE1 /* SceneDelegate.swift */; };
 		39B7455B295B7FEE000AACE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39B7455A295B7FEE000AACE1 /* Assets.xcassets */; };
@@ -19,7 +21,7 @@
 		39F8E357295F33B700C841F7 /* ATMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E356295F33B700C841F7 /* ATMData.swift */; };
 		39F8E3612964218300C841F7 /* MKAnnotatedATM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E3602964218300C841F7 /* MKAnnotatedATM.swift */; };
 		39F8E3652964C46A00C841F7 /* ATMCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E3642964C46A00C841F7 /* ATMCalloutView.swift */; };
-		39F8E3692965B69600C841F7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E3682965B69600C841F7 /* DateFormatter.swift */; };
+		39F8E3692965B69600C841F7 /* DatesFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E3682965B69600C841F7 /* DatesFormatter.swift */; };
 		E70DB38E14C26F9D08D8F4E8 /* Pods_ClvrtcTaskFour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E63CC0523A0FD7B5D2E3E8B /* Pods_ClvrtcTaskFour.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +30,8 @@
 		2A389867F1043C684F0106F9 /* Pods-ClvrtcTaskFour.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClvrtcTaskFour.release.xcconfig"; path = "Target Support Files/Pods-ClvrtcTaskFour/Pods-ClvrtcTaskFour.release.xcconfig"; sourceTree = "<group>"; };
 		3935E4C3295B81CC00530BD5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		399FCA6F29662C840050C814 /* ATMDetailedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMDetailedInfoViewController.swift; sourceTree = "<group>"; };
+		399FCA712968C18D0050C814 /* ServicesFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesFormatter.swift; sourceTree = "<group>"; };
+		399FCA732968CDA80050C814 /* CardsFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsFormatter.swift; sourceTree = "<group>"; };
 		39B7454E295B7FED000AACE1 /* ClvrtcTaskFour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClvrtcTaskFour.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39B74551295B7FED000AACE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		39B74553295B7FED000AACE1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,7 +44,7 @@
 		39F8E356295F33B700C841F7 /* ATMData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMData.swift; sourceTree = "<group>"; };
 		39F8E3602964218300C841F7 /* MKAnnotatedATM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKAnnotatedATM.swift; sourceTree = "<group>"; };
 		39F8E3642964C46A00C841F7 /* ATMCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMCalloutView.swift; sourceTree = "<group>"; };
-		39F8E3682965B69600C841F7 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		39F8E3682965B69600C841F7 /* DatesFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatesFormatter.swift; sourceTree = "<group>"; };
 		9D0EB33A37D95188921BD6DA /* Pods-ClvrtcTaskFour.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClvrtcTaskFour.debug.xcconfig"; path = "Target Support Files/Pods-ClvrtcTaskFour/Pods-ClvrtcTaskFour.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,7 +159,9 @@
 		39F8E36B2965C0CE00C841F7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				39F8E3682965B69600C841F7 /* DateFormatter.swift */,
+				39F8E3682965B69600C841F7 /* DatesFormatter.swift */,
+				399FCA712968C18D0050C814 /* ServicesFormatter.swift */,
+				399FCA732968CDA80050C814 /* CardsFormatter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -304,12 +310,14 @@
 				39F8E354295F338500C841F7 /* NetworkManager.swift in Sources */,
 				39F8E351295CC3DF00C841F7 /* ATMViewController.swift in Sources */,
 				3935E4C4295B81CC00530BD5 /* MainViewController.swift in Sources */,
-				39F8E3692965B69600C841F7 /* DateFormatter.swift in Sources */,
+				39F8E3692965B69600C841F7 /* DatesFormatter.swift in Sources */,
 				39B74552295B7FED000AACE1 /* AppDelegate.swift in Sources */,
 				39B74554295B7FED000AACE1 /* SceneDelegate.swift in Sources */,
 				39F8E357295F33B700C841F7 /* ATMData.swift in Sources */,
 				39F8E34F295CC37B00C841F7 /* MapViewController.swift in Sources */,
+				399FCA742968CDA80050C814 /* CardsFormatter.swift in Sources */,
 				399FCA7029662C840050C814 /* ATMDetailedInfoViewController.swift in Sources */,
+				399FCA722968C18D0050C814 /* ServicesFormatter.swift in Sources */,
 				39F8E3612964218300C841F7 /* MKAnnotatedATM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
