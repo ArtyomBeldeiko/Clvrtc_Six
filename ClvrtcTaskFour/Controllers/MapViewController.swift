@@ -26,7 +26,6 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         
         configureMapView()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -35,7 +34,6 @@ class MapViewController: UIViewController {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
-        
     }
     
     private func configureMapView() {
@@ -172,6 +170,9 @@ extension MapViewController: ATMCalloutViewDelegate {
         
         atmDetailedVC.standardAvailabilityLabel.text = "Режим работы: \(operatingHours)"
         atmDetailedVC.contactDetailsLabel.text = "Контактный номер телефона: \(annotatedATMData.contactDetails.phoneNumber)"
+        atmDetailedVC.atmItemLatitude = annotatedATMData.coordinate.latitude
+        atmDetailedVC.atmItemLongitude = annotatedATMData.coordinate.longitude
+        atmDetailedVC.atmItemTitle = "Belarusbank ATM \(annotatedATMData.address.streetName),  \(annotatedATMData.address.buildingNumber)"
         
         self.present(atmDetailedVC, animated: true)
     }

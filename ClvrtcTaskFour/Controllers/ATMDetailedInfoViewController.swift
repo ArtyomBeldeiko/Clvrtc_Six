@@ -7,8 +7,13 @@
 
 import UIKit
 import SnapKit
+import MapKit
 
 class ATMDetailedInfoViewController: UIViewController {
+    
+    var atmItemLongitude: Double = 0
+    var atmItemLatitude: Double = 0
+    var atmItemTitle: String = ""
     
     private var contentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 200)
@@ -29,11 +34,12 @@ class ATMDetailedInfoViewController: UIViewController {
         return view
     }()
     
-    private let createRouteButton: UIButton = {
+    private lazy var createRouteButton: UIButton = {
         let button = UIButton()
         button.setTitle("Построить маршрут", for: .normal)
         button.setTitleColor(.red, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(showOnMap), for: .touchUpInside)
         return button
     }()
     
@@ -127,7 +133,7 @@ class ATMDetailedInfoViewController: UIViewController {
         return label
     }()
     
-    let restrictedAccessLabel: UILabel = {
+   let restrictedAccessLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = .black
@@ -298,5 +304,12 @@ class ATMDetailedInfoViewController: UIViewController {
             make.left.equalTo(contentView.snp.left).offset(10)
             make.right.equalTo(contentView.snp.right).offset(-10)
         }
+    }
+    
+    @objc private func showOnMap() {
+        let coordinate = CLLocationCoordinate2D(latitude: atmItemLatitude, longitude: atmItemLongitude)
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary: nil))
+        mapItem.name = atmItemTitle
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
     }
 }
