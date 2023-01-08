@@ -35,13 +35,7 @@ class MainViewController: UIViewController {
         return view
     }()
     
-    override func loadView() {
-        super.loadView()
-        
-        fetchATMData()
-    }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
        
@@ -91,32 +85,12 @@ class MainViewController: UIViewController {
         
         ATMListVC.view.isHidden = true
     }
-    
-    private func fetchATMData() {
-        NetworkManager.shared.getATMData { result in
-            switch result {
-            case .success(let data):
-                for dataItem in data.data.atm {
-                    let mkAnnotatedATM = MKAnnotatedATM(atmID: dataItem.atmID, type: dataItem.type, baseCurrency: dataItem.baseCurrency, currency: dataItem.currency, cards: dataItem.cards, currentStatus: dataItem.currentStatus, address: dataItem.address, services: dataItem.services, availability: dataItem.availability, contactDetails: dataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(dataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(dataItem.address.geolocation.geographicCoordinates.longitude)!))
-                    
-                    self.mapVC.annotatedATMData?.append(mkAnnotatedATM)
-                   
-                    DispatchQueue.main.async {
-                        self.mapVC.mapView.addAnnotation(mkAnnotatedATM)
-                    }
-                }
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
+        
     @objc private func uploadAction() {
         
     }
     
-    @objc private func segmentedControlAction() {
+    @objc func segmentedControlAction() {
         mapVC.view.isHidden = true
         ATMListVC.view.isHidden = true
         

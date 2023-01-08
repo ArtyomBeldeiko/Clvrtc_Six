@@ -19,8 +19,15 @@ class MapViewController: UIViewController {
         view.isZoomEnabled = true
         view.isScrollEnabled = true
         view.isPitchEnabled = true
+        view.showsUserLocation = true
         return view
     }()
+    
+    override func loadView() {
+        super.loadView()
+        
+        fetchATMData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,15 +58,25 @@ class MapViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
-//    private func addAnnotations() {
-//        guard let data = annotatedATMData else { return }
-//
-//        for ATMItem in data {
-//            let annotation = MKPointAnnotation()
-//            annotation.coordinate = ATMItem.coordinate
-//            mapView.addAnnotation(annotation)
-//        }
-//    }
+    private func fetchATMData() {
+        NetworkManager.shared.getATMData { result in
+            switch result {
+            case .success(let data):
+                for dataItem in data.data.atm {
+                    let mkAnnotatedATM = MKAnnotatedATM(atmID: dataItem.atmID, type: dataItem.type, baseCurrency: dataItem.baseCurrency, currency: dataItem.currency, cards: dataItem.cards, currentStatus: dataItem.currentStatus, address: dataItem.address, services: dataItem.services, availability: dataItem.availability, contactDetails: dataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(dataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(dataItem.address.geolocation.geographicCoordinates.longitude)!))
+                    
+                    self.annotatedATMData?.append(mkAnnotatedATM)
+                                        
+                    DispatchQueue.main.async {
+                        self.mapView.addAnnotation(mkAnnotatedATM)
+                    }
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 
 // MARK: - MKMapViewDelegate
@@ -67,6 +84,10 @@ class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if (annotation.isKind(of: MKUserLocation.self)) {
+            return nil
+        }
+        
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         if let mkAnnotatedATM = annotation as? MKAnnotatedATM {
             annotationView?.canShowCallout = true
@@ -105,10 +126,6 @@ extension MapViewController: CLLocationManagerDelegate {
         if let location = locations.first {
             locationManager.stopUpdatingLocation()
             renderLocation(location)
-            
-            let currentLocationPin = MKPointAnnotation()
-            currentLocationPin.coordinate = location.coordinate
-            mapView.addAnnotation(currentLocationPin)
         }
     }
 }
