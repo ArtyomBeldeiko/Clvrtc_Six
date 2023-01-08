@@ -76,13 +76,13 @@ class ATMCollectionViewCell: UICollectionViewCell {
         }
         
         operatingHoursLabel.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(atmInstallationPlaceLabel.snp.bottom).offset(5)
+            make.top.equalTo(atmInstallationPlaceLabel.snp.bottom).offset(8)
             make.left.equalTo(contentView.snp.left).offset(5)
             make.right.equalTo(contentView.snp.right).offset(-5)
         }
         
         dispensedCurrencyLabel.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(operatingHoursLabel.snp.bottom).offset(5)
+            make.top.equalTo(operatingHoursLabel.snp.bottom).offset(8)
             make.left.equalTo(contentView.snp.left).offset(5)
             make.right.equalTo(contentView.snp.right).offset(-5)
         }
