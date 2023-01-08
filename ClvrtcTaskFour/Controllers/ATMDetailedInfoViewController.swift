@@ -23,6 +23,7 @@ class ATMDetailedInfoViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .clear
         scrollView.contentSize = contentSize
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()

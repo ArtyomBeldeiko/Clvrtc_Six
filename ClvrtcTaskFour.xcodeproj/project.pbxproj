@@ -11,6 +11,7 @@
 		399FCA7029662C840050C814 /* ATMDetailedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FCA6F29662C840050C814 /* ATMDetailedInfoViewController.swift */; };
 		399FCA722968C18D0050C814 /* ServicesFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FCA712968C18D0050C814 /* ServicesFormatter.swift */; };
 		399FCA742968CDA80050C814 /* CardsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FCA732968CDA80050C814 /* CardsFormatter.swift */; };
+		399FCA772969DCF70050C814 /* ATMCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FCA762969DCF70050C814 /* ATMCollectionViewCell.swift */; };
 		39B74552295B7FED000AACE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B74551295B7FED000AACE1 /* AppDelegate.swift */; };
 		39B74554295B7FED000AACE1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B74553295B7FED000AACE1 /* SceneDelegate.swift */; };
 		39B7455B295B7FEE000AACE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39B7455A295B7FEE000AACE1 /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 		399FCA6F29662C840050C814 /* ATMDetailedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMDetailedInfoViewController.swift; sourceTree = "<group>"; };
 		399FCA712968C18D0050C814 /* ServicesFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesFormatter.swift; sourceTree = "<group>"; };
 		399FCA732968CDA80050C814 /* CardsFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsFormatter.swift; sourceTree = "<group>"; };
+		399FCA762969DCF70050C814 /* ATMCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMCollectionViewCell.swift; sourceTree = "<group>"; };
 		39B7454E295B7FED000AACE1 /* ClvrtcTaskFour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClvrtcTaskFour.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39B74551295B7FED000AACE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		39B74553295B7FED000AACE1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,8 +78,17 @@
 				39F8E34E295CC37B00C841F7 /* MapViewController.swift */,
 				39F8E350295CC3DF00C841F7 /* ATMViewController.swift */,
 				399FCA6F29662C840050C814 /* ATMDetailedInfoViewController.swift */,
+				399FCA752969DCCE0050C814 /* Cells */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		399FCA752969DCCE0050C814 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				399FCA762969DCF70050C814 /* ATMCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		39B74545295B7FED000AACE1 = {
@@ -311,6 +322,7 @@
 				39F8E351295CC3DF00C841F7 /* ATMViewController.swift in Sources */,
 				3935E4C4295B81CC00530BD5 /* MainViewController.swift in Sources */,
 				39F8E3692965B69600C841F7 /* DatesFormatter.swift in Sources */,
+				399FCA772969DCF70050C814 /* ATMCollectionViewCell.swift in Sources */,
 				39B74552295B7FED000AACE1 /* AppDelegate.swift in Sources */,
 				39B74554295B7FED000AACE1 /* SceneDelegate.swift in Sources */,
 				39F8E357295F33B700C841F7 /* ATMData.swift in Sources */,
