@@ -21,7 +21,7 @@ class ATMDetailedInfoViewController: UIViewController {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = .clear
+        scrollView.backgroundColor = UIColor(named: "background")
         scrollView.contentSize = contentSize
         scrollView.showsVerticalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +30,7 @@ class ATMDetailedInfoViewController: UIViewController {
     
     private lazy var contentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .clear
+        view.backgroundColor = UIColor(named: "background")
         view.frame.size = contentSize
         return view
     }()
@@ -47,7 +47,7 @@ class ATMDetailedInfoViewController: UIViewController {
     let idLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -56,7 +56,7 @@ class ATMDetailedInfoViewController: UIViewController {
     let typeLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -65,7 +65,7 @@ class ATMDetailedInfoViewController: UIViewController {
     let baseCurrencyLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -74,7 +74,7 @@ class ATMDetailedInfoViewController: UIViewController {
     let currencyLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -83,7 +83,7 @@ class ATMDetailedInfoViewController: UIViewController {
     let cardsLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -92,7 +92,7 @@ class ATMDetailedInfoViewController: UIViewController {
     let currentStatusLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -101,7 +101,7 @@ class ATMDetailedInfoViewController: UIViewController {
     let addressLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -110,7 +110,7 @@ class ATMDetailedInfoViewController: UIViewController {
     let geolocationLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -119,7 +119,7 @@ class ATMDetailedInfoViewController: UIViewController {
     let servicesLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -128,7 +128,7 @@ class ATMDetailedInfoViewController: UIViewController {
     let access24hoursLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -137,7 +137,7 @@ class ATMDetailedInfoViewController: UIViewController {
    let restrictedAccessLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -146,7 +146,7 @@ class ATMDetailedInfoViewController: UIViewController {
     let organizationOperatingHoursLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -155,7 +155,7 @@ class ATMDetailedInfoViewController: UIViewController {
     let standardAvailabilityLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -164,7 +164,7 @@ class ATMDetailedInfoViewController: UIViewController {
     let contactDetailsLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -173,7 +173,7 @@ class ATMDetailedInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "background")
         setupViews()
     }
     

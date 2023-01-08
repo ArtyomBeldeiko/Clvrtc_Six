@@ -15,7 +15,7 @@ class ATMCollectionHeader: UICollectionReusableView {
         let label = UILabel()
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 24, weight: .bold)
-        label.textColor = .black
+        label.textColor = UIColor(named: "title")
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.1
         return label

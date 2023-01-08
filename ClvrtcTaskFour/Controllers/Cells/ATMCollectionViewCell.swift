@@ -44,8 +44,8 @@ class ATMCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        self.backgroundColor = .white
+    
+        self.backgroundColor = UIColor(named: "collectionViewBackground")
         setupCollectionViewCell()
     }
     
@@ -56,7 +56,7 @@ class ATMCollectionViewCell: UICollectionViewCell {
         operatingHoursLabel.frame = contentView.bounds
         dispensedCurrencyLabel.frame = contentView.bounds
         
-        contentView.backgroundColor = UIColor(red: 201 / 255, green: 205 / 255, blue: 214 / 255, alpha: 1)
+        contentView.backgroundColor = UIColor(named: "cellBackground")
         contentView.layer.cornerRadius = 8
     }
     

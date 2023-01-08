@@ -21,6 +21,7 @@ class MainViewController: UIViewController {
         let segmentedControl = UISegmentedControl(items: containerViewModes)
         let normalText = UIFont.systemFont(ofSize: 16, weight: .regular)
         let selectedText = UIFont.systemFont(ofSize: 18, weight: .bold)
+        segmentedControl.backgroundColor = UIColor(named: "background")
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font : normalText], for: .normal)
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font : selectedText], for: .selected)
@@ -44,13 +45,15 @@ class MainViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        let refreshImage = UIImage(systemName: "arrow.clockwise.circle")?.withTintColor(.black).withRenderingMode(.alwaysOriginal)
+        let refreshImage = UIImage(systemName: "arrow.clockwise.circle")?.withTintColor(UIColor(named: "refreshButton")!).withRenderingMode(.alwaysOriginal)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: refreshImage, style: .plain, target: self, action: #selector(uploadAction))
         navigationItem.title = "Map"
+        navigationController?.navigationBar.backgroundColor = UIColor(named: "background")
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor(named: "titleColor")!]
     }
     
     private func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "background")
         
         view.addSubview(viewContainerSegmentedControl)
         view.addSubview(containerView)

@@ -19,7 +19,7 @@ class ATMViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(ATMCollectionViewCell.self, forCellWithReuseIdentifier: ATMCollectionViewCell.identifier)
         collectionView.register(ATMCollectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ATMCollectionHeader.identifier)
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = UIColor(named: "collectionViewBackground")
         collectionView.showsVerticalScrollIndicator = true
         return collectionView
     }()
@@ -33,7 +33,7 @@ class ATMViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "cellBackground")
         configureCollectionView()
     }
     
