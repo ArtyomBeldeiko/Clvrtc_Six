@@ -51,15 +51,15 @@ class MapViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
-    private func addAnnotations() {
-        guard let data = annotatedATMData else { return }
-        
-        for ATMItem in data {
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = ATMItem.coordinate
-            mapView.addAnnotation(annotation)
-        }
-    }
+//    private func addAnnotations() {
+//        guard let data = annotatedATMData else { return }
+//
+//        for ATMItem in data {
+//            let annotation = MKPointAnnotation()
+//            annotation.coordinate = ATMItem.coordinate
+//            mapView.addAnnotation(annotation)
+//        }
+//    }
 }
 
 // MARK: - MKMapViewDelegate
