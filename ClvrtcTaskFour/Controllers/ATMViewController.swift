@@ -10,13 +10,14 @@ import SnapKit
 
 class ATMViewController: UIViewController {
     
-    var ATMdata: [ATM]?
+    var groupedATMData: [String: [ATM]] = [:]
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(ATMCollectionViewCell.self, forCellWithReuseIdentifier: ATMCollectionViewCell.identifier)
+        collectionView.register(ATMCollectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ATMCollectionHeader.identifier)
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = true
         return collectionView
@@ -48,8 +49,8 @@ class ATMViewController: UIViewController {
             case .success(let data):
                 var fetchedData = [ATM]()
                 fetchedData.append(contentsOf: data.data.atm)
-                self.ATMdata = fetchedData
-                
+                self.groupedATMData = Dictionary(grouping: fetchedData, by: { $0.address.townName })
+ 
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }
@@ -93,26 +94,41 @@ extension ATMViewController: UICollectionViewDelegateFlowLayout {
 
 extension ATMViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return groupedATMData.keys.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ATMdata?.count ?? 0
+        return groupedATMData[Array(groupedATMData.keys)[section]]?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ATMCollectionViewCell.identifier, for: indexPath) as? ATMCollectionViewCell else { return UICollectionViewCell() }
-        
-        if let data = ATMdata {
-            cell.atmInstallationPlaceLabel.text = "\(data[indexPath.row].address.streetName), \(data[indexPath.row].address.buildingNumber) \n\(data[indexPath.row].address.addressLine)"
-            cell.operatingHoursLabel.text = datesFormatter( data[indexPath.row].availability.standardAvailability.day)
-            cell.dispensedCurrencyLabel.text = data[indexPath.row].currency.rawValue
+                
+        if let ATMData = groupedATMData[Array(groupedATMData.keys)[indexPath.section]] {
+            let ATMItem = ATMData[indexPath.row]
+            cell.atmInstallationPlaceLabel.text = "\(ATMItem.address.streetName), \(ATMItem.address.buildingNumber) \n\(ATMItem.address.addressLine)"
+            cell.operatingHoursLabel.text = datesFormatter((ATMItem.availability.standardAvailability.day))
+            cell.dispensedCurrencyLabel.text = ATMItem.currency.rawValue
             
-            DispatchQueue.main.async { [weak self] in
-                self?.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
             }
         }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ATMCollectionHeader.identifier, for: indexPath) as! ATMCollectionHeader
+        
+        header.configure()
+        
+        header.label.text = "\(Array(groupedATMData.keys)[indexPath.section])"
+        
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.size.width, height: 25)
     }
 }
 

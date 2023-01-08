@@ -16,6 +16,7 @@
 		39B74554295B7FED000AACE1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B74553295B7FED000AACE1 /* SceneDelegate.swift */; };
 		39B7455B295B7FEE000AACE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39B7455A295B7FEE000AACE1 /* Assets.xcassets */; };
 		39B7455E295B7FEE000AACE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39B7455C295B7FEE000AACE1 /* LaunchScreen.storyboard */; };
+		39DF2995296B0CF3001194A1 /* ATMCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DF2994296B0CF3001194A1 /* ATMCollectionHeader.swift */; };
 		39F8E34F295CC37B00C841F7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E34E295CC37B00C841F7 /* MapViewController.swift */; };
 		39F8E351295CC3DF00C841F7 /* ATMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E350295CC3DF00C841F7 /* ATMViewController.swift */; };
 		39F8E354295F338500C841F7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E353295F338500C841F7 /* NetworkManager.swift */; };
@@ -40,6 +41,7 @@
 		39B7455A295B7FEE000AACE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39B7455D295B7FEE000AACE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		39B7455F295B7FEE000AACE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39DF2994296B0CF3001194A1 /* ATMCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMCollectionHeader.swift; sourceTree = "<group>"; };
 		39F8E34E295CC37B00C841F7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		39F8E350295CC3DF00C841F7 /* ATMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMViewController.swift; sourceTree = "<group>"; };
 		39F8E353295F338500C841F7 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				399FCA762969DCF70050C814 /* ATMCollectionViewCell.swift */,
+				39DF2993296B0C96001194A1 /* Headers */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -140,6 +143,14 @@
 				39B7455F295B7FEE000AACE1 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		39DF2993296B0C96001194A1 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				39DF2994296B0CF3001194A1 /* ATMCollectionHeader.swift */,
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 		39F8E352295F336500C841F7 /* NetworkManager */ = {
@@ -318,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				39F8E3652964C46A00C841F7 /* ATMCalloutView.swift in Sources */,
+				39DF2995296B0CF3001194A1 /* ATMCollectionHeader.swift in Sources */,
 				39F8E354295F338500C841F7 /* NetworkManager.swift in Sources */,
 				39F8E351295CC3DF00C841F7 /* ATMViewController.swift in Sources */,
 				3935E4C4295B81CC00530BD5 /* MainViewController.swift in Sources */,

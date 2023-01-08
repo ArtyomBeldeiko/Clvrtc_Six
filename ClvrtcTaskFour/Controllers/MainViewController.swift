@@ -126,7 +126,6 @@ class MainViewController: UIViewController {
         } else {
             ATMListVC.view.isHidden = false
             ATMListVC.collectionView.reloadData()
-            print(ATMListVC.ATMdata?.count)
             navigationItem.title = containerViewModes.last
         }
     }
