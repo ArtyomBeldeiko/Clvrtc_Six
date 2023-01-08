@@ -37,7 +37,7 @@ class MainViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-       
+        
         fetchATMData()
     }
     
@@ -99,8 +99,9 @@ class MainViewController: UIViewController {
                 for dataItem in data.data.atm {
                     let mkAnnotatedATM = MKAnnotatedATM(atmID: dataItem.atmID, type: dataItem.type, baseCurrency: dataItem.baseCurrency, currency: dataItem.currency, cards: dataItem.cards, currentStatus: dataItem.currentStatus, address: dataItem.address, services: dataItem.services, availability: dataItem.availability, contactDetails: dataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(dataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(dataItem.address.geolocation.geographicCoordinates.longitude)!))
                     
+                    self.mapVC.annotatedATMData?.append(mkAnnotatedATM)
+                   
                     DispatchQueue.main.async {
-                        self.mapVC.annotatedATMData?.append(mkAnnotatedATM)
                         self.mapVC.mapView.addAnnotation(mkAnnotatedATM)
                     }
                 }
@@ -124,6 +125,8 @@ class MainViewController: UIViewController {
             navigationItem.title = containerViewModes.first
         } else {
             ATMListVC.view.isHidden = false
+            ATMListVC.collectionView.reloadData()
+            print(ATMListVC.ATMdata?.count)
             navigationItem.title = containerViewModes.last
         }
     }
