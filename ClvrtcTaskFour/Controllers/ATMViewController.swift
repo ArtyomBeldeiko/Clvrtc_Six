@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import MapKit
 
 class ATMViewController: UIViewController {
     
@@ -50,7 +51,7 @@ class ATMViewController: UIViewController {
                 var fetchedData = [ATM]()
                 fetchedData.append(contentsOf: data.data.atm)
                 self.groupedATMData = Dictionary(grouping: fetchedData, by: { $0.address.townName })
- 
+              
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }
@@ -129,6 +130,24 @@ extension ATMViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.size.width, height: 25)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let ATMData = groupedATMData[Array(groupedATMData.keys)[indexPath.section]] {
+            let selectedATMItem = ATMData[indexPath.item]
+    
+            if let parentVC = self.parent as? MainViewController {
+                parentVC.viewContainerSegmentedControl.selectedSegmentIndex = 0
+                parentVC.viewContainerSegmentedControl.sendAction(#selector(parentVC.segmentedControlAction), to: parentVC, for: nil)
+                
+                if let mapVC = parentVC.children[0] as? MapViewController {
+                    if mapVC.annotatedATMData != nil {
+                        let annotation = mapVC.annotatedATMData?.contains(where: { $0.atmID == selectedATMItem.atmID })
+                        mapVC.mapView.selectAnnotation(annotation as! MKAnnotation, animated: true)
+                    }
+                }
+            }
+        }
     }
 }
 
