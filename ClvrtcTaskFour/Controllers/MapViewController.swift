@@ -72,11 +72,29 @@ class MapViewController: UIViewController {
                     }
                 }
                 
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
+                self.showNetworkFetchFailureAlert()
             }
         }
     }
+    
+    private func showNetworkFetchFailureAlert() {
+        let networkFetchFailureAlert = UIAlertController(title: nil, message: "Ошибка", preferredStyle: .alert)
+        
+        let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
+            self.fetchATMData()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
+            networkFetchFailureAlert.dismiss(animated: true)
+        }
+        
+        networkFetchFailureAlert.addAction(retryAction)
+        networkFetchFailureAlert.addAction(cancelAction)
+        
+        self.present(networkFetchFailureAlert, animated: true)
+    }
+    
 }
 
 // MARK: - MKMapViewDelegate
