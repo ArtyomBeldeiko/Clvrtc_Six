@@ -59,22 +59,26 @@ class MapViewController: UIViewController {
     }
     
     func fetchATMData() {
-        NetworkManager.shared.getATMData { result in
-            switch result {
-            case .success(let data):
-                for dataItem in data.data.atm {
-                    let mkAnnotatedATM = MKAnnotatedATM(atmID: dataItem.atmID, type: dataItem.type, baseCurrency: dataItem.baseCurrency, currency: dataItem.currency, cards: dataItem.cards, currentStatus: dataItem.currentStatus, address: dataItem.address, services: dataItem.services, availability: dataItem.availability, contactDetails: dataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(dataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(dataItem.address.geolocation.geographicCoordinates.longitude)!))
-                    
-                    self.annotatedATMData?.append(mkAnnotatedATM)
-                                        
-                    DispatchQueue.main.async {
-                        self.mapView.addAnnotation(mkAnnotatedATM)
+        if Reachability.isConnectedToNetwork() {
+            NetworkManager.shared.getATMData { result in
+                switch result {
+                case .success(let data):
+                    for dataItem in data.data.atm {
+                        let mkAnnotatedATM = MKAnnotatedATM(atmID: dataItem.atmID, type: dataItem.type, baseCurrency: dataItem.baseCurrency, currency: dataItem.currency, cards: dataItem.cards, currentStatus: dataItem.currentStatus, address: dataItem.address, services: dataItem.services, availability: dataItem.availability, contactDetails: dataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(dataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(dataItem.address.geolocation.geographicCoordinates.longitude)!))
+                        
+                        self.annotatedATMData?.append(mkAnnotatedATM)
+                        
+                        DispatchQueue.main.async {
+                            self.mapView.addAnnotation(mkAnnotatedATM)
+                        }
                     }
+                    
+                case .failure(_):
+                    self.showNetworkFetchFailureAlert()
                 }
-                
-            case .failure(_):
-                self.showNetworkFetchFailureAlert()
             }
+        } else {
+            showNoInternerConnectionAlert()
         }
     }
     
@@ -95,6 +99,17 @@ class MapViewController: UIViewController {
         self.present(networkFetchFailureAlert, animated: true)
     }
     
+    private func showNoInternerConnectionAlert() {
+        let noInternerConnectionAlert = UIAlertController(title: nil, message: "Приложение работает без доступа к интернету", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Хорошо", style: .default) { _ in
+            noInternerConnectionAlert.dismiss(animated: true)
+        }
+        
+        noInternerConnectionAlert.addAction(okAction)
+        
+        self.present(noInternerConnectionAlert, animated: true)
+    }
 }
 
 // MARK: - MKMapViewDelegate

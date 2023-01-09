@@ -45,20 +45,24 @@ class ATMViewController: UIViewController {
     }
     
     func fetchATMData() {
-        NetworkManager.shared.getATMData { result in
-            switch result {
-            case .success(let data):
-                var fetchedData = [ATM]()
-                fetchedData.append(contentsOf: data.data.atm)
-                self.groupedATMData = Dictionary(grouping: fetchedData, by: { $0.address.townName })
-              
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+        if Reachability.isConnectedToNetwork() {
+            NetworkManager.shared.getATMData { result in
+                switch result {
+                case .success(let data):
+                    var fetchedData = [ATM]()
+                    fetchedData.append(contentsOf: data.data.atm)
+                    self.groupedATMData = Dictionary(grouping: fetchedData, by: { $0.address.townName })
+                    
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                    
+                case .failure(_):
+                    self.showNetworkFetchFailureAlert()
                 }
-                
-            case .failure(_):
-                self.showNetworkFetchFailureAlert()
             }
+        } else {
+            showNoInternerConnectionAlert()
         }
     }
     
@@ -78,31 +82,43 @@ class ATMViewController: UIViewController {
         
         self.present(networkFetchFailureAlert, animated: true)
     }
+    
+    private func showNoInternerConnectionAlert() {
+        let noInternerConnectionAlert = UIAlertController(title: nil, message: "Приложение работает без доступа к интернету", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Хорошо", style: .default) { _ in
+            noInternerConnectionAlert.dismiss(animated: true)
+        }
+        
+        noInternerConnectionAlert.addAction(okAction)
+        
+        self.present(noInternerConnectionAlert, animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension ATMViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         let paddigWidth = 10 * (3 + 1)
         let availableWidth = collectionView.frame.width - CGFloat(paddigWidth)
         let widthPerItem = availableWidth / 3
-
+        
         return CGSize(width: widthPerItem, height: widthPerItem * 2)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-
+        
         let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-
+        
         return sectionInsets
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 5
     }
@@ -114,14 +130,14 @@ extension ATMViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return groupedATMData.keys.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return groupedATMData[Array(groupedATMData.keys)[section]]?.count ?? 0
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ATMCollectionViewCell.identifier, for: indexPath) as? ATMCollectionViewCell else { return UICollectionViewCell() }
-                
+        
         if let ATMData = groupedATMData[Array(groupedATMData.keys)[indexPath.section]] {
             let ATMItem = ATMData[indexPath.row]
             cell.atmInstallationPlaceLabel.text = "\(ATMItem.address.streetName), \(ATMItem.address.buildingNumber) \n\(ATMItem.address.addressLine)"
@@ -152,7 +168,7 @@ extension ATMViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let ATMData = groupedATMData[Array(groupedATMData.keys)[indexPath.section]] {
             let selectedATMItem = ATMData[indexPath.item]
-    
+            
             if let parentVC = self.parent as? MainViewController {
                 parentVC.viewContainerSegmentedControl.selectedSegmentIndex = 0
                 parentVC.viewContainerSegmentedControl.sendAction(#selector(parentVC.segmentedControlAction), to: parentVC, for: nil)
