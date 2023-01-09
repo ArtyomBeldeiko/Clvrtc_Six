@@ -27,6 +27,7 @@ class ATMCollectionHeader: UICollectionReusableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         label.frame = bounds
     }
 }

@@ -14,7 +14,7 @@ struct NetworkManagerConstants {
 class NetworkManager {
     
     static let shared = NetworkManager()
-   
+    
     func getATMData(completion: @escaping (Result<ATMData, Error>) -> Void) {
         guard let url = URL(string: "\(NetworkManagerConstants.url)") else { return }
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in

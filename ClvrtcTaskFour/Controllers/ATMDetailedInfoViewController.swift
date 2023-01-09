@@ -134,7 +134,7 @@ class ATMDetailedInfoViewController: UIViewController {
         return label
     }()
     
-   let restrictedAccessLabel: UILabel = {
+    let restrictedAccessLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
@@ -179,7 +179,7 @@ class ATMDetailedInfoViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
+        
         scrollView.contentSize = self.contentSize
     }
     
