@@ -137,17 +137,15 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         if CLLocationManager.locationServicesEnabled() {
             switch locationManager.authorizationStatus {
-                
             case .notDetermined:
                 locationManager.requestWhenInUseAuthorization()
                 
             case .authorizedAlways, .authorizedWhenInUse:
                 locationManager.requestWhenInUseAuthorization()
                 locationManager.startUpdatingLocation()
-                print("Access is allowed")
                 
             case .denied, .restricted:
-                print("Access is denied")
+                showGeoDataRequestAlert()
                 
             @unknown default:
                 break
@@ -161,7 +159,28 @@ extension MapViewController: CLLocationManagerDelegate {
             renderLocation(location)
         }
     }
+    
+    private func showGeoDataRequestAlert() {
+        let geoDataRequestAlert = UIAlertController(title: "Доступ к геолокации", message: "Разрешите доступ для определения Вашего местоположения", preferredStyle: .alert)
+        
+        let goToSettingAction = UIAlertAction(title: "Перейти в настройки", style: .default) { _ in
+            if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(settingsUrl)
+            }
+            geoDataRequestAlert.dismiss(animated: true)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
+            geoDataRequestAlert.dismiss(animated: true)
+        }
+        
+        geoDataRequestAlert.addAction(goToSettingAction)
+        geoDataRequestAlert.addAction(cancelAction)
+        
+        self.present(geoDataRequestAlert, animated: true)
+    }
 }
+
 
 // MARK: - ATMCalloutViewDelegate
 
