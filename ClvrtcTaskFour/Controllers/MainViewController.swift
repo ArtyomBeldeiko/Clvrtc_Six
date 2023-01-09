@@ -90,7 +90,8 @@ class MainViewController: UIViewController {
     }
         
     @objc private func uploadAction() {
-        
+        mapVC.fetchATMData()
+        ATMListVC.fetchATMData()
     }
     
     @objc func segmentedControlAction() {

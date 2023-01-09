@@ -58,7 +58,7 @@ class MapViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
-    private func fetchATMData() {
+    func fetchATMData() {
         NetworkManager.shared.getATMData { result in
             switch result {
             case .success(let data):

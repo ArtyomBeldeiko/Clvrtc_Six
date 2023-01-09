@@ -44,7 +44,7 @@ class ATMViewController: UIViewController {
         collectionView.frame = view.bounds
     }
     
-    private func fetchATMData() {
+    func fetchATMData() {
         NetworkManager.shared.getATMData { result in
             switch result {
             case .success(let data):
