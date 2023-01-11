@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct ServiceTerminalData: Codable {
+    let data = []
+}
+
 struct ServiceTerminal: Codable {
     let infoID: Int
     let area: Area

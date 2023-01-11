@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-class MKAnnotatedATM: NSObject, MKAnnotation {
+final class MKAnnotatedATM: NSObject, MKAnnotation {
     let atmID: String
     let type: TypeEnum
     let baseCurrency: BaseCurrency
