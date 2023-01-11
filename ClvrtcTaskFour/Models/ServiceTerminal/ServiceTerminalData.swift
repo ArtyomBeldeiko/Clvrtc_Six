@@ -1,5 +1,5 @@
 //
-//  ServiceTerminal.swift
+//  ServiceTerminalData.swift
 //  ClvrtcTaskFour
 //
 //  Created by Artyom Beldeiko on 10.01.23.
@@ -8,7 +8,7 @@
 import Foundation
 
 struct ServiceTerminalData: Codable {
-    let data = []
+    let data: [ServiceTerminal]
 }
 
 struct ServiceTerminal: Codable {
