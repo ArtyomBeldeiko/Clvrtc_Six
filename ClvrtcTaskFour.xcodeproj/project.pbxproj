@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3917B89E296E093A004BF3C5 /* ServiceTerminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3917B89D296E093A004BF3C5 /* ServiceTerminal.swift */; };
 		3935E4C4295B81CC00530BD5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3935E4C3295B81CC00530BD5 /* MainViewController.swift */; };
+		394C4A40296EFDB200E01FB3 /* BranchBankData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394C4A3F296EFDB200E01FB3 /* BranchBankData.swift */; };
 		399FCA7029662C840050C814 /* ATMDetailedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FCA6F29662C840050C814 /* ATMDetailedInfoViewController.swift */; };
 		399FCA722968C18D0050C814 /* ServicesFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FCA712968C18D0050C814 /* ServicesFormatter.swift */; };
 		399FCA742968CDA80050C814 /* CardsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FCA732968CDA80050C814 /* CardsFormatter.swift */; };
@@ -31,7 +33,9 @@
 /* Begin PBXFileReference section */
 		0E63CC0523A0FD7B5D2E3E8B /* Pods_ClvrtcTaskFour.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClvrtcTaskFour.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A389867F1043C684F0106F9 /* Pods-ClvrtcTaskFour.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClvrtcTaskFour.release.xcconfig"; path = "Target Support Files/Pods-ClvrtcTaskFour/Pods-ClvrtcTaskFour.release.xcconfig"; sourceTree = "<group>"; };
+		3917B89D296E093A004BF3C5 /* ServiceTerminal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTerminal.swift; sourceTree = "<group>"; };
 		3935E4C3295B81CC00530BD5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		394C4A3F296EFDB200E01FB3 /* BranchBankData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchBankData.swift; sourceTree = "<group>"; };
 		399FCA6F29662C840050C814 /* ATMDetailedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMDetailedInfoViewController.swift; sourceTree = "<group>"; };
 		399FCA712968C18D0050C814 /* ServicesFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesFormatter.swift; sourceTree = "<group>"; };
 		399FCA732968CDA80050C814 /* CardsFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsFormatter.swift; sourceTree = "<group>"; };
@@ -73,6 +77,31 @@
 				2A389867F1043C684F0106F9 /* Pods-ClvrtcTaskFour.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		3917B899296E02DC004BF3C5 /* ATM */ = {
+			isa = PBXGroup;
+			children = (
+				39F8E356295F33B700C841F7 /* ATMData.swift */,
+				39F8E3602964218300C841F7 /* MKAnnotatedATM.swift */,
+			);
+			path = ATM;
+			sourceTree = "<group>";
+		};
+		3917B89A296E0356004BF3C5 /* ServiceTerminal */ = {
+			isa = PBXGroup;
+			children = (
+				3917B89D296E093A004BF3C5 /* ServiceTerminal.swift */,
+			);
+			path = ServiceTerminal;
+			sourceTree = "<group>";
+		};
+		3917B89F296E0A89004BF3C5 /* BranchBank */ = {
+			isa = PBXGroup;
+			children = (
+				394C4A3F296EFDB200E01FB3 /* BranchBankData.swift */,
+			);
+			path = BranchBank;
 			sourceTree = "<group>";
 		};
 		3935E4C2295B816A00530BD5 /* Controllers */ = {
@@ -175,8 +204,9 @@
 		39F8E355295F339600C841F7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				39F8E356295F33B700C841F7 /* ATMData.swift */,
-				39F8E3602964218300C841F7 /* MKAnnotatedATM.swift */,
+				3917B899296E02DC004BF3C5 /* ATM */,
+				3917B89A296E0356004BF3C5 /* ServiceTerminal */,
+				3917B89F296E0A89004BF3C5 /* BranchBank */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -342,8 +372,10 @@
 				39F8E3652964C46A00C841F7 /* ATMCalloutView.swift in Sources */,
 				39DF2995296B0CF3001194A1 /* ATMCollectionHeader.swift in Sources */,
 				39F8E354295F338500C841F7 /* NetworkManager.swift in Sources */,
+				394C4A40296EFDB200E01FB3 /* BranchBankData.swift in Sources */,
 				39F8E351295CC3DF00C841F7 /* ATMViewController.swift in Sources */,
 				3935E4C4295B81CC00530BD5 /* MainViewController.swift in Sources */,
+				3917B89E296E093A004BF3C5 /* ServiceTerminal.swift in Sources */,
 				39F8E3692965B69600C841F7 /* DatesFormatter.swift in Sources */,
 				399FCA772969DCF70050C814 /* ATMCollectionViewCell.swift in Sources */,
 				39B74552295B7FED000AACE1 /* AppDelegate.swift in Sources */,
