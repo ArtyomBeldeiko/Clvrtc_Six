@@ -10,24 +10,24 @@ import MapKit
 
 final class MKAnnotatedBranchBank: NSObject, MKAnnotation {
     let branchID, name, cbu: String
-    let accountNumber: AccountNumber
+    let accountNumber: String
     let equeue, wifi: Int
-    let accessibilities: Accessibilities
-    let branchBankAddress: BranchBankAddress
-    let information: Information
-    let services: BranchBankServices
+    let accessibilities: BankAccessibilities
+    let branchBankAddress: BankAddress
+    let information: BankInformation
+    let services: BankServices
     let coordinate: CLLocationCoordinate2D
     
     init(branchID: String,
          name: String,
          cbu: String,
-         accountNumber: AccountNumber,
+         accountNumber: String,
          equeue: Int,
          wifi: Int,
-         accessibilities: Accessibilities,
-         branchBankAddress: BranchBankAddress,
-         information: Information,
-         services: BranchBankServices,
+         accessibilities: BankAccessibilities,
+         branchBankAddress: BankAddress,
+         information: BankInformation,
+         services: BankServices,
          coordinate: CLLocationCoordinate2D) {
         
         self.branchID = branchID

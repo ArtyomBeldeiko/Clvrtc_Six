@@ -175,7 +175,7 @@ extension ATMViewController: UICollectionViewDataSource {
                 
                 if let mapVC = parentVC.children[0] as? MapViewController {
                     if mapVC.annotatedATMData != nil {
-                        let annotation = mapVC.annotatedATMData?.contains(where: { $0.atmID == selectedATMItem.atmID })
+                        let annotation = mapVC.annotatedATMData.contains(where: { $0.atmID == selectedATMItem.atmID })
                         mapVC.mapView.selectAnnotation(annotation as! MKAnnotation, animated: true)
                     }
                 }

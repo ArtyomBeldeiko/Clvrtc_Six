@@ -32,12 +32,12 @@ class NetworkManager {
         task.resume()
     }
     
-    func getBranchBankData(completion: @escaping (Result<BranchBankData, Error>) -> Void) {
+    func getBranchBankData(completion: @escaping (Result<BankBranches, Error>) -> Void) {
         guard let url = URL(string: "\(NetworkManagerConstants.branchBankUrl)") else { return }
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             guard let data = data, error == nil else { return }
             do {
-                let results = try JSONDecoder().decode(BranchBankData.self, from: data)
+                let results = try JSONDecoder().decode(BankBranches.self, from: data)
                 completion(.success(results))
             } catch {
                 completion(.failure(error))
@@ -53,7 +53,7 @@ class NetworkManager {
             guard let data = data, error == nil else { return }
             do {
                 let results = try JSONDecoder().decode(ServiceTerminalData.self, from: data)
-                completion(.success(results.data))
+                completion(.success(results))
             } catch {
                 completion(.failure(error))
             }

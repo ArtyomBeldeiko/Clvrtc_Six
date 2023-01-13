@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct ServiceTerminalData: Codable {
-    let data: [ServiceTerminal]
-}
-
 struct ServiceTerminal: Codable {
     let infoID: Int
     let area: Area
@@ -19,7 +15,7 @@ struct ServiceTerminal: Codable {
     let addressType: AddressType
     let address, house, installPlace, locationNameDesc: String
     let workTime, timeLong, gpsX, gpsY: String
-    let serviceTerminalCurrency: ServiceTerminalCurrency
+    let currency: ServiceTerminalCurrency
     let infType: InfType
     let cashInExist, cashIn, typeCashIn, infPrinter: CashIn
     let regionPlatej, popolneniePlatej, infStatus: CashIn
@@ -37,7 +33,7 @@ struct ServiceTerminal: Codable {
         case timeLong = "time_long"
         case gpsX = "gps_x"
         case gpsY = "gps_y"
-        case serviceTerminalCurrency
+        case currency
         case infType = "inf_type"
         case cashInExist = "cash_in_exist"
         case cashIn = "cash_in"
@@ -106,3 +102,6 @@ enum InfType: String, Codable {
     case внешний = "Внешний"
     case внутренний = "Внутренний"
 }
+
+typealias ServiceTerminalData = [ServiceTerminal]
+

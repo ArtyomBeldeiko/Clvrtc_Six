@@ -19,7 +19,10 @@ final class MKAnnotatedATM: NSObject, MKAnnotation {
     let services: [Service]
     let availability: Availability
     let contactDetails: ContactDetails
-    var coordinate: CLLocationCoordinate2D
+    
+    var coordinate : CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: Double(address.geolocation.geographicCoordinates.latitude)!, longitude: Double(address.geolocation.geographicCoordinates.longitude)!)
+    }
     
     init(atmID: String,
          type: TypeEnum,
@@ -43,7 +46,6 @@ final class MKAnnotatedATM: NSObject, MKAnnotation {
         self.services = services
         self.availability = availability
         self.contactDetails = contactDetails
-        self.coordinate = coordinate
     }
 }
 

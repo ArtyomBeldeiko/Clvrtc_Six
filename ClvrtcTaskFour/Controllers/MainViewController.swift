@@ -87,9 +87,9 @@ class MainViewController: UIViewController {
         
         ATMListVC.view.isHidden = true
     }
-        
+    
     @objc private func uploadAction() {
-        mapVC.fetchATMData()
+        mapVC.fetchData()
         ATMListVC.fetchATMData()
     }
     
