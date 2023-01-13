@@ -11,7 +11,9 @@ import MapKit
 class MapViewController: UIViewController {
     
     let locationManager = CLLocationManager()
-    var annotatedATMData: [MKAnnotatedATM]?
+    var annotatedATMData = [MKAnnotatedATM]()
+    var annotatedBranchBankData = [MKAnnotatedBranchBank]()
+    var annotatedServiceTerminalData = [MKAnnotatedServiceTerminal]()
     
     let mapView: MKMapView = {
         let view = MKMapView()
@@ -26,7 +28,7 @@ class MapViewController: UIViewController {
     override func loadView() {
         super.loadView()
         
-        fetchATMData()
+        self.fetchData()
     }
     
     override func viewDidLoad() {
@@ -58,25 +60,80 @@ class MapViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
-    func fetchATMData() {
+    func fetchData() {
+        var atmData = [ATM]()
+        var branchBankData = [BankBranch]()
+        var serviceTerminalData = [ServiceTerminal]()
+        
+        let dispatchGroup = DispatchGroup()
+
         if Reachability.isConnectedToNetwork() {
+            
+            dispatchGroup.enter()
             NetworkManager.shared.getATMData { result in
                 switch result {
                 case .success(let data):
-                    for dataItem in data.data.atm {
-                        let mkAnnotatedATM = MKAnnotatedATM(atmID: dataItem.atmID, type: dataItem.type, baseCurrency: dataItem.baseCurrency, currency: dataItem.currency, cards: dataItem.cards, currentStatus: dataItem.currentStatus, address: dataItem.address, services: dataItem.services, availability: dataItem.availability, contactDetails: dataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(dataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(dataItem.address.geolocation.geographicCoordinates.longitude)!))
-                        
-                        self.annotatedATMData?.append(mkAnnotatedATM)
-                        
-                        DispatchQueue.main.async {
-                            self.mapView.addAnnotation(mkAnnotatedATM)
-                        }
-                    }
-                    
+                    atmData = data.data.atm
+
                 case .failure(_):
-                    self.showNetworkFetchFailureAlert()
+//                    self.showNetworkFetchFailureAlert()
+                    print("error")
                 }
+
+                dispatchGroup.leave()
             }
+
+            dispatchGroup.enter()
+            NetworkManager.shared.getBranchBankData { result in
+                switch result {
+                case .success(let data):
+                    branchBankData = data.data.branch
+                        
+                case .failure(_):
+                    print("error")
+//                    self.showNetworkFetchFailureAlert()
+                }
+
+                dispatchGroup.leave()
+            }
+
+            dispatchGroup.enter()
+            NetworkManager.shared.getServiceTerminalData { result in
+                switch result {
+                case .success(let data):
+                    serviceTerminalData = data
+
+                case .failure(_):
+//                    self.showNetworkFetchFailureAlert()
+                    print("error")
+                }
+
+                dispatchGroup.leave()
+            }
+
+            dispatchGroup.notify(queue: .main) {
+                
+                for atmDataItem in atmData {
+                    self.annotatedATMData.append(MKAnnotatedATM(atmID: atmDataItem.atmID, type: atmDataItem.type, baseCurrency: atmDataItem.baseCurrency, currency: atmDataItem.currency, cards: atmDataItem.cards, currentStatus: atmDataItem.currentStatus, address: atmDataItem.address, services: atmDataItem.services, availability: atmDataItem.availability, contactDetails: atmDataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(atmDataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(atmDataItem.address.geolocation.geographicCoordinates.longitude)!)))
+                }
+                
+                for branchBankDataItem in branchBankData {
+                    self.annotatedBranchBankData.append(MKAnnotatedBranchBank(branchID: branchBankDataItem.branchId, name: branchBankDataItem.name, cbu: branchBankDataItem.cbu, accountNumber: branchBankDataItem.accountNumber, equeue: branchBankDataItem.equeue, wifi: branchBankDataItem.wifi, accessibilities: branchBankDataItem.accessibilities, branchBankAddress: branchBankDataItem.address, information: branchBankDataItem.information, services: branchBankDataItem.services, coordinate: CLLocationCoordinate2D(latitude: Double(branchBankDataItem.address.geoLocation.geographicCoordinates.latitude)!, longitude: Double(branchBankDataItem.address.geoLocation.geographicCoordinates.longitude)!)))
+                }
+                
+                for serviceTerminalItem in serviceTerminalData {
+                    self.annotatedServiceTerminalData.append(MKAnnotatedServiceTerminal(infoID: serviceTerminalItem.infoID, area: serviceTerminalItem.area, cityType: serviceTerminalItem.cityType, city: serviceTerminalItem.city, addressType: serviceTerminalItem.addressType, address: serviceTerminalItem.address, house: serviceTerminalItem.house, installPlace: serviceTerminalItem.installPlace, locationNameDesc: serviceTerminalItem.locationNameDesc, workTime: serviceTerminalItem.workTime, timeLong: serviceTerminalItem.timeLong, gpsX: serviceTerminalItem.gpsX, gpsY: serviceTerminalItem.gpsY, serviceTerminalCurrency: serviceTerminalItem.currency, infType: serviceTerminalItem.infType, cashInExist: serviceTerminalItem.cashIn, cashIn: serviceTerminalItem.cashIn, typeCashIn: serviceTerminalItem.cashIn, infPrinter: serviceTerminalItem.infPrinter, regionPlatej: serviceTerminalItem.regionPlatej, popolneniePlatej: serviceTerminalItem.popolneniePlatej, infStatus: serviceTerminalItem.infStatus, coordinate: CLLocationCoordinate2D(latitude: Double(serviceTerminalItem.gpsY)!, longitude: Double(serviceTerminalItem.gpsX)!)))
+                }
+                
+                print(self.annotatedATMData.count)
+                print(self.annotatedBranchBankData.count)
+                print(self.annotatedServiceTerminalData.count)
+                
+                self.mapView.addAnnotations(self.annotatedATMData)
+                self.mapView.addAnnotations(self.annotatedServiceTerminalData)
+                self.mapView.addAnnotations(self.annotatedBranchBankData)
+            }
+
         } else {
             showNoInternerConnectionAlert()
         }
@@ -86,7 +143,7 @@ class MapViewController: UIViewController {
         let networkFetchFailureAlert = UIAlertController(title: nil, message: "Ошибка", preferredStyle: .alert)
         
         let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
-            self.fetchATMData()
+            self.fetchData()
         }
         
         let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
@@ -122,7 +179,7 @@ extension MapViewController: MKMapViewDelegate {
         }
         
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-        if let mkAnnotatedATM = annotation as? MKAnnotatedATM {
+        if let mkAnnotatedATM = annotation as? MKAnnotatedATM, let mkAnnotatedServiceTerminal = annotation as? MKAnnotatedServiceTerminal, let mkAnnotatedBranchBank = annotation as? MKAnnotatedBranchBank {
             annotationView?.canShowCallout = true
             annotationView?.detailCalloutAccessoryView = ATMCalloutView(mkAnnotatedATM: mkAnnotatedATM)
         }
