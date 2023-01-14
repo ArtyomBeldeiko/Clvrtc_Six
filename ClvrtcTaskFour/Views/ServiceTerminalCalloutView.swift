@@ -1,8 +1,8 @@
 //
-//  ATMCalloutView.swift
+//  ServiceTerminalCalloutView.swift
 //  ClvrtcTaskFour
 //
-//  Created by Artyom Beldeiko on 3.01.23.
+//  Created by Artyom Beldeiko on 14.01.23.
 //
 
 import Foundation
@@ -10,12 +10,12 @@ import UIKit
 import SnapKit
 import MapKit
 
-protocol ATMCalloutViewDelegate: AnyObject {
+protocol ServiceTerminalCalloutViewDelegate: AnyObject {
     func mapView(_ mapView: MKMapView, didTapCloseButton button: UIButton, for annotation: MKAnnotation)
     func mapView(_ mapView: MKMapView, didTapDetailButton button: UIButton, for annotation: MKAnnotation)
 }
 
-class ATMCalloutView: UIView {
+class ServiceTerminalCalloutView: UIView {
     
     private let closeButton = UIButton(frame: .zero)
     private let installationPlaceLabel = UILabel(frame: .zero)
@@ -23,7 +23,7 @@ class ATMCalloutView: UIView {
     private let currencyLabel = UILabel(frame: .zero)
     private let cashInAvailabilityLabel = UILabel(frame: .zero)
     private let detailButton = UIButton(frame: .zero)
-    private let mkAnnotatedATM: MKAnnotatedATM
+    private let mkAnnotatedServiceTerminal: MKAnnotatedServiceTerminal
     
     private var mapView: MKMapView? {
         var view = superview
@@ -34,8 +34,8 @@ class ATMCalloutView: UIView {
         return nil
     }
     
-    init(mkAnnotatedATM: MKAnnotatedATM) {
-        self.mkAnnotatedATM = mkAnnotatedATM
+    init(mkAnnotatedServiceTerminal: MKAnnotatedServiceTerminal) {
+        self.mkAnnotatedServiceTerminal = mkAnnotatedServiceTerminal
         super.init(frame: .zero)
         setupViews()
     }
@@ -70,7 +70,7 @@ class ATMCalloutView: UIView {
     
     private func setupInstallationPlaceLabel() {
         installationPlaceLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        installationPlaceLabel.text = "Mecто установки: \(mkAnnotatedATM.address.addressLine)"
+        installationPlaceLabel.text = "Mecто установки: \(mkAnnotatedServiceTerminal.address.description)"
         installationPlaceLabel.numberOfLines = 0
         addSubview(installationPlaceLabel)
         installationPlaceLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -83,10 +83,8 @@ class ATMCalloutView: UIView {
     
     private func setupOperatingHoursLabel() {
         
-        let formattedDate = atmDatesFormatter(mkAnnotatedATM.availability.standardAvailability.day)
-        
         operatingHoursLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        operatingHoursLabel.text = "Режим работы: \(formattedDate)"
+        operatingHoursLabel.text = "Режим работы: \(mkAnnotatedServiceTerminal.workTime)"
         operatingHoursLabel.numberOfLines = 0
         addSubview(operatingHoursLabel)
         operatingHoursLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +97,7 @@ class ATMCalloutView: UIView {
     
     private func setupCurrencyLabel() {
         currencyLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        currencyLabel.text = "Выдаваемая валюта: \(mkAnnotatedATM.baseCurrency.rawValue)"
+        currencyLabel.text = "Валюта: \(mkAnnotatedServiceTerminal.serviceTerminalCurrency)"
         currencyLabel.numberOfLines = 0
         addSubview(currencyLabel)
         currencyLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -112,12 +110,12 @@ class ATMCalloutView: UIView {
     
     private func setupCashInAvailabilityLabel() {
         
-        if mkAnnotatedATM.services.contains(where: { $0.serviceType.rawValue.hasPrefix("Прием наличных")}) {
+        if mkAnnotatedServiceTerminal.cashIn.rawValue == "да" {
             cashInAvailabilityLabel.text = "Прием наличных: доступно"
         } else {
             cashInAvailabilityLabel.text = "Прием наличных: недоступно"
         }
-        
+ 
         cashInAvailabilityLabel.font = .systemFont(ofSize: 12, weight: .regular)
         cashInAvailabilityLabel.numberOfLines = 0
         addSubview(cashInAvailabilityLabel)
@@ -145,13 +143,13 @@ class ATMCalloutView: UIView {
     
     @objc func didTapCloseButton() {
         if let mapView = mapView, let delegate = mapView.delegate as? ATMCalloutViewDelegate {
-            delegate.mapView(mapView, didTapCloseButton: UIButton(type: .custom), for: mkAnnotatedATM)
+            delegate.mapView(mapView, didTapCloseButton: UIButton(type: .custom), for: mkAnnotatedServiceTerminal)
         }
     }
     
     @objc private func presentDetailedATMInfoVC() {
         if let mapView = mapView, let delegate = mapView.delegate as? ATMCalloutViewDelegate {
-            delegate.mapView(mapView, didTapDetailButton: UIButton(type: .custom), for: mkAnnotatedATM)
+            delegate.mapView(mapView, didTapDetailButton: UIButton(type: .custom), for: mkAnnotatedServiceTerminal)
         }
     }
 }
