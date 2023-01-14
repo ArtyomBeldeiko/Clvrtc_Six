@@ -11,10 +11,11 @@ import MapKit
 class MapViewController: UIViewController {
     
     let locationManager = CLLocationManager()
+    
     var annotatedATMData = [MKAnnotatedATM]()
     var annotatedBranchBankData = [MKAnnotatedBranchBank]()
     var annotatedServiceTerminalData = [MKAnnotatedServiceTerminal]()
-    
+
     let mapView: MKMapView = {
         let view = MKMapView()
         view.mapType = .standard
@@ -76,8 +77,7 @@ class MapViewController: UIViewController {
                     atmData = data.data.atm
 
                 case .failure(_):
-//                    self.showNetworkFetchFailureAlert()
-                    print("error")
+                    self.showAtmFetchFailureAlert()
                 }
 
                 dispatchGroup.leave()
@@ -90,8 +90,7 @@ class MapViewController: UIViewController {
                     branchBankData = data.data.branch
                         
                 case .failure(_):
-                    print("error")
-//                    self.showNetworkFetchFailureAlert()
+                    self.showBranchBankFetchFailureAlert()
                 }
 
                 dispatchGroup.leave()
@@ -104,8 +103,7 @@ class MapViewController: UIViewController {
                     serviceTerminalData = data
 
                 case .failure(_):
-//                    self.showNetworkFetchFailureAlert()
-                    print("error")
+                    self.showServiceTerminalFetchFailureAlert()
                 }
 
                 dispatchGroup.leave()
@@ -122,13 +120,9 @@ class MapViewController: UIViewController {
                 }
                 
                 for serviceTerminalItem in serviceTerminalData {
-                    self.annotatedServiceTerminalData.append(MKAnnotatedServiceTerminal(infoID: serviceTerminalItem.infoID, area: serviceTerminalItem.area, cityType: serviceTerminalItem.cityType, city: serviceTerminalItem.city, addressType: serviceTerminalItem.addressType, address: serviceTerminalItem.address, house: serviceTerminalItem.house, installPlace: serviceTerminalItem.installPlace, locationNameDesc: serviceTerminalItem.locationNameDesc, workTime: serviceTerminalItem.workTime, timeLong: serviceTerminalItem.timeLong, gpsX: serviceTerminalItem.gpsX, gpsY: serviceTerminalItem.gpsY, serviceTerminalCurrency: serviceTerminalItem.currency, infType: serviceTerminalItem.infType, cashInExist: serviceTerminalItem.cashIn, cashIn: serviceTerminalItem.cashIn, typeCashIn: serviceTerminalItem.cashIn, infPrinter: serviceTerminalItem.infPrinter, regionPlatej: serviceTerminalItem.regionPlatej, popolneniePlatej: serviceTerminalItem.popolneniePlatej, infStatus: serviceTerminalItem.infStatus, coordinate: CLLocationCoordinate2D(latitude: Double(serviceTerminalItem.gpsY)!, longitude: Double(serviceTerminalItem.gpsX)!)))
+                    self.annotatedServiceTerminalData.append(MKAnnotatedServiceTerminal(infoID: serviceTerminalItem.infoID, area: serviceTerminalItem.area, cityType: serviceTerminalItem.cityType, city: serviceTerminalItem.city, addressType: serviceTerminalItem.addressType, address: serviceTerminalItem.address, house: serviceTerminalItem.house, installPlace: serviceTerminalItem.installPlace, locationNameDesc: serviceTerminalItem.locationNameDesc, workTime: serviceTerminalItem.workTime, timeLong: serviceTerminalItem.timeLong, gpsX: serviceTerminalItem.gpsX, gpsY: serviceTerminalItem.gpsY, serviceTerminalCurrency: serviceTerminalItem.currency, infType: serviceTerminalItem.infType, cashInExist: serviceTerminalItem.cashIn, cashIn: serviceTerminalItem.cashIn, typeCashIn: serviceTerminalItem.cashIn, infPrinter: serviceTerminalItem.infPrinter, regionPlatej: serviceTerminalItem.regionPlatej, popolneniePlatej: serviceTerminalItem.popolneniePlatej, infStatus: serviceTerminalItem.infStatus, coordinate: CLLocationCoordinate2D(latitude: Double(serviceTerminalItem.gpsX)!, longitude: Double(serviceTerminalItem.gpsY)!)))
                 }
-                
-                print(self.annotatedATMData.count)
-                print(self.annotatedBranchBankData.count)
-                print(self.annotatedServiceTerminalData.count)
-                
+                                
                 self.mapView.addAnnotations(self.annotatedATMData)
                 self.mapView.addAnnotations(self.annotatedServiceTerminalData)
                 self.mapView.addAnnotations(self.annotatedBranchBankData)
@@ -139,8 +133,46 @@ class MapViewController: UIViewController {
         }
     }
     
-    private func showNetworkFetchFailureAlert() {
-        let networkFetchFailureAlert = UIAlertController(title: nil, message: "Ошибка", preferredStyle: .alert)
+    private func showAtmFetchFailureAlert() {
+        let networkFetchFailureAlert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить данные о банкоматах", preferredStyle: .alert)
+        
+        let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
+            self.fetchData()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
+            networkFetchFailureAlert.dismiss(animated: true)
+        }
+        
+        networkFetchFailureAlert.addAction(retryAction)
+        networkFetchFailureAlert.addAction(cancelAction)
+        
+        DispatchQueue.main.async {
+            self.present(networkFetchFailureAlert, animated: true)
+        }
+    }
+    
+    private func showBranchBankFetchFailureAlert() {
+        let networkFetchFailureAlert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить данные о подразделениях банка", preferredStyle: .alert)
+        
+        let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
+            self.fetchData()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
+            networkFetchFailureAlert.dismiss(animated: true)
+        }
+        
+        networkFetchFailureAlert.addAction(retryAction)
+        networkFetchFailureAlert.addAction(cancelAction)
+        
+        DispatchQueue.main.async {
+            self.present(networkFetchFailureAlert, animated: true)
+        }
+    }
+    
+    private func showServiceTerminalFetchFailureAlert() {
+        let networkFetchFailureAlert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить данные об инфокиосках", preferredStyle: .alert)
         
         let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
             self.fetchData()
@@ -183,10 +215,22 @@ extension MapViewController: MKMapViewDelegate {
         }
         
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-        if let mkAnnotatedATM = annotation as? MKAnnotatedATM, let _ = annotation as? MKAnnotatedServiceTerminal, let _ = annotation as? MKAnnotatedBranchBank {
+        
+        if let mkAnnotatedATM = annotation as? MKAnnotatedATM {
             annotationView?.canShowCallout = true
             annotationView?.detailCalloutAccessoryView = ATMCalloutView(mkAnnotatedATM: mkAnnotatedATM)
         }
+        
+        if let mkAnnotatedBranchBank = annotation as? MKAnnotatedBranchBank {
+            annotationView?.canShowCallout = true
+            annotationView?.detailCalloutAccessoryView = BranchBankCalloutView(mkAnnotatedBranchBank: mkAnnotatedBranchBank)
+        }
+        
+        if let mkAnnotatedServiceTerminal = annotation as? MKAnnotatedServiceTerminal {
+            annotationView?.canShowCallout = true
+            annotationView?.detailCalloutAccessoryView = ServiceTerminalCalloutView(mkAnnotatedServiceTerminal: mkAnnotatedServiceTerminal)
+        }
+        
         return annotationView
     }
 }
@@ -254,7 +298,7 @@ extension MapViewController: ATMCalloutViewDelegate {
         guard let annotatedATMData = annotation as? MKAnnotatedATM else { return }
         
         let atmDetailedVC = ATMDetailedInfoViewController()
-        let operatingHours = datesFormatter(annotatedATMData.availability.standardAvailability.day)
+        let operatingHours = atmDatesFormatter(annotatedATMData.availability.standardAvailability.day)
         let cards = cardsFormatter(annotatedATMData.cards)
         let services = servicesFormatter(annotatedATMData.services)
         

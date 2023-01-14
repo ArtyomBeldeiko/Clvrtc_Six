@@ -143,7 +143,7 @@ extension ATMViewController: UICollectionViewDataSource {
         if let ATMData = groupedATMData[Array(groupedATMData.keys)[indexPath.section]] {
             let ATMItem = ATMData[indexPath.row]
             cell.atmInstallationPlaceLabel.text = "\(ATMItem.address.streetName), \(ATMItem.address.buildingNumber) \n\(ATMItem.address.addressLine)"
-            cell.operatingHoursLabel.text = datesFormatter((ATMItem.availability.standardAvailability.day))
+            cell.operatingHoursLabel.text = atmDatesFormatter((ATMItem.availability.standardAvailability.day))
             cell.dispensedCurrencyLabel.text = ATMItem.currency.rawValue
             
             DispatchQueue.main.async {

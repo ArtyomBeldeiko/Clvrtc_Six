@@ -20,6 +20,8 @@
 		39B74554295B7FED000AACE1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B74553295B7FED000AACE1 /* SceneDelegate.swift */; };
 		39B7455B295B7FEE000AACE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39B7455A295B7FEE000AACE1 /* Assets.xcassets */; };
 		39B7455E295B7FEE000AACE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39B7455C295B7FEE000AACE1 /* LaunchScreen.storyboard */; };
+		39D3A8B02972D47200B9C797 /* BranchBankCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D3A8AF2972D47200B9C797 /* BranchBankCalloutView.swift */; };
+		39D3A8B22972DB8100B9C797 /* ServiceTerminalCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D3A8B12972DB8100B9C797 /* ServiceTerminalCalloutView.swift */; };
 		39DF2995296B0CF3001194A1 /* ATMCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DF2994296B0CF3001194A1 /* ATMCollectionHeader.swift */; };
 		39DF299E296B9AD1001194A1 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DF299D296B9AD1001194A1 /* Reachability.swift */; };
 		39F8E34F295CC37B00C841F7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E34E295CC37B00C841F7 /* MapViewController.swift */; };
@@ -50,6 +52,8 @@
 		39B7455A295B7FEE000AACE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39B7455D295B7FEE000AACE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		39B7455F295B7FEE000AACE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39D3A8AF2972D47200B9C797 /* BranchBankCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchBankCalloutView.swift; sourceTree = "<group>"; };
+		39D3A8B12972DB8100B9C797 /* ServiceTerminalCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTerminalCalloutView.swift; sourceTree = "<group>"; };
 		39DF2994296B0CF3001194A1 /* ATMCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMCollectionHeader.swift; sourceTree = "<group>"; };
 		39DF299D296B9AD1001194A1 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		39F8E34E295CC37B00C841F7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -221,6 +225,8 @@
 			isa = PBXGroup;
 			children = (
 				39F8E3642964C46A00C841F7 /* ATMCalloutView.swift */,
+				39D3A8AF2972D47200B9C797 /* BranchBankCalloutView.swift */,
+				39D3A8B12972DB8100B9C797 /* ServiceTerminalCalloutView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -377,6 +383,7 @@
 			files = (
 				39F8E3652964C46A00C841F7 /* ATMCalloutView.swift in Sources */,
 				39DF2995296B0CF3001194A1 /* ATMCollectionHeader.swift in Sources */,
+				39D3A8B02972D47200B9C797 /* BranchBankCalloutView.swift in Sources */,
 				39F8E354295F338500C841F7 /* NetworkManager.swift in Sources */,
 				394C4A40296EFDB200E01FB3 /* BranchBankData.swift in Sources */,
 				394C4A44296F70A200E01FB3 /* MKAnnotatedServiceTerminal.swift in Sources */,
@@ -386,6 +393,7 @@
 				39F8E3692965B69600C841F7 /* DatesFormatter.swift in Sources */,
 				399FCA772969DCF70050C814 /* ATMCollectionViewCell.swift in Sources */,
 				39B74552295B7FED000AACE1 /* AppDelegate.swift in Sources */,
+				39D3A8B22972DB8100B9C797 /* ServiceTerminalCalloutView.swift in Sources */,
 				394C4A42296F6BAC00E01FB3 /* MKAnnotatedBranchBank.swift in Sources */,
 				39B74554295B7FED000AACE1 /* SceneDelegate.swift in Sources */,
 				39F8E357295F33B700C841F7 /* ATMData.swift in Sources */,
