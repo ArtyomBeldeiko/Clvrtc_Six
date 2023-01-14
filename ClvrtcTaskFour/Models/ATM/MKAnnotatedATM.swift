@@ -24,6 +24,10 @@ final class MKAnnotatedATM: NSObject, MKAnnotation {
         CLLocationCoordinate2D(latitude: Double(address.geolocation.geographicCoordinates.latitude)!, longitude: Double(address.geolocation.geographicCoordinates.longitude)!)
     }
     
+    var location: CLLocation {
+        return CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+    }
+    
     init(atmID: String,
          type: TypeEnum,
          baseCurrency: BaseCurrency,
@@ -46,6 +50,10 @@ final class MKAnnotatedATM: NSObject, MKAnnotation {
         self.services = services
         self.availability = availability
         self.contactDetails = contactDetails
+    }
+    
+    func distance(to location: CLLocation) -> CLLocationDistance {
+        return location.distance(from: self.location)
     }
 }
 

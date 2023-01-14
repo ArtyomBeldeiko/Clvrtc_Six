@@ -18,6 +18,10 @@ final class MKAnnotatedBranchBank: NSObject, MKAnnotation {
     let services: BankServices
     let coordinate: CLLocationCoordinate2D
     
+    var location: CLLocation {
+        return CLLocation(latitude: Double(branchBankAddress.geoLocation.geographicCoordinates.latitude)!, longitude: Double(branchBankAddress.geoLocation.geographicCoordinates.latitude)!)
+    }
+    
     init(branchID: String,
          name: String,
          cbu: String,
@@ -41,5 +45,9 @@ final class MKAnnotatedBranchBank: NSObject, MKAnnotation {
         self.information = information
         self.services = services
         self.coordinate = coordinate
+    }
+    
+    func distance(to location: CLLocation) -> CLLocationDistance {
+        return location.distance(from: self.location)
     }
 }

@@ -97,7 +97,7 @@ class ServiceTerminalCalloutView: UIView {
     
     private func setupCurrencyLabel() {
         currencyLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        currencyLabel.text = "Валюта: \(mkAnnotatedServiceTerminal.serviceTerminalCurrency)"
+        currencyLabel.text = "Валюта: \(mkAnnotatedServiceTerminal.serviceTerminalCurrency.rawValue)"
         currencyLabel.numberOfLines = 0
         addSubview(currencyLabel)
         currencyLabel.translatesAutoresizingMaskIntoConstraints = false

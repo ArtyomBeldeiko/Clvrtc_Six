@@ -15,6 +15,7 @@ class MapViewController: UIViewController {
     var annotatedATMData = [MKAnnotatedATM]()
     var annotatedBranchBankData = [MKAnnotatedBranchBank]()
     var annotatedServiceTerminalData = [MKAnnotatedServiceTerminal]()
+    var currentLocation: CLLocation?
 
     let mapView: MKMapView = {
         let view = MKMapView()
@@ -111,17 +112,25 @@ class MapViewController: UIViewController {
 
             dispatchGroup.notify(queue: .main) {
                 
+                let defaultLocation = CLLocation(latitude: 52.425163, longitude: 31.015039)
+                
                 for atmDataItem in atmData {
                     self.annotatedATMData.append(MKAnnotatedATM(atmID: atmDataItem.atmID, type: atmDataItem.type, baseCurrency: atmDataItem.baseCurrency, currency: atmDataItem.currency, cards: atmDataItem.cards, currentStatus: atmDataItem.currentStatus, address: atmDataItem.address, services: atmDataItem.services, availability: atmDataItem.availability, contactDetails: atmDataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(atmDataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(atmDataItem.address.geolocation.geographicCoordinates.longitude)!)))
                 }
+                
+                self.annotatedATMData = self.annotatedATMData.sorted { $0.distance(to: self.currentLocation ?? defaultLocation) < $1.distance(to: self.currentLocation ?? defaultLocation) }
                 
                 for branchBankDataItem in branchBankData {
                     self.annotatedBranchBankData.append(MKAnnotatedBranchBank(branchID: branchBankDataItem.branchId, name: branchBankDataItem.name, cbu: branchBankDataItem.cbu, accountNumber: branchBankDataItem.accountNumber, equeue: branchBankDataItem.equeue, wifi: branchBankDataItem.wifi, accessibilities: branchBankDataItem.accessibilities, branchBankAddress: branchBankDataItem.address, information: branchBankDataItem.information, services: branchBankDataItem.services, coordinate: CLLocationCoordinate2D(latitude: Double(branchBankDataItem.address.geoLocation.geographicCoordinates.latitude)!, longitude: Double(branchBankDataItem.address.geoLocation.geographicCoordinates.longitude)!)))
                 }
                 
+                self.annotatedBranchBankData = self.annotatedBranchBankData.sorted { $0.distance(to: self.currentLocation ?? defaultLocation) < $1.distance(to: self.currentLocation ?? defaultLocation) }
+                
                 for serviceTerminalItem in serviceTerminalData {
                     self.annotatedServiceTerminalData.append(MKAnnotatedServiceTerminal(infoID: serviceTerminalItem.infoID, area: serviceTerminalItem.area, cityType: serviceTerminalItem.cityType, city: serviceTerminalItem.city, addressType: serviceTerminalItem.addressType, address: serviceTerminalItem.address, house: serviceTerminalItem.house, installPlace: serviceTerminalItem.installPlace, locationNameDesc: serviceTerminalItem.locationNameDesc, workTime: serviceTerminalItem.workTime, timeLong: serviceTerminalItem.timeLong, gpsX: serviceTerminalItem.gpsX, gpsY: serviceTerminalItem.gpsY, serviceTerminalCurrency: serviceTerminalItem.currency, infType: serviceTerminalItem.infType, cashInExist: serviceTerminalItem.cashIn, cashIn: serviceTerminalItem.cashIn, typeCashIn: serviceTerminalItem.cashIn, infPrinter: serviceTerminalItem.infPrinter, regionPlatej: serviceTerminalItem.regionPlatej, popolneniePlatej: serviceTerminalItem.popolneniePlatej, infStatus: serviceTerminalItem.infStatus, coordinate: CLLocationCoordinate2D(latitude: Double(serviceTerminalItem.gpsX)!, longitude: Double(serviceTerminalItem.gpsY)!)))
                 }
+                
+                self.annotatedServiceTerminalData = self.annotatedServiceTerminalData.sorted { $0.distance(to: self.currentLocation ?? defaultLocation) < $1.distance(to: self.currentLocation ?? defaultLocation) }
                                 
                 self.mapView.addAnnotations(self.annotatedATMData)
                 self.mapView.addAnnotations(self.annotatedServiceTerminalData)
@@ -262,6 +271,7 @@ extension MapViewController: CLLocationManagerDelegate {
         if let location = locations.first {
             locationManager.stopUpdatingLocation()
             renderLocation(location)
+            currentLocation = location
         }
     }
     

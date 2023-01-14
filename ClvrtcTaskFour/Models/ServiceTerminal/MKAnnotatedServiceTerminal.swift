@@ -22,6 +22,10 @@ final class MKAnnotatedServiceTerminal: NSObject, MKAnnotation {
     let regionPlatej, popolneniePlatej, infStatus: CashIn
     let coordinate: CLLocationCoordinate2D
     
+    var location: CLLocation {
+        return CLLocation(latitude: Double(gpsX)!, longitude: Double(gpsY)!)
+    }
+    
     init(infoID: Int,
          area: Area,
          cityType: CityType,
@@ -69,5 +73,9 @@ final class MKAnnotatedServiceTerminal: NSObject, MKAnnotation {
         self.popolneniePlatej = popolneniePlatej
         self.infStatus = infStatus
         self.coordinate = coordinate
+    }
+    
+    func distance(to location: CLLocation) -> CLLocationDistance {
+        return location.distance(from: self.location)
     }
 }
