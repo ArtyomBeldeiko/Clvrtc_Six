@@ -153,7 +153,9 @@ class MapViewController: UIViewController {
         networkFetchFailureAlert.addAction(retryAction)
         networkFetchFailureAlert.addAction(cancelAction)
         
-        self.present(networkFetchFailureAlert, animated: true)
+        DispatchQueue.main.async {
+            self.present(networkFetchFailureAlert, animated: true)
+        }
     }
     
     private func showNoInternerConnectionAlert() {
@@ -165,7 +167,9 @@ class MapViewController: UIViewController {
         
         noInternerConnectionAlert.addAction(okAction)
         
-        self.present(noInternerConnectionAlert, animated: true)
+        DispatchQueue.main.async {
+            self.present(noInternerConnectionAlert, animated: true)
+        }
     }
 }
 
@@ -179,7 +183,7 @@ extension MapViewController: MKMapViewDelegate {
         }
         
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-        if let mkAnnotatedATM = annotation as? MKAnnotatedATM, let mkAnnotatedServiceTerminal = annotation as? MKAnnotatedServiceTerminal, let mkAnnotatedBranchBank = annotation as? MKAnnotatedBranchBank {
+        if let mkAnnotatedATM = annotation as? MKAnnotatedATM, let _ = annotation as? MKAnnotatedServiceTerminal, let _ = annotation as? MKAnnotatedBranchBank {
             annotationView?.canShowCallout = true
             annotationView?.detailCalloutAccessoryView = ATMCalloutView(mkAnnotatedATM: mkAnnotatedATM)
         }

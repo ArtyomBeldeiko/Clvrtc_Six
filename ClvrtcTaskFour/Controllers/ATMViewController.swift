@@ -80,7 +80,9 @@ class ATMViewController: UIViewController {
         networkFetchFailureAlert.addAction(retryAction)
         networkFetchFailureAlert.addAction(cancelAction)
         
-        self.present(networkFetchFailureAlert, animated: true)
+        DispatchQueue.main.async {
+            self.present(networkFetchFailureAlert, animated: true)
+        }
     }
     
     private func showNoInternerConnectionAlert() {
