@@ -202,6 +202,7 @@ struct ContactDetails: Codable {
 enum Currency: String, Codable {
     case byn = "BYN "
     case bynUsd = "BYN USD "
+    case usd = "USD "
     case empty = ""
 }
 

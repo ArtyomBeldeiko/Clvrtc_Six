@@ -240,6 +240,7 @@ struct BankMeta: Codable {
         case totalPages = "TotalPages"
     }
 }
+
 @propertyWrapper public struct NilOnFailBank<T: Codable>: Codable {
     
     public let wrappedValue: T?
