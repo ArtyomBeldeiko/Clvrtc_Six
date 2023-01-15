@@ -12,7 +12,6 @@ import MapKit
 
 protocol ServiceTerminalCalloutViewDelegate: AnyObject {
     func mapView(_ mapView: MKMapView, didTapCloseButton button: UIButton, for annotation: MKAnnotation)
-    func mapView(_ mapView: MKMapView, didTapDetailButton button: UIButton, for annotation: MKAnnotation)
 }
 
 class ServiceTerminalCalloutView: UIView {
@@ -22,7 +21,6 @@ class ServiceTerminalCalloutView: UIView {
     private let operatingHoursLabel = UILabel(frame: .zero)
     private let currencyLabel = UILabel(frame: .zero)
     private let cashInAvailabilityLabel = UILabel(frame: .zero)
-    private let detailButton = UIButton(frame: .zero)
     private let mkAnnotatedServiceTerminal: MKAnnotatedServiceTerminal
     
     private var mapView: MKMapView? {
@@ -51,7 +49,6 @@ class ServiceTerminalCalloutView: UIView {
         setupOperatingHoursLabel()
         setupCurrencyLabel()
         setupCashInAvailabilityLabel()
-        setupDetailButton()
     }
     
     private func setupCloseButton() {
@@ -70,14 +67,14 @@ class ServiceTerminalCalloutView: UIView {
     
     private func setupInstallationPlaceLabel() {
         installationPlaceLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        installationPlaceLabel.text = "Mecто установки: \(mkAnnotatedServiceTerminal.address.description)"
+        installationPlaceLabel.text = "Mecто установки: \(mkAnnotatedServiceTerminal.address.description), \(mkAnnotatedServiceTerminal.house)"
         installationPlaceLabel.numberOfLines = 0
         addSubview(installationPlaceLabel)
         installationPlaceLabel.translatesAutoresizingMaskIntoConstraints = false
         installationPlaceLabel.snp.makeConstraints { make in
             make.top.equalTo(snp.top)
             make.left.equalTo(snp.left)
-            make.right.equalTo(snp.right)
+            make.right.equalTo(closeButton.snp.left).offset(-5)
         }
     }
     
@@ -124,32 +121,13 @@ class ServiceTerminalCalloutView: UIView {
             make.top.equalTo(currencyLabel.snp.bottom).offset(5)
             make.left.equalTo(snp.left)
             make.right.equalTo(snp.right)
-        }
-    }
-    
-    private func setupDetailButton() {
-        detailButton.setTitle("Подробнее", for: .normal)
-        detailButton.setTitleColor(.red, for: .normal)
-        addSubview(detailButton)
-        detailButton.addTarget(self, action: #selector(presentDetailedATMInfoVC), for: .touchUpInside)
-        detailButton.translatesAutoresizingMaskIntoConstraints = false
-        detailButton.snp.makeConstraints { make in
-            make.top.equalTo(cashInAvailabilityLabel.snp.bottom).offset(5)
-            make.left.equalTo(snp.left)
-            make.right.equalTo(snp.right)
             make.bottom.equalTo(snp.bottom)
         }
     }
-    
+        
     @objc func didTapCloseButton() {
-        if let mapView = mapView, let delegate = mapView.delegate as? ATMCalloutViewDelegate {
+        if let mapView = mapView, let delegate = mapView.delegate as? ServiceTerminalCalloutViewDelegate {
             delegate.mapView(mapView, didTapCloseButton: UIButton(type: .custom), for: mkAnnotatedServiceTerminal)
-        }
-    }
-    
-    @objc private func presentDetailedATMInfoVC() {
-        if let mapView = mapView, let delegate = mapView.delegate as? ATMCalloutViewDelegate {
-            delegate.mapView(mapView, didTapDetailButton: UIButton(type: .custom), for: mkAnnotatedServiceTerminal)
         }
     }
 }

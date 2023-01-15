@@ -25,6 +25,9 @@ final class MKAnnotatedServiceTerminal: NSObject, MKAnnotation {
     var location: CLLocation {
         return CLLocation(latitude: Double(gpsX)!, longitude: Double(gpsY)!)
     }
+    var townName: String {
+        return city
+    }
     
     init(infoID: Int,
          area: Area,

@@ -369,9 +369,9 @@ extension MapViewController: CLLocationManagerDelegate {
 }
 
 
-// MARK: - ATMCalloutViewDelegate
+// MARK: - ATMCalloutViewDelegate, BranchBankCalloutViewDelegate, ServiceTerminalCalloutViewDelegate
 
-extension MapViewController: ATMCalloutViewDelegate {
+extension MapViewController: ATMCalloutViewDelegate, BranchBankCalloutViewDelegate, ServiceTerminalCalloutViewDelegate {
     func mapView(_ mapView: MKMapView, didTapCloseButton button: UIButton, for annotation: MKAnnotation) {
         mapView.deselectAnnotation(annotation, animated: true)
     }
@@ -433,3 +433,4 @@ extension MapViewController: ATMCalloutViewDelegate {
         self.present(atmDetailedVC, animated: true)
     }
 }
+

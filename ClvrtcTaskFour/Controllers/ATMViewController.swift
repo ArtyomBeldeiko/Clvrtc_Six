@@ -94,7 +94,9 @@ class ATMViewController: UIViewController {
         
         noInternerConnectionAlert.addAction(okAction)
         
-        self.present(noInternerConnectionAlert, animated: true)
+        DispatchQueue.main.async {
+            self.present(noInternerConnectionAlert, animated: true)
+        }
     }
 }
 

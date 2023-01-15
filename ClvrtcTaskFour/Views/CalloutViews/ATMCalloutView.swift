@@ -77,7 +77,7 @@ class ATMCalloutView: UIView {
         installationPlaceLabel.snp.makeConstraints { make in
             make.top.equalTo(snp.top)
             make.left.equalTo(snp.left)
-            make.right.equalTo(snp.right)
+            make.right.equalTo(closeButton.snp.left).offset(-5)
         }
     }
     

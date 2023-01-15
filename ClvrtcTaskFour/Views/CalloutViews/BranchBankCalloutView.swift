@@ -12,7 +12,6 @@ import MapKit
 
 protocol BranchBankCalloutViewDelegate: AnyObject {
     func mapView(_ mapView: MKMapView, didTapCloseButton button: UIButton, for annotation: MKAnnotation)
-    func mapView(_ mapView: MKMapView, didTapDetailButton button: UIButton, for annotation: MKAnnotation)
 }
 
 class BranchBankCalloutView: UIView {
@@ -20,7 +19,6 @@ class BranchBankCalloutView: UIView {
     private let closeButton = UIButton(frame: .zero)
     private let addressLabel = UILabel(frame: .zero)
     private let operatingHoursLabel = UILabel(frame: .zero)
-    private let detailButton = UIButton(frame: .zero)
     private let mkAnnotatedBranchBank: MKAnnotatedBranchBank
     
     private var mapView: MKMapView? {
@@ -47,7 +45,6 @@ class BranchBankCalloutView: UIView {
         setupCloseButton()
         setupAddressLabel()
         setupOperatingHoursLabel()
-        setupDetailButton()
     }
     
     private func setupCloseButton() {
@@ -73,7 +70,7 @@ class BranchBankCalloutView: UIView {
         addressLabel.snp.makeConstraints { make in
             make.top.equalTo(snp.top)
             make.left.equalTo(snp.left)
-            make.right.equalTo(snp.right)
+            make.right.equalTo(closeButton.snp.left).offset(-5)
         }
     }
     
@@ -90,32 +87,13 @@ class BranchBankCalloutView: UIView {
             make.top.equalTo(addressLabel.snp.bottom).offset(5)
             make.left.equalTo(snp.left)
             make.right.equalTo(snp.right)
-        }
-    }
-        
-    private func setupDetailButton() {
-        detailButton.setTitle("Подробнее", for: .normal)
-        detailButton.setTitleColor(.red, for: .normal)
-        addSubview(detailButton)
-        detailButton.addTarget(self, action: #selector(presentDetailedATMInfoVC), for: .touchUpInside)
-        detailButton.translatesAutoresizingMaskIntoConstraints = false
-        detailButton.snp.makeConstraints { make in
-            make.top.equalTo(operatingHoursLabel.snp.bottom).offset(5)
-            make.left.equalTo(snp.left)
-            make.right.equalTo(snp.right)
             make.bottom.equalTo(snp.bottom)
         }
     }
-    
+            
     @objc func didTapCloseButton() {
-        if let mapView = mapView, let delegate = mapView.delegate as? ATMCalloutViewDelegate {
+        if let mapView = mapView, let delegate = mapView.delegate as? BranchBankCalloutViewDelegate {
             delegate.mapView(mapView, didTapCloseButton: UIButton(type: .custom), for: mkAnnotatedBranchBank)
-        }
-    }
-    
-    @objc private func presentDetailedATMInfoVC() {
-        if let mapView = mapView, let delegate = mapView.delegate as? ATMCalloutViewDelegate {
-            delegate.mapView(mapView, didTapDetailButton: UIButton(type: .custom), for: mkAnnotatedBranchBank)
         }
     }
 }
