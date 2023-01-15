@@ -22,6 +22,7 @@
 		39B7455E295B7FEE000AACE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39B7455C295B7FEE000AACE1 /* LaunchScreen.storyboard */; };
 		39D3A8B02972D47200B9C797 /* BranchBankCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D3A8AF2972D47200B9C797 /* BranchBankCalloutView.swift */; };
 		39D3A8B22972DB8100B9C797 /* ServiceTerminalCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D3A8B12972DB8100B9C797 /* ServiceTerminalCalloutView.swift */; };
+		39D3A8BE2974951900B9C797 /* MKAnnotatedFacility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D3A8BD2974951900B9C797 /* MKAnnotatedFacility.swift */; };
 		39DF2995296B0CF3001194A1 /* ATMCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DF2994296B0CF3001194A1 /* ATMCollectionHeader.swift */; };
 		39DF299E296B9AD1001194A1 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DF299D296B9AD1001194A1 /* Reachability.swift */; };
 		39F8E34F295CC37B00C841F7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F8E34E295CC37B00C841F7 /* MapViewController.swift */; };
@@ -54,6 +55,7 @@
 		39B7455F295B7FEE000AACE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39D3A8AF2972D47200B9C797 /* BranchBankCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchBankCalloutView.swift; sourceTree = "<group>"; };
 		39D3A8B12972DB8100B9C797 /* ServiceTerminalCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTerminalCalloutView.swift; sourceTree = "<group>"; };
+		39D3A8BD2974951900B9C797 /* MKAnnotatedFacility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKAnnotatedFacility.swift; sourceTree = "<group>"; };
 		39DF2994296B0CF3001194A1 /* ATMCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMCollectionHeader.swift; sourceTree = "<group>"; };
 		39DF299D296B9AD1001194A1 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		39F8E34E295CC37B00C841F7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -197,6 +199,14 @@
 			path = CalloutViews;
 			sourceTree = "<group>";
 		};
+		39D3A8BF297499B800B9C797 /* Facility */ = {
+			isa = PBXGroup;
+			children = (
+				39D3A8BD2974951900B9C797 /* MKAnnotatedFacility.swift */,
+			);
+			path = Facility;
+			sourceTree = "<group>";
+		};
 		39DF2993296B0C96001194A1 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +237,7 @@
 				3917B899296E02DC004BF3C5 /* ATM */,
 				3917B89A296E0356004BF3C5 /* ServiceTerminal */,
 				3917B89F296E0A89004BF3C5 /* BranchBank */,
+				39D3A8BF297499B800B9C797 /* Facility */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -397,6 +408,7 @@
 				394C4A44296F70A200E01FB3 /* MKAnnotatedServiceTerminal.swift in Sources */,
 				39F8E351295CC3DF00C841F7 /* ATMViewController.swift in Sources */,
 				3935E4C4295B81CC00530BD5 /* MainViewController.swift in Sources */,
+				39D3A8BE2974951900B9C797 /* MKAnnotatedFacility.swift in Sources */,
 				3917B89E296E093A004BF3C5 /* ServiceTerminalData.swift in Sources */,
 				39F8E3692965B69600C841F7 /* DatesFormatter.swift in Sources */,
 				399FCA772969DCF70050C814 /* ATMCollectionViewCell.swift in Sources */,

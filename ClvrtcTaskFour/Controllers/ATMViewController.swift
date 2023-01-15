@@ -11,7 +11,7 @@ import MapKit
 
 class ATMViewController: UIViewController {
     
-    var groupedATMData: [String: [ATM]] = [:]
+    var groupedData: [String: [MKAnnotatedFacility]] = [:]
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -23,12 +23,6 @@ class ATMViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = true
         return collectionView
     }()
-    
-    override func loadView() {
-        super.loadView()
-        
-        fetchATMData()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,61 +36,6 @@ class ATMViewController: UIViewController {
         collectionView.dataSource = self
         view.addSubview(collectionView)
         collectionView.frame = view.bounds
-    }
-    
-    func fetchATMData() {
-        if Reachability.isConnectedToNetwork() {
-            NetworkManager.shared.getATMData { result in
-                switch result {
-                case .success(let data):
-                    var fetchedData = [ATM]()
-                    fetchedData.append(contentsOf: data.data.atm)
-                    self.groupedATMData = Dictionary(grouping: fetchedData, by: { $0.address.townName })
-                    
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
-                    
-                case .failure(_):
-                    self.showNetworkFetchFailureAlert()
-                }
-            }
-        } else {
-            showNoInternerConnectionAlert()
-        }
-    }
-    
-    private func showNetworkFetchFailureAlert() {
-        let networkFetchFailureAlert = UIAlertController(title: nil, message: "Ошибка", preferredStyle: .alert)
-        
-        let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
-            self.fetchATMData()
-        }
-        
-        let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
-            networkFetchFailureAlert.dismiss(animated: true)
-        }
-        
-        networkFetchFailureAlert.addAction(retryAction)
-        networkFetchFailureAlert.addAction(cancelAction)
-        
-        DispatchQueue.main.async {
-            self.present(networkFetchFailureAlert, animated: true)
-        }
-    }
-    
-    func showNoInternerConnectionAlert() {
-        let noInternerConnectionAlert = UIAlertController(title: nil, message: "Приложение работает без доступа к интернету", preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "Хорошо", style: .default) { _ in
-            noInternerConnectionAlert.dismiss(animated: true)
-        }
-        
-        noInternerConnectionAlert.addAction(okAction)
-        
-        DispatchQueue.main.async {
-            self.present(noInternerConnectionAlert, animated: true)
-        }
     }
 }
 
@@ -132,21 +71,21 @@ extension ATMViewController: UICollectionViewDelegateFlowLayout {
 
 extension ATMViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return groupedATMData.keys.count
+        return groupedData.keys.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return groupedATMData[Array(groupedATMData.keys)[section]]?.count ?? 0
+        return groupedData[Array(groupedData.keys)[section]]?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ATMCollectionViewCell.identifier, for: indexPath) as? ATMCollectionViewCell else { return UICollectionViewCell() }
         
-        if let ATMData = groupedATMData[Array(groupedATMData.keys)[indexPath.section]] {
+        if let ATMData = groupedData[Array(groupedData.keys)[indexPath.section]] {
             let ATMItem = ATMData[indexPath.row]
-            cell.atmInstallationPlaceLabel.text = "\(ATMItem.address.streetName), \(ATMItem.address.buildingNumber) \n\(ATMItem.address.addressLine)"
-            cell.operatingHoursLabel.text = atmDatesFormatter((ATMItem.availability.standardAvailability.day))
-            cell.dispensedCurrencyLabel.text = ATMItem.currency.rawValue
+            cell.atmInstallationPlaceLabel.text = "\(ATMItem.streetName), \(ATMItem.buildingNumber) \n\(ATMItem.addressLine ?? "")"
+            cell.operatingHoursLabel.text = "\(ATMItem.availability)"
+            cell.dispensedCurrencyLabel.text = ATMItem.currency
             
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -160,7 +99,7 @@ extension ATMViewController: UICollectionViewDataSource {
         
         header.configure()
         
-        header.label.text = "\(Array(groupedATMData.keys)[indexPath.section])"
+        header.label.text = "\(Array(groupedData.keys)[indexPath.section])"
         
         return header
     }
@@ -170,7 +109,7 @@ extension ATMViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let ATMData = groupedATMData[Array(groupedATMData.keys)[indexPath.section]] {
+        if let ATMData = groupedData[Array(groupedData.keys)[indexPath.section]] {
             let selectedATMItem = ATMData[indexPath.item]
             
             if let parentVC = self.parent as? MainViewController {
@@ -179,7 +118,7 @@ extension ATMViewController: UICollectionViewDataSource {
                 
                 if let mapVC = parentVC.children[0] as? MapViewController {
                     if mapVC.annotatedATMData != nil {
-                        let annotation = mapVC.annotatedATMData.contains(where: { $0.atmID == selectedATMItem.atmID })
+                        let annotation = mapVC.annotatedATMData.contains(where: { $0.atmID == selectedATMItem.id })
                         mapVC.mapView.selectAnnotation(annotation as! MKAnnotation, animated: true)
                     }
                 }
