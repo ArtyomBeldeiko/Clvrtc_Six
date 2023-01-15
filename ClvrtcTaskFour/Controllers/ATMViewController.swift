@@ -85,7 +85,7 @@ class ATMViewController: UIViewController {
         }
     }
     
-    private func showNoInternerConnectionAlert() {
+    func showNoInternerConnectionAlert() {
         let noInternerConnectionAlert = UIAlertController(title: nil, message: "Приложение работает без доступа к интернету", preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "Хорошо", style: .default) { _ in

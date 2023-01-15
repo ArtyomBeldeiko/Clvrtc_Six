@@ -8,14 +8,16 @@
 import UIKit
 import SnapKit
 import CoreLocation
+import MapKit
 
 class MainViewController: UIViewController {
     
     let containerViewModes = ["Map", "ATM List"]
+    
     var mapVC = MapViewController()
     var ATMListVC = ATMViewController()
     
-//    MARK: - UI Elements
+    //    MARK: - UI Elements
     
     lazy var viewContainerSegmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: containerViewModes)
@@ -38,7 +40,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         configureNavigationBar()
         setupViews()
     }
@@ -89,8 +91,103 @@ class MainViewController: UIViewController {
     }
     
     @objc private func uploadAction() {
-        mapVC.fetchData()
-        ATMListVC.fetchATMData()
+        let backgroundQueue = DispatchQueue(label: "ClvrtcTaskFour.Beldeiko.Clevertec.backgroundQueue", qos: .background, attributes: .concurrent)
+        
+        var atmData = [ATM]()
+        var branchBankData = [BankBranch]()
+        var serviceTerminalData = [ServiceTerminal]()
+        var annotatedBranchBankData = self.mapVC.annotatedBranchBankData
+        var annotattedServiceTerminal = self.mapVC.annotatedServiceTerminalData
+    
+        if Reachability.isConnectedToNetwork() {
+            
+            DispatchQueue.main.async {
+                self.mapVC.activityIndicatorContainer.isHidden = false
+                self.mapVC.makeUIInactive()
+                self.mapVC.mapView.removeAnnotations(self.mapVC.mapView.annotations)
+            }
+            
+            NetworkManager.shared.getATMData { result in
+                switch result {
+                case .success(let data):
+                    self.mapVC.annotatedATMData.removeAll()
+                    atmData = data.data.atm
+                    
+                case .failure(_):
+                    self.mapVC.showAtmFetchFailureAlert()
+                }
+                
+                for atmDataItem in atmData {
+                    self.mapVC.annotatedATMData.append(MKAnnotatedATM(atmID: atmDataItem.atmID, type: atmDataItem.type, baseCurrency: atmDataItem.baseCurrency, currency: atmDataItem.currency, cards: atmDataItem.cards, currentStatus: atmDataItem.currentStatus, address: atmDataItem.address, services: atmDataItem.services, availability: atmDataItem.availability, contactDetails: atmDataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(atmDataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(atmDataItem.address.geolocation.geographicCoordinates.longitude)!)))
+                }
+                
+                self.mapVC.annotatedATMData = self.mapVC.annotatedATMData.sorted { $0.distance(to: self.mapVC.currentLocation ?? self.mapVC.defaultLocation) < $1.distance(to: self.mapVC.currentLocation ?? self.mapVC.defaultLocation) }
+                
+                DispatchQueue.main.async {
+                    self.mapVC.mapView.addAnnotations(self.mapVC.annotatedATMData)
+                    self.mapVC.activityIndicatorContainer.isHidden = true
+                    self.mapVC.makeUIActive()
+                }
+            }
+            
+            backgroundQueue.async {
+                NetworkManager.shared.getBranchBankData { result in
+                    switch result {
+                    case .success(let data):
+                        self.mapVC.annotatedBranchBankData.removeAll()
+                        branchBankData = data.data.branch
+                        
+                    case .failure(_):
+                        self.mapVC.showBranchBankFetchFailureAlert()
+                        
+                        DispatchQueue.main.async {
+                            self.mapVC.mapView.addAnnotations(annotatedBranchBankData)
+                        }
+                    }
+                    
+                    for branchBankDataItem in branchBankData {
+                        self.mapVC.annotatedBranchBankData.append(MKAnnotatedBranchBank(branchID: branchBankDataItem.branchId, name: branchBankDataItem.name, cbu: branchBankDataItem.cbu, accountNumber: branchBankDataItem.accountNumber, equeue: branchBankDataItem.equeue, wifi: branchBankDataItem.wifi, accessibilities: branchBankDataItem.accessibilities, branchBankAddress: branchBankDataItem.address, information: branchBankDataItem.information, services: branchBankDataItem.services, coordinate: CLLocationCoordinate2D(latitude: Double(branchBankDataItem.address.geoLocation.geographicCoordinates.latitude)!, longitude: Double(branchBankDataItem.address.geoLocation.geographicCoordinates.longitude)!)))
+                    }
+                    
+                    self.mapVC.annotatedBranchBankData = self.mapVC.annotatedBranchBankData.sorted { $0.distance(to: self.mapVC.currentLocation ?? self.mapVC.defaultLocation) < $1.distance(to: self.mapVC.currentLocation ?? self.mapVC.defaultLocation) }
+                    
+                    DispatchQueue.main.async {
+                        self.mapVC.mapView.addAnnotations(self.mapVC.annotatedBranchBankData)
+                    }
+                }
+            }
+            
+            backgroundQueue.async {
+                NetworkManager.shared.getServiceTerminalData { result in
+                    switch result {
+                    case .success(let data):
+                        self.mapVC.annotatedServiceTerminalData.removeAll()
+                        serviceTerminalData = data
+                        
+                    case .failure(_):
+                        self.mapVC.showServiceTerminalFetchFailureAlert()
+                        
+                        DispatchQueue.main.async {
+                            self.mapVC.mapView.addAnnotations(annotattedServiceTerminal)
+                        }
+                    }
+                    
+                    for serviceTerminalItem in serviceTerminalData {
+                        self.mapVC.annotatedServiceTerminalData.append(MKAnnotatedServiceTerminal(infoID: serviceTerminalItem.infoID, area: serviceTerminalItem.area, cityType: serviceTerminalItem.cityType, city: serviceTerminalItem.city, addressType: serviceTerminalItem.addressType, address: serviceTerminalItem.address, house: serviceTerminalItem.house, installPlace: serviceTerminalItem.installPlace, locationNameDesc: serviceTerminalItem.locationNameDesc, workTime: serviceTerminalItem.workTime, timeLong: serviceTerminalItem.timeLong, gpsX: serviceTerminalItem.gpsX, gpsY: serviceTerminalItem.gpsY, serviceTerminalCurrency: serviceTerminalItem.currency, infType: serviceTerminalItem.infType, cashInExist: serviceTerminalItem.cashIn, cashIn: serviceTerminalItem.cashIn, typeCashIn: serviceTerminalItem.cashIn, infPrinter: serviceTerminalItem.infPrinter, regionPlatej: serviceTerminalItem.regionPlatej, popolneniePlatej: serviceTerminalItem.popolneniePlatej, infStatus: serviceTerminalItem.infStatus, coordinate: CLLocationCoordinate2D(latitude: Double(serviceTerminalItem.gpsX)!, longitude: Double(serviceTerminalItem.gpsY)!)))
+                    }
+                    
+                    self.mapVC.annotatedServiceTerminalData = self.mapVC.annotatedServiceTerminalData.sorted { $0.distance(to: self.mapVC.currentLocation ?? self.mapVC.defaultLocation) < $1.distance(to: self.mapVC.currentLocation ?? self.mapVC.defaultLocation) }
+                    
+                    DispatchQueue.main.async {
+                        self.mapVC.mapView.addAnnotations(self.mapVC.annotatedServiceTerminalData)
+                    }
+                }
+            }
+            
+        } else {
+            mapVC.showNoInternerConnectionAlert()
+            ATMListVC.showNoInternerConnectionAlert()
+        }
     }
     
     @objc func segmentedControlAction() {

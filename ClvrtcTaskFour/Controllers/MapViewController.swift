@@ -172,7 +172,7 @@ class MapViewController: UIViewController {
         }
     }
     
-    private func showAtmFetchFailureAlert() {
+    func showAtmFetchFailureAlert() {
         let networkFetchFailureAlert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить данные о банкоматах", preferredStyle: .alert)
         
         let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
@@ -191,7 +191,7 @@ class MapViewController: UIViewController {
         }
     }
     
-    private func showBranchBankFetchFailureAlert() {
+    func showBranchBankFetchFailureAlert() {
         let networkFetchFailureAlert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить данные о подразделениях банка", preferredStyle: .alert)
         
         let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
@@ -210,7 +210,7 @@ class MapViewController: UIViewController {
         }
     }
     
-    private func showServiceTerminalFetchFailureAlert() {
+    func showServiceTerminalFetchFailureAlert() {
         let networkFetchFailureAlert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить данные об инфокиосках", preferredStyle: .alert)
         
         let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
@@ -229,7 +229,7 @@ class MapViewController: UIViewController {
         }
     }
     
-    private func showNoInternerConnectionAlert() {
+    func showNoInternerConnectionAlert() {
         let noInternerConnectionAlert = UIAlertController(title: nil, message: "Приложение работает без доступа к интернету", preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "Хорошо", style: .default) { _ in
@@ -243,14 +243,14 @@ class MapViewController: UIViewController {
         }
     }
     
-    private func makeUIInactive() {
+    func makeUIInactive() {
         if let parentVC = self.parent as? MainViewController {
             parentVC.viewContainerSegmentedControl.isUserInteractionEnabled = false
             parentVC.navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
     
-    private func makeUIActive() {
+    func makeUIActive() {
         if let parentVC = self.parent as? MainViewController {
             parentVC.viewContainerSegmentedControl.isUserInteractionEnabled = true
             parentVC.navigationItem.rightBarButtonItem?.isEnabled = true
