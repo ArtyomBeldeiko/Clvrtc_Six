@@ -52,6 +52,7 @@ class MapViewController: UIViewController {
         configureMapView()
         presentActivityIndicator()
         makeUIInactive()
+                
     }
     
     override func viewDidLayoutSubviews() {
@@ -265,25 +266,53 @@ extension MapViewController: MKMapViewDelegate {
         if (annotation.isKind(of: MKUserLocation.self)) {
             return nil
         }
+
+        let atmAnnotationIdentifier = "atmAnnotation"
+        let branchBankIdentifier = "branchBankAnnotation"
+        let serviceTerminalIdentifier = "serviceTerminalAnnotation"
+
+        var view: MKAnnotationView!
         
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-        
-        if let mkAnnotatedATM = annotation as? MKAnnotatedATM {
-            annotationView?.canShowCallout = true
-            annotationView?.detailCalloutAccessoryView = ATMCalloutView(mkAnnotatedATM: mkAnnotatedATM)
+        if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: atmAnnotationIdentifier) {
+            view = dequedView
+            view.annotation = annotation as? MKAnnotatedATM
+        } else {
+            if let annotatedATM = annotation as? MKAnnotatedATM {
+            view = MKAnnotationView(annotation: annotatedATM, reuseIdentifier: atmAnnotationIdentifier)
+                view.canShowCallout = true
+                view.detailCalloutAccessoryView = ATMCalloutView(mkAnnotatedATM: annotatedATM)
+                view.image = UIImage(named: "atm")
+                view.frame.size = CGSize(width: 50, height: 50)
+            }
         }
         
-        if let mkAnnotatedBranchBank = annotation as? MKAnnotatedBranchBank {
-            annotationView?.canShowCallout = true
-            annotationView?.detailCalloutAccessoryView = BranchBankCalloutView(mkAnnotatedBranchBank: mkAnnotatedBranchBank)
+        if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: branchBankIdentifier) {
+            view = dequedView
+            view.annotation = annotation as? MKAnnotatedBranchBank
+        } else {
+            if let annotatedBranchBank = annotation as? MKAnnotatedBranchBank {
+            view = MKAnnotationView(annotation: annotatedBranchBank, reuseIdentifier: branchBankIdentifier)
+                view.canShowCallout = true
+                view.detailCalloutAccessoryView = BranchBankCalloutView(mkAnnotatedBranchBank: annotatedBranchBank)
+                view.image = UIImage(named: "bank")
+                view.frame.size = CGSize(width: 50, height: 50)
+            }
         }
         
-        if let mkAnnotatedServiceTerminal = annotation as? MKAnnotatedServiceTerminal {
-            annotationView?.canShowCallout = true
-            annotationView?.detailCalloutAccessoryView = ServiceTerminalCalloutView(mkAnnotatedServiceTerminal: mkAnnotatedServiceTerminal)
+        if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: serviceTerminalIdentifier) {
+            view = dequedView
+            view.annotation = annotation as? MKAnnotatedServiceTerminal
+        } else {
+            if let annotatedServiceTerminal = annotation as? MKAnnotatedServiceTerminal {
+            view = MKAnnotationView(annotation: annotatedServiceTerminal, reuseIdentifier: serviceTerminalIdentifier)
+                view.canShowCallout = true
+                view.detailCalloutAccessoryView = ServiceTerminalCalloutView(mkAnnotatedServiceTerminal: annotatedServiceTerminal)
+                view.image = UIImage(named: "terminal")
+                view.frame.size = CGSize(width: 50, height: 50)
+            }
         }
         
-        return annotationView
+        return view
     }
 }
 

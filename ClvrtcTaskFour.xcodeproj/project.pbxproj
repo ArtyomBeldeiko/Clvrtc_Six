@@ -187,6 +187,16 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		39D3A8B629737A2000B9C797 /* CalloutViews */ = {
+			isa = PBXGroup;
+			children = (
+				39F8E3642964C46A00C841F7 /* ATMCalloutView.swift */,
+				39D3A8AF2972D47200B9C797 /* BranchBankCalloutView.swift */,
+				39D3A8B12972DB8100B9C797 /* ServiceTerminalCalloutView.swift */,
+			);
+			path = CalloutViews;
+			sourceTree = "<group>";
+		};
 		39DF2993296B0C96001194A1 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,9 +234,7 @@
 		39F8E35E29639DC600C841F7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				39F8E3642964C46A00C841F7 /* ATMCalloutView.swift */,
-				39D3A8AF2972D47200B9C797 /* BranchBankCalloutView.swift */,
-				39D3A8B12972DB8100B9C797 /* ServiceTerminalCalloutView.swift */,
+				39D3A8B629737A2000B9C797 /* CalloutViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
