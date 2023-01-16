@@ -24,11 +24,31 @@ class ATMViewController: UIViewController {
         return collectionView
     }()
     
+    let activityIndicatorContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "background")
+        return view
+    }()
+    
+    let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.color = UIColor(named: "titleColor")
+        return activityIndicator
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(named: "cellBackground")
         configureCollectionView()
+        presentActivityIndicator()
+        activityIndicatorContainer.isHidden = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        activityIndicator.center = view.center
     }
     
     private func configureCollectionView() {
@@ -36,6 +56,90 @@ class ATMViewController: UIViewController {
         collectionView.dataSource = self
         view.addSubview(collectionView)
         collectionView.frame = view.bounds
+    }
+    
+    private func presentActivityIndicator() {
+        view.addSubview(activityIndicatorContainer)
+        activityIndicatorContainer.frame = view.bounds
+        activityIndicatorContainer.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+    }
+    
+    func showAtmFetchFailureAlert() {
+        let networkFetchFailureAlert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить данные о банкоматах", preferredStyle: .alert)
+        
+        let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
+            
+            let mapVC = self.parent?.children[0] as? MapViewController
+            mapVC?.fetchData()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
+            networkFetchFailureAlert.dismiss(animated: true)
+        }
+        
+        networkFetchFailureAlert.addAction(retryAction)
+        networkFetchFailureAlert.addAction(cancelAction)
+        
+        DispatchQueue.main.async {
+            self.present(networkFetchFailureAlert, animated: true)
+        }
+    }
+    
+    func showBranchBankFetchFailureAlert() {
+        let networkFetchFailureAlert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить данные о подразделениях банка", preferredStyle: .alert)
+        
+        let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
+            
+            let mapVC = self.parent?.children[0] as? MapViewController
+            mapVC?.fetchData()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
+            networkFetchFailureAlert.dismiss(animated: true)
+        }
+        
+        networkFetchFailureAlert.addAction(retryAction)
+        networkFetchFailureAlert.addAction(cancelAction)
+        
+        DispatchQueue.main.async {
+            self.present(networkFetchFailureAlert, animated: true)
+        }
+    }
+    
+    func showServiceTerminalFetchFailureAlert() {
+        let networkFetchFailureAlert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить данные об инфокиосках", preferredStyle: .alert)
+        
+        let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
+            
+            let mapVC = self.parent?.children[0] as? MapViewController
+            mapVC?.fetchData()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
+            networkFetchFailureAlert.dismiss(animated: true)
+        }
+        
+        networkFetchFailureAlert.addAction(retryAction)
+        networkFetchFailureAlert.addAction(cancelAction)
+        
+        DispatchQueue.main.async {
+            self.present(networkFetchFailureAlert, animated: true)
+        }
+    }
+    
+    func showNoInternerConnectionAlert() {
+        let noInternerConnectionAlert = UIAlertController(title: nil, message: "Приложение работает без доступа к интернету", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Хорошо", style: .default) { _ in
+            noInternerConnectionAlert.dismiss(animated: true)
+        }
+        
+        noInternerConnectionAlert.addAction(okAction)
+        
+        DispatchQueue.main.async {
+            self.present(noInternerConnectionAlert, animated: true)
+        }
     }
 }
 
@@ -85,7 +189,7 @@ extension ATMViewController: UICollectionViewDataSource {
             let ATMItem = ATMData[indexPath.row]
             cell.atmInstallationPlaceLabel.text = "\(ATMItem.streetName), \(ATMItem.buildingNumber) \n\(ATMItem.addressLine ?? "")"
             cell.operatingHoursLabel.text = "\(ATMItem.availability)"
-            cell.dispensedCurrencyLabel.text = ATMItem.currency
+            cell.dispensedCurrencyLabel.text = "\(ATMItem.currency!.dropLast(1))"
             
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -109,20 +213,17 @@ extension ATMViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let parentVC = self.parent as? MainViewController
+        let mapVC = self.parent?.children[0] as? MapViewController
+        let annotations = mapVC?.mapView.annotations
+        var targetedItem: MKAnnotation!
+        
         if let ATMData = groupedData[Array(groupedData.keys)[indexPath.section]] {
-            let selectedATMItem = ATMData[indexPath.item]
-            
-            if let parentVC = self.parent as? MainViewController {
-                parentVC.viewContainerSegmentedControl.selectedSegmentIndex = 0
-                parentVC.viewContainerSegmentedControl.sendAction(#selector(parentVC.segmentedControlAction), to: parentVC, for: nil)
-                
-                if let mapVC = parentVC.children[0] as? MapViewController {
-                    if mapVC.annotatedATMData != nil {
-                        let annotation = mapVC.annotatedATMData.contains(where: { $0.atmID == selectedATMItem.id })
-                        mapVC.mapView.selectAnnotation(annotation as! MKAnnotation, animated: true)
-                    }
-                }
-            }
+            let selectedItem = ATMData[indexPath.item]
+            parentVC?.viewContainerSegmentedControl.selectedSegmentIndex = 0
+            parentVC?.viewContainerSegmentedControl.sendAction(#selector(parentVC?.segmentedControlAction), to: parentVC, for: nil)
+            targetedItem = annotations?.first(where: { $0.coordinate.latitude == selectedItem.latitude && $0.coordinate.longitude == selectedItem.longitude })
+            mapVC?.mapView.selectAnnotation(targetedItem, animated: true)
         }
     }
 }

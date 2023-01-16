@@ -92,12 +92,12 @@ class MainViewController: UIViewController {
     
     @objc private func uploadAction() {
         let backgroundQueue = DispatchQueue(label: "ClvrtcTaskFour.Beldeiko.Clevertec.backgroundQueue", qos: .background, attributes: .concurrent)
+        let annotatedBranchBankData = self.mapVC.annotatedBranchBankData
+        let annotattedServiceTerminal = self.mapVC.annotatedServiceTerminalData
         
         var atmData = [ATM]()
         var branchBankData = [BankBranch]()
         var serviceTerminalData = [ServiceTerminal]()
-        var annotatedBranchBankData = self.mapVC.annotatedBranchBankData
-        var annotattedServiceTerminal = self.mapVC.annotatedServiceTerminalData
     
         if Reachability.isConnectedToNetwork() {
             
@@ -139,10 +139,6 @@ class MainViewController: UIViewController {
                         
                     case .failure(_):
                         self.mapVC.showBranchBankFetchFailureAlert()
-                        
-                        DispatchQueue.main.async {
-                            self.mapVC.mapView.addAnnotations(annotatedBranchBankData)
-                        }
                     }
                     
                     for branchBankDataItem in branchBankData {
@@ -166,6 +162,7 @@ class MainViewController: UIViewController {
                         
                     case .failure(_):
                         self.mapVC.showServiceTerminalFetchFailureAlert()
+                        self.ATMListVC.showServiceTerminalFetchFailureAlert()
                         
                         DispatchQueue.main.async {
                             self.mapVC.mapView.addAnnotations(annotattedServiceTerminal)
