@@ -10,14 +10,20 @@ import MapKit
 
 class MapViewController: UIViewController {
     
+    //    MARK: - Constants
+    
     let locationManager = CLLocationManager()
     let defaultLocation = CLLocation(latitude: 52.425163, longitude: 31.015039)
+    
+    //    MARK: - Variables
     
     var annotatedATMData = [MKAnnotatedATM]()
     var annotatedBranchBankData = [MKAnnotatedBranchBank]()
     var annotatedServiceTerminalData = [MKAnnotatedServiceTerminal]()
     var currentLocation: CLLocation?
-
+    
+    //    MARK: - UI Elements
+    
     let mapView: MKMapView = {
         let view = MKMapView()
         view.mapType = .standard
@@ -52,7 +58,7 @@ class MapViewController: UIViewController {
         configureMapView()
         presentActivityIndicator()
         makeUIInactive()
-                
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -81,7 +87,7 @@ class MapViewController: UIViewController {
         activityIndicatorContainer.addSubview(activityIndicator)
         activityIndicator.startAnimating()
     }
-        
+    
     private func renderLocation(_ location: CLLocation) {
         let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
                                                 longitude: location.coordinate.longitude)
@@ -91,6 +97,8 @@ class MapViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
+    // MARK: - fetchData
+    
     func fetchData() {
         var atmData = [ATM]()
         var branchBankData = [BankBranch]()
@@ -99,7 +107,7 @@ class MapViewController: UIViewController {
         
         let dispatchGroup = DispatchGroup()
         let listVC = self.parent?.children[1] as? ATMViewController
-
+        
         if Reachability.isConnectedToNetwork() {
             
             dispatchGroup.enter()
@@ -107,40 +115,40 @@ class MapViewController: UIViewController {
                 switch result {
                 case .success(let data):
                     atmData = data.data.atm
-
+                    
                 case .failure(_):
                     self.showAtmFetchFailureAlert()
                 }
-
+                
                 dispatchGroup.leave()
             }
-
+            
             dispatchGroup.enter()
             NetworkManager.shared.getBranchBankData { result in
                 switch result {
                 case .success(let data):
                     branchBankData = data.data.branch
-                        
+                    
                 case .failure(_):
                     self.showBranchBankFetchFailureAlert()
                 }
-
+                
                 dispatchGroup.leave()
             }
-
+            
             dispatchGroup.enter()
             NetworkManager.shared.getServiceTerminalData { result in
                 switch result {
                 case .success(let data):
                     serviceTerminalData = data
-
+                    
                 case .failure(_):
                     self.showServiceTerminalFetchFailureAlert()
                 }
-
+                
                 dispatchGroup.leave()
             }
-
+            
             dispatchGroup.notify(queue: .main) {
                 
                 for atmDataItem in atmData {
@@ -166,7 +174,7 @@ class MapViewController: UIViewController {
                 }
                 
                 self.annotatedServiceTerminalData = self.annotatedServiceTerminalData.sorted { $0.distance(to: self.currentLocation ?? self.defaultLocation) < $1.distance(to: self.currentLocation ?? self.defaultLocation) }
-                                
+                
                 self.mapView.addAnnotations(self.annotatedATMData)
                 self.mapView.addAnnotations(self.annotatedServiceTerminalData)
                 self.mapView.addAnnotations(self.annotatedBranchBankData)
@@ -181,7 +189,7 @@ class MapViewController: UIViewController {
                 self.activityIndicatorContainer.isHidden = true
                 self.makeUIActive()
             }
-
+            
         } else {
             showNoInternerConnectionAlert()
         }
@@ -281,11 +289,11 @@ extension MapViewController: MKMapViewDelegate {
         if (annotation.isKind(of: MKUserLocation.self)) {
             return nil
         }
-
+        
         let atmAnnotationIdentifier = "atmAnnotation"
         let branchBankIdentifier = "branchBankAnnotation"
         let serviceTerminalIdentifier = "serviceTerminalAnnotation"
-
+        
         var view: MKAnnotationView!
         
         if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: atmAnnotationIdentifier) {
@@ -293,7 +301,7 @@ extension MapViewController: MKMapViewDelegate {
             view.annotation = annotation as? MKAnnotatedATM
         } else {
             if let annotatedATM = annotation as? MKAnnotatedATM {
-            view = MKAnnotationView(annotation: annotatedATM, reuseIdentifier: atmAnnotationIdentifier)
+                view = MKAnnotationView(annotation: annotatedATM, reuseIdentifier: atmAnnotationIdentifier)
                 view.canShowCallout = true
                 view.detailCalloutAccessoryView = ATMCalloutView(mkAnnotatedATM: annotatedATM)
                 view.image = UIImage(named: "atm")
@@ -306,7 +314,7 @@ extension MapViewController: MKMapViewDelegate {
             view.annotation = annotation as? MKAnnotatedBranchBank
         } else {
             if let annotatedBranchBank = annotation as? MKAnnotatedBranchBank {
-            view = MKAnnotationView(annotation: annotatedBranchBank, reuseIdentifier: branchBankIdentifier)
+                view = MKAnnotationView(annotation: annotatedBranchBank, reuseIdentifier: branchBankIdentifier)
                 view.canShowCallout = true
                 view.detailCalloutAccessoryView = BranchBankCalloutView(mkAnnotatedBranchBank: annotatedBranchBank)
                 view.image = UIImage(named: "bank")
@@ -319,14 +327,13 @@ extension MapViewController: MKMapViewDelegate {
             view.annotation = annotation as? MKAnnotatedServiceTerminal
         } else {
             if let annotatedServiceTerminal = annotation as? MKAnnotatedServiceTerminal {
-            view = MKAnnotationView(annotation: annotatedServiceTerminal, reuseIdentifier: serviceTerminalIdentifier)
+                view = MKAnnotationView(annotation: annotatedServiceTerminal, reuseIdentifier: serviceTerminalIdentifier)
                 view.canShowCallout = true
                 view.detailCalloutAccessoryView = ServiceTerminalCalloutView(mkAnnotatedServiceTerminal: annotatedServiceTerminal)
                 view.image = UIImage(named: "terminal")
                 view.frame.size = CGSize(width: 50, height: 50)
             }
         }
-        
         return view
     }
 }

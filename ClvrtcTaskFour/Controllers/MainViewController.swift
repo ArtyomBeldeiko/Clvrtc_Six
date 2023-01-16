@@ -165,7 +165,7 @@ class MainViewController: UIViewController {
                         self.ATMListVC.showServiceTerminalFetchFailureAlert()
                         
                         DispatchQueue.main.async {
-                            self.mapVC.mapView.addAnnotations(annotattedServiceTerminal)
+                            self.mapVC.mapView.addAnnotations(self.mapVC.annotatedServiceTerminalData)
                         }
                     }
                     
