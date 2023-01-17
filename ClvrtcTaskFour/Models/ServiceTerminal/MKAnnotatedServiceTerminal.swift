@@ -10,30 +10,30 @@ import MapKit
 
 final class MKAnnotatedServiceTerminal: NSObject, MKAnnotation {
     let infoID: Int
-    let area: Area
-    let cityType: CityType
     let city: String
-    let addressType: AddressType
-    let address, house, installPlace, locationNameDesc: String
-    let workTime, timeLong, gpsX, gpsY: String
-    let serviceTerminalCurrency: ServiceTerminalCurrency
-    let infType: InfType
-    let cashInExist, cashIn, typeCashIn, infPrinter: CashIn
-    let regionPlatej, popolneniePlatej, infStatus: CashIn
-    let coordinate: CLLocationCoordinate2D
+    let addressType: String
+    let address: String
+    let house: String
+    let installPlace: String
+    let locationNameDesc: String
+    let workTime: String
+    let timeLong: String
+    let gpsX: String
+    let gpsY: String
+    let currency: String
+    let cashInExist: String
+    
+    var coordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: Double(gpsX)!, longitude: Double(gpsY)!)
+    }
     
     var location: CLLocation {
-        return CLLocation(latitude: Double(gpsX)!, longitude: Double(gpsY)!)
-    }
-    var townName: String {
-        return city
+        return CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
     }
     
     init(infoID: Int,
-         area: Area,
-         cityType: CityType,
          city: String,
-         addressType: AddressType,
+         addressType: String,
          address: String,
          house: String,
          installPlace: String,
@@ -42,20 +42,10 @@ final class MKAnnotatedServiceTerminal: NSObject, MKAnnotation {
          timeLong: String,
          gpsX: String,
          gpsY: String,
-         serviceTerminalCurrency: ServiceTerminalCurrency,
-         infType: InfType,
-         cashInExist: CashIn,
-         cashIn: CashIn,
-         typeCashIn: CashIn,
-         infPrinter: CashIn,
-         regionPlatej: CashIn,
-         popolneniePlatej: CashIn,
-         infStatus: CashIn,
-         coordinate: CLLocationCoordinate2D) {
+         currency: String,
+         cashInExist: String) {
         
         self.infoID = infoID
-        self.area = area
-        self.cityType = cityType
         self.city = city
         self.addressType = addressType
         self.address = address
@@ -66,16 +56,8 @@ final class MKAnnotatedServiceTerminal: NSObject, MKAnnotation {
         self.timeLong = timeLong
         self.gpsX = gpsX
         self.gpsY = gpsY
-        self.serviceTerminalCurrency = serviceTerminalCurrency
-        self.infType = infType
+        self.currency = currency
         self.cashInExist = cashInExist
-        self.cashIn = cashIn
-        self.typeCashIn = typeCashIn
-        self.infPrinter = infPrinter
-        self.regionPlatej = regionPlatej
-        self.popolneniePlatej = popolneniePlatej
-        self.infStatus = infStatus
-        self.coordinate = coordinate
     }
     
     func distance(to location: CLLocation) -> CLLocationDistance {
