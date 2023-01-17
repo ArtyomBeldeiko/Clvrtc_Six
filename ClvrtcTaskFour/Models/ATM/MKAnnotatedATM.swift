@@ -10,18 +10,27 @@ import MapKit
 
 final class MKAnnotatedATM: NSObject, MKAnnotation {
     let atmID: String
-    let type: TypeEnum
-    let baseCurrency: BaseCurrency
-    let currency: Currency
-    let cards: [Card]
-    let currentStatus: CurrentStatus
-    let address: Address
-    let services: [Service]
-    let availability: Availability
-    let contactDetails: ContactDetails
+    let type: String
+    let baseCurrency: String
+    let currency: String
+    let cards: String
+    let currentStatus: String
+    let streetName: String
+    let townName: String
+    let buildingNumber: String
+    let addressLine: String
+    let addressDiscription: String
+    let latitude: String
+    let longitude: String
+    let serviceType: String
+    let access24Hours: Bool
+    let isRescticted: Bool
+    let sameAsOrganization: Bool
+    let standardAvailability: String
+    let contactDetails: String
     
     var coordinate : CLLocationCoordinate2D {
-        CLLocationCoordinate2D(latitude: Double(address.geolocation.geographicCoordinates.latitude)!, longitude: Double(address.geolocation.geographicCoordinates.longitude)!)
+        CLLocationCoordinate2D(latitude: Double(latitude)!, longitude: Double(longitude)!)
     }
     
     var location: CLLocation {
@@ -29,16 +38,24 @@ final class MKAnnotatedATM: NSObject, MKAnnotation {
     }
     
     init(atmID: String,
-         type: TypeEnum,
-         baseCurrency: BaseCurrency,
-         currency: Currency,
-         cards: [Card],
-         currentStatus: CurrentStatus,
-         address: Address,
-         services: [Service],
-         availability: Availability,
-         contactDetails: ContactDetails,
-         coordinate: CLLocationCoordinate2D) {
+         type: String,
+         baseCurrency: String,
+         currency: String,
+         cards: String,
+         currentStatus: String,
+         streetName: String,
+         townName: String,
+         buildingNumber: String,
+         addressLine: String,
+         addressDiscription: String,
+         latitude: String,
+         longitude: String,
+         serviceType: String,
+         access24Hours: Bool,
+         isRescticted: Bool,
+         sameAsOrganization: Bool,
+         standardAvailability: String,
+         contactDetails: String) {
         
         self.atmID = atmID
         self.type = type
@@ -46,9 +63,18 @@ final class MKAnnotatedATM: NSObject, MKAnnotation {
         self.currency = currency
         self.cards = cards
         self.currentStatus = currentStatus
-        self.address = address
-        self.services = services
-        self.availability = availability
+        self.streetName = streetName
+        self.townName = townName
+        self.buildingNumber = buildingNumber
+        self.addressLine = addressLine
+        self.addressDiscription = addressDiscription
+        self.latitude = latitude
+        self.longitude = longitude
+        self.serviceType = serviceType
+        self.access24Hours = access24Hours
+        self.isRescticted = isRescticted
+        self.sameAsOrganization = sameAsOrganization
+        self.standardAvailability = standardAvailability
         self.contactDetails = contactDetails
     }
     
