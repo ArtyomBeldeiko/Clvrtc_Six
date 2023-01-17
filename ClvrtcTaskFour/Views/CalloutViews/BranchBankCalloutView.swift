@@ -63,7 +63,7 @@ class BranchBankCalloutView: UIView {
     
     private func setupAddressLabel() {
         addressLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        addressLabel.text = "Адрес: \(mkAnnotatedBranchBank.branchBankAddress.townName), \(mkAnnotatedBranchBank.branchBankAddress.streetName), \(mkAnnotatedBranchBank.branchBankAddress.buildingNumber)"
+        addressLabel.text = "Адрес: \(mkAnnotatedBranchBank.townName), \(mkAnnotatedBranchBank.streetName), \(mkAnnotatedBranchBank.buildingNumber)"
         addressLabel.numberOfLines = 0
         addSubview(addressLabel)
         addressLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -76,10 +76,10 @@ class BranchBankCalloutView: UIView {
     
     private func setupOperatingHoursLabel() {
     
-        let formattedDate = branchBankDatesFormatter(mkAnnotatedBranchBank.information.availability.standardAvailability.day)
+//        let formattedDate = branchBankDatesFormatter(mkAnnotatedBranchBank.information.availability.standardAvailability.day)
         
         operatingHoursLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        operatingHoursLabel.text = "Режим работы: \(formattedDate)"
+        operatingHoursLabel.text = "Режим работы: \(mkAnnotatedBranchBank.standardAvailability)"
         operatingHoursLabel.numberOfLines = 0
         addSubview(operatingHoursLabel)
         operatingHoursLabel.translatesAutoresizingMaskIntoConstraints = false
