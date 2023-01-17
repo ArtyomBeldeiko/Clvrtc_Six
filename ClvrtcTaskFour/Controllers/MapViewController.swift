@@ -152,7 +152,12 @@ class MapViewController: UIViewController {
             dispatchGroup.notify(queue: .main) {
                 
                 for atmDataItem in atmData {
-                    self.annotatedATMData.append(MKAnnotatedATM(atmID: atmDataItem.atmID, type: atmDataItem.type, baseCurrency: atmDataItem.baseCurrency, currency: atmDataItem.currency, cards: atmDataItem.cards, currentStatus: atmDataItem.currentStatus, address: atmDataItem.address, services: atmDataItem.services, availability: atmDataItem.availability, contactDetails: atmDataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(atmDataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(atmDataItem.address.geolocation.geographicCoordinates.longitude)!)))
+                    self.annotatedATMData.append(MKAnnotatedATM(atmID: atmDataItem.atmID, type: atmDataItem.type.rawValue, baseCurrency: atmDataItem.baseCurrency.rawValue, currency: atmDataItem.currency.rawValue, cards: cardsFormatter(atmDataItem.cards), currentStatus: atmDataItem.currentStatus.rawValue, streetName: atmDataItem.address.streetName, townName: atmDataItem.address.townName, buildingNumber: atmDataItem.address.buildingNumber, addressLine: atmDataItem.address.addressLine, addressDiscription: atmDataItem.address.addressDescription.rawValue, latitude: atmDataItem.address.geolocation.geographicCoordinates.latitude, longitude: atmDataItem.address.geolocation.geographicCoordinates.longitude, serviceType: servicesFormatter(atmDataItem.services), access24Hours: atmDataItem.availability.access24Hours, isRescticted: atmDataItem.availability.isRestricted, sameAsOrganization: atmDataItem.availability.sameAsOrganization, standardAvailability: atmDatesFormatter(atmDataItem.availability.standardAvailability.day), contactDetails: atmDataItem.contactDetails.phoneNumber))
+                    
+//
+//
+//
+//                    self.annotatedATMData.append(MKAnnotatedATM(atmID: atmDataItem.atmID, type: atmDataItem.type, baseCurrency: atmDataItem.baseCurrency, currency: atmDataItem.currency, cards: atmDataItem.cards, currentStatus: atmDataItem.currentStatus, address: atmDataItem.address, services: atmDataItem.services, availability: atmDataItem.availability, contactDetails: atmDataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(atmDataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(atmDataItem.address.geolocation.geographicCoordinates.longitude)!)))
                     
                     facilityData.append(MKAnnotatedFacility(id: atmDataItem.atmID, currency: atmDataItem.currency.rawValue, townName: atmDataItem.address.townName, streetName: atmDataItem.address.streetName, buildingNumber: atmDataItem.address.buildingNumber, addressLine: atmDataItem.address.buildingNumber, availability: atmDatesFormatter(atmDataItem.availability.standardAvailability.day), latitude: Double(atmDataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(atmDataItem.address.geolocation.geographicCoordinates.longitude)!))
                 }
@@ -402,55 +407,55 @@ extension MapViewController: ATMCalloutViewDelegate, BranchBankCalloutViewDelega
         guard let annotatedATMData = annotation as? MKAnnotatedATM else { return }
         
         let atmDetailedVC = ATMDetailedInfoViewController()
-        let operatingHours = atmDatesFormatter(annotatedATMData.availability.standardAvailability.day)
-        let cards = cardsFormatter(annotatedATMData.cards)
-        let services = servicesFormatter(annotatedATMData.services)
+//        let operatingHours = atmDatesFormatter(annotatedATMData.availability.standardAvailability.day)
+//        let cards = cardsFormatter(annotatedATMData.cards)
+//        let services = servicesFormatter(annotatedATMData.services)
         
         atmDetailedVC.idLabel.text = "Идентификатор банкомата: \(annotatedATMData.atmID)"
         
-        if annotatedATMData.type.rawValue.hasPrefix("ATM") {
+        if annotatedATMData.type == "ATM" {
             atmDetailedVC.typeLabel.text = "Тип: банкомат"
         } else {
             atmDetailedVC.typeLabel.text = "Тип: не установлено"
         }
         
-        atmDetailedVC.baseCurrencyLabel.text = "Cтандартная валюта: \(annotatedATMData.baseCurrency.rawValue)"
-        atmDetailedVC.currencyLabel.text = "Выдаваемая валюта: \(annotatedATMData.currency.rawValue)"
-        atmDetailedVC.cardsLabel.text = "Платежные системы: \(cards)"
+        atmDetailedVC.baseCurrencyLabel.text = "Cтандартная валюта: \(annotatedATMData.baseCurrency)"
+        atmDetailedVC.currencyLabel.text = "Выдаваемая валюта: \(annotatedATMData.currency)"
+        atmDetailedVC.cardsLabel.text = "Платежные системы: \(annotatedATMData.cards)"
         
-        if annotatedATMData.currentStatus.rawValue.hasPrefix("On") {
+        if annotatedATMData.currentStatus == "On" {
             atmDetailedVC.currentStatusLabel.text = "Текущее состояние: работает"
         } else {
             atmDetailedVC.currentStatusLabel.text = "Текущее состояние: не работает"
         }
         
-        atmDetailedVC.addressLabel.text = "Адрес: \(annotatedATMData.address.townName), \(annotatedATMData.address.streetName) \(annotatedATMData.address.buildingNumber) (\(annotatedATMData.address.addressLine))"
-        atmDetailedVC.geolocationLabel.text = "Географические координаты: долгота - \(annotatedATMData.coordinate.longitude), широта - \(annotatedATMData.coordinate.latitude)"
-        atmDetailedVC.servicesLabel.text = "Услуги: \(services)"
+        atmDetailedVC.addressLabel.text = "Адрес: \(annotatedATMData.townName), \(annotatedATMData.streetName) \(annotatedATMData.buildingNumber) (\(annotatedATMData.addressLine))"
+        atmDetailedVC.geolocationLabel.text = "Географические координаты: долгота - \(annotatedATMData.longitude), широта - \(annotatedATMData.latitude)"
+        atmDetailedVC.servicesLabel.text = "Услуги: \(annotatedATMData.serviceType)"
         
-        if annotatedATMData.availability.access24Hours == true {
+        if annotatedATMData.access24Hours == true {
             atmDetailedVC.access24hoursLabel.text = "Работает круглосуточно: да"
         } else {
             atmDetailedVC.access24hoursLabel.text = "Работает круглосуточно: нет"
         }
         
-        if annotatedATMData.availability.isRestricted == true {
+        if annotatedATMData.isRescticted == true {
             atmDetailedVC.restrictedAccessLabel.text = "Доступ ограничен: да"
         } else {
             atmDetailedVC.restrictedAccessLabel.text = "Доступ ограничен: нет"
         }
         
-        if annotatedATMData.availability.sameAsOrganization == true {
+        if annotatedATMData.sameAsOrganization == true {
             atmDetailedVC.organizationOperatingHoursLabel.text = "Работа по графику организации-местонахождения банкомата: да"
         } else {
             atmDetailedVC.organizationOperatingHoursLabel.text = "Работа по графику организации-местонахождения банкомата: да"
         }
         
-        atmDetailedVC.standardAvailabilityLabel.text = "Режим работы: \(operatingHours)"
-        atmDetailedVC.contactDetailsLabel.text = "Контактный номер телефона: \(annotatedATMData.contactDetails.phoneNumber)"
+        atmDetailedVC.standardAvailabilityLabel.text = "Режим работы: \(annotatedATMData.standardAvailability)"
+        atmDetailedVC.contactDetailsLabel.text = "Контактный номер телефона: \(annotatedATMData.contactDetails)"
         atmDetailedVC.atmItemLatitude = annotatedATMData.coordinate.latitude
         atmDetailedVC.atmItemLongitude = annotatedATMData.coordinate.longitude
-        atmDetailedVC.atmItemTitle = "Belarusbank ATM \(annotatedATMData.address.streetName),  \(annotatedATMData.address.buildingNumber)"
+        atmDetailedVC.atmItemTitle = "Belarusbank ATM \(annotatedATMData.streetName),  \(annotatedATMData.buildingNumber)"
         
         self.present(atmDetailedVC, animated: true)
     }

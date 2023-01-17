@@ -70,7 +70,7 @@ class ATMCalloutView: UIView {
     
     private func setupInstallationPlaceLabel() {
         installationPlaceLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        installationPlaceLabel.text = "Mecто установки: \(mkAnnotatedATM.address.addressLine)"
+        installationPlaceLabel.text = "Mecто установки: \(mkAnnotatedATM.addressLine)"
         installationPlaceLabel.numberOfLines = 0
         addSubview(installationPlaceLabel)
         installationPlaceLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -83,10 +83,10 @@ class ATMCalloutView: UIView {
     
     private func setupOperatingHoursLabel() {
         
-        let formattedDate = atmDatesFormatter(mkAnnotatedATM.availability.standardAvailability.day)
+//        let formattedDate = atmDatesFormatter(mkAnnotatedATM.availability.standardAvailability.day)
         
         operatingHoursLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        operatingHoursLabel.text = "Режим работы: \(formattedDate)"
+        operatingHoursLabel.text = "Режим работы: \(mkAnnotatedATM.standardAvailability)"
         operatingHoursLabel.numberOfLines = 0
         addSubview(operatingHoursLabel)
         operatingHoursLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +99,7 @@ class ATMCalloutView: UIView {
     
     private func setupCurrencyLabel() {
         currencyLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        currencyLabel.text = "Выдаваемая валюта: \(mkAnnotatedATM.baseCurrency.rawValue)"
+        currencyLabel.text = "Выдаваемая валюта: \(mkAnnotatedATM.baseCurrency)"
         currencyLabel.numberOfLines = 0
         addSubview(currencyLabel)
         currencyLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -112,7 +112,9 @@ class ATMCalloutView: UIView {
     
     private func setupCashInAvailabilityLabel() {
         
-        if mkAnnotatedATM.services.contains(where: { $0.serviceType.rawValue.hasPrefix("Прием наличных")}) {
+        if mkAnnotatedATM.serviceType.hasPrefix("Прием наличных") {
+        
+//        if mkAnnotatedATM.serviceType.contains(where: { $0.serviceType.rawValue.hasPrefix("Прием наличных")}) {
             cashInAvailabilityLabel.text = "Прием наличных: доступно"
         } else {
             cashInAvailabilityLabel.text = "Прием наличных: недоступно"
