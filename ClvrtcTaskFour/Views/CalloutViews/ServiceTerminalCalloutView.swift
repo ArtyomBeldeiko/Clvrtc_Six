@@ -94,7 +94,7 @@ class ServiceTerminalCalloutView: UIView {
     
     private func setupCurrencyLabel() {
         currencyLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        currencyLabel.text = "Валюта: \(mkAnnotatedServiceTerminal.serviceTerminalCurrency.rawValue.dropLast(1))"
+        currencyLabel.text = "Валюта: \(mkAnnotatedServiceTerminal.currency.dropLast(1))"
         currencyLabel.numberOfLines = 0
         addSubview(currencyLabel)
         currencyLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -107,7 +107,7 @@ class ServiceTerminalCalloutView: UIView {
     
     private func setupCashInAvailabilityLabel() {
         
-        if mkAnnotatedServiceTerminal.cashIn.rawValue == "да" {
+        if mkAnnotatedServiceTerminal.cashInExist == "да" {
             cashInAvailabilityLabel.text = "Прием наличных: доступно"
         } else {
             cashInAvailabilityLabel.text = "Прием наличных: недоступно"
