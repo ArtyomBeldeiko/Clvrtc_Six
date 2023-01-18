@@ -1,2 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier=""/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="MKAnnotatedATM" representedClassName="MKAnnotatedATM" syncable="YES" codeGenerationType="class">
+        <attribute name="access24Hours" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="addressDiscription" optional="YES" attributeType="String"/>
+        <attribute name="addressLine" optional="YES" attributeType="String"/>
+        <attribute name="atmID" optional="YES" attributeType="String"/>
+        <attribute name="baseCurrency" optional="YES" attributeType="String"/>
+        <attribute name="buildingNumber" optional="YES" attributeType="String"/>
+        <attribute name="cards" optional="YES" attributeType="String"/>
+        <attribute name="contactDetails" optional="YES" attributeType="String"/>
+        <attribute name="currency" optional="YES" attributeType="String"/>
+        <attribute name="currentStatus" optional="YES" attributeType="String"/>
+        <attribute name="isRescticted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String"/>
+        <attribute name="longitude" optional="YES" attributeType="String"/>
+        <attribute name="sameAsOrganization" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="serviceType" optional="YES" attributeType="String"/>
+        <attribute name="standardAvailability" optional="YES" attributeType="String"/>
+        <attribute name="streetName" optional="YES" attributeType="String"/>
+        <attribute name="townName" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="MKAnnotatedBranchBank" representedClassName="MKAnnotatedBranchBank" syncable="YES" codeGenerationType="class">
+        <attribute name="addressDescription" optional="YES" attributeType="String"/>
+        <attribute name="addressLine" optional="YES" attributeType="String"/>
+        <attribute name="branchID" optional="YES" attributeType="String"/>
+        <attribute name="buildingNumber" optional="YES" attributeType="String"/>
+        <attribute name="cbu" optional="YES" attributeType="String"/>
+        <attribute name="currency" optional="YES" attributeType="String"/>
+        <attribute name="department" optional="YES" attributeType="String"/>
+        <attribute name="equeue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String"/>
+        <attribute name="longitude" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="standardAvailability" optional="YES" attributeType="String"/>
+        <attribute name="streetName" optional="YES" attributeType="String"/>
+        <attribute name="townName" optional="YES" attributeType="String"/>
+        <attribute name="wifi" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="MKAnnotatedServiceTerminal" representedClassName="MKAnnotatedServiceTerminal" syncable="YES" codeGenerationType="class">
+        <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="addressType" optional="YES" attributeType="String"/>
+        <attribute name="cashInExist" optional="YES" attributeType="String"/>
+        <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="currency" optional="YES" attributeType="String"/>
+        <attribute name="gpsX" optional="YES" attributeType="String"/>
+        <attribute name="gpsY" optional="YES" attributeType="String"/>
+        <attribute name="house" optional="YES" attributeType="String"/>
+        <attribute name="infoID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="installPlace" optional="YES" attributeType="String"/>
+        <attribute name="locationNameDesc" optional="YES" attributeType="String"/>
+        <attribute name="timeLong" optional="YES" attributeType="String"/>
+        <attribute name="workTime" optional="YES" attributeType="String"/>
+    </entity>
+</model>
