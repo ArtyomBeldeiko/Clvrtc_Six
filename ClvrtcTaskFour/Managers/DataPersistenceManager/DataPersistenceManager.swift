@@ -21,7 +21,9 @@ class DataPersistenceManager {
     func storeMKAnnotatedATM(model: MKAnnotatedATM, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
-        let context = appDelegate.persistentContainer.viewContext
+        let context = appDelegate.persistentContainer.newBackgroundContext()
+        context.automaticallyMergesChangesFromParent = true
+        
         let item = MKAnnotatedATMPersistenceModel(context: context)
         
         item.access24Hours = model.access24Hours
@@ -55,7 +57,9 @@ class DataPersistenceManager {
     func storeMKAnnotatedServiceTerminal(model: MKAnnotatedServiceTerminal, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
-        let context = appDelegate.persistentContainer.viewContext
+        let context = appDelegate.persistentContainer.newBackgroundContext()
+        context.automaticallyMergesChangesFromParent = true
+        
         let item = MKAnnotatedServiceTerminalPersistenceModel(context: context)
         
         item.address = model.address
@@ -83,7 +87,9 @@ class DataPersistenceManager {
     func storeMKAnnotatedBranchBank(model: MKAnnotatedBranchBank, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
-        let context = appDelegate.persistentContainer.viewContext
+        let context = appDelegate.persistentContainer.newBackgroundContext()
+        context.automaticallyMergesChangesFromParent = true
+        
         let item = MKAnnotatedBranchBankPersistenceModel(context: context)
         
         item.addressDescription = model.addressDescription
@@ -113,7 +119,9 @@ class DataPersistenceManager {
     func storeMKAnnotatedFacility(model: MKAnnotatedFacility, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
-        let context = appDelegate.persistentContainer.viewContext
+        let context = appDelegate.persistentContainer.newBackgroundContext()
+        context.automaticallyMergesChangesFromParent = true
+        
         let item = MKAnnotatedFacilityPersistenceModel(context: context)
         
         item.addressLine = model.addressLine

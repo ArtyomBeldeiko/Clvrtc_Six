@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="MKAnnotatedATM" representedClassName="MKAnnotatedATM" syncable="YES" codeGenerationType="class">
+    <entity name="MKAnnotatedATMPersistenceModel" representedClassName="MKAnnotatedATMPersistenceModel" syncable="YES" codeGenerationType="class">
         <attribute name="access24Hours" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="addressDiscription" optional="YES" attributeType="String"/>
         <attribute name="addressLine" optional="YES" attributeType="String"/>
@@ -21,7 +21,7 @@
         <attribute name="townName" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="MKAnnotatedBranchBank" representedClassName="MKAnnotatedBranchBank" syncable="YES" codeGenerationType="class">
+    <entity name="MKAnnotatedBranchBankPersistenceModel" representedClassName="MKAnnotatedBranchBankPersistenceModel" syncable="YES" codeGenerationType="class">
         <attribute name="addressDescription" optional="YES" attributeType="String"/>
         <attribute name="addressLine" optional="YES" attributeType="String"/>
         <attribute name="branchID" optional="YES" attributeType="String"/>
@@ -38,7 +38,18 @@
         <attribute name="townName" optional="YES" attributeType="String"/>
         <attribute name="wifi" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
-    <entity name="MKAnnotatedServiceTerminal" representedClassName="MKAnnotatedServiceTerminal" syncable="YES" codeGenerationType="class">
+    <entity name="MKAnnotatedFacilityPersistenceModel" representedClassName="MKAnnotatedFacilityPersistenceModel" syncable="YES" codeGenerationType="class">
+        <attribute name="addressLine" optional="YES" attributeType="String"/>
+        <attribute name="availability" optional="YES" attributeType="String"/>
+        <attribute name="buildingNumber" optional="YES" attributeType="String"/>
+        <attribute name="currency" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="streetName" optional="YES" attributeType="String"/>
+        <attribute name="townName" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="MKAnnotatedServiceTerminalPersistenceModel" representedClassName="MKAnnotatedServiceTerminalPersistenceModel" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="addressType" optional="YES" attributeType="String"/>
         <attribute name="cashInExist" optional="YES" attributeType="String"/>
