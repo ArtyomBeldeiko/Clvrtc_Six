@@ -198,11 +198,100 @@ class MapViewController: UIViewController {
                 
                 self.activityIndicatorContainer.isHidden = true
                 self.makeUIActive()
+                self.saveDataToDB()
+                
+                facilityData.forEach { DataPersistenceManager.shared.storeMKAnnotatedFacility(model: $0) { result in
+                    switch result {
+                    case .success(): break
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                }}
             }
             
         } else {
             showNoInternerConnectionAlert()
+            
+            DataPersistenceManager.shared.fetchingMKAnnotatedATMData { result in
+                switch result {
+                case .success(let atmData):
+                    for item in atmData {
+                        self.annotatedATMData.append(MKAnnotatedATM(atmID: item.atmID!, type: item.type!, baseCurrency: item.baseCurrency!, currency: item.currency!, cards: item.cards!, currentStatus: item.currentStatus!, streetName: item.streetName!, townName: item.townName!, buildingNumber: item.buildingNumber!, addressLine: item.addressLine!, addressDiscription: item.addressDiscription!, latitude: item.latitude!, longitude: item.longitude!, serviceType: item.serviceType!, access24Hours: item.access24Hours, isRescticted: item.isRescticted, sameAsOrganization: item.sameAsOrganization, standardAvailability: item.standardAvailability!, contactDetails: item.contactDetails!))
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.mapView.addAnnotations(self.annotatedATMData)
+                        self.activityIndicatorContainer.isHidden = true
+                        self.makeUIActive()
+                    }
+                case .failure(_): break
+                }
+            }
+            
+//            DataPersistenceManager.shared.fetchingMKAnnotatedBranchBankData { result in
+//                switch result {
+//                case .success(let branchBankData):
+//                    self.annotatedBranchBankData = branchBankData as! [MKAnnotatedBranchBank]
+//
+//                    DispatchQueue.main.async {
+//                        self.mapView.addAnnotations(self.annotatedBranchBankData)
+//                    }
+//                case .failure(_): break
+//                }
+//            }
+//
+//            DataPersistenceManager.shared.fetchingMKAnnotatedServiceTerminalData { result in
+//                switch result {
+//                case .success(let serviceTerminalData):
+//                    self.annotatedServiceTerminalData = serviceTerminalData as! [MKAnnotatedServiceTerminal]
+//
+//                    DispatchQueue.main.async {
+//                        self.mapView.addAnnotations(self.annotatedServiceTerminalData)
+//                    }
+//                case .failure(_): break
+//                }
+//            }
+//
+//            DataPersistenceManager.shared.fetchingMKAnnotatedFacilityData { result in
+//                switch result {
+//                case .success(let fetchedFacilityData):
+//                    facilityData = fetchedFacilityData as! [MKAnnotatedFacility]
+//
+//                    DispatchQueue.main.async {
+//                        listVC?.groupedData = Dictionary(grouping: facilityData, by: { $0.townName })
+//                        listVC?.collectionView.reloadData()
+//                    }
+//                case .failure(_): break
+//                }
+//            }
         }
+    }
+    
+    private func saveDataToDB() {
+        
+        annotatedATMData.forEach { DataPersistenceManager.shared.storeMKAnnotatedATM(model: $0) { result in
+            switch result {
+            case .success(): break
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }}
+        
+        annotatedBranchBankData.forEach { DataPersistenceManager.shared.storeMKAnnotatedBranchBank(model: $0) { result in
+            switch result {
+            case .success(): break
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }}
+
+        annotatedServiceTerminalData.forEach { DataPersistenceManager.shared.storeMKAnnotatedServiceTerminal(model: $0) { result in
+            switch result {
+            case .success(): break
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }}
     }
     
     func showAtmFetchFailureAlert() {

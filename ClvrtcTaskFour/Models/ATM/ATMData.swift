@@ -147,6 +147,7 @@ struct Break: Codable {
 
 enum BreakFromTime: String, Codable {
     case the0000 = "00:00"
+    case the0040 = "00:40"
     case the0100 = "01:00"
     case the0200 = "02:00"
     case the0400 = "04:00"
@@ -159,6 +160,7 @@ enum BreakFromTime: String, Codable {
 
 enum BreakToTime: String, Codable {
     case the0000 = "00:00"
+    case the0530 = "05:30"
     case the0700 = "07:00"
     case the0830 = "08:30"
     case the0900 = "09:00"
