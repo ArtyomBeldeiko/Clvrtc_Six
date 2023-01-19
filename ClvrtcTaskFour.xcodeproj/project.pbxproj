@@ -21,6 +21,7 @@
 		39B7455B295B7FEE000AACE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39B7455A295B7FEE000AACE1 /* Assets.xcassets */; };
 		39B7455E295B7FEE000AACE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39B7455C295B7FEE000AACE1 /* LaunchScreen.storyboard */; };
 		39C94BCF2978A3C6006AA200 /* ClvrtcTaskFourDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 39C94BCD2978A3C6006AA200 /* ClvrtcTaskFourDataModel.xcdatamodeld */; };
+		39C94BD32978A8B2006AA200 /* DataPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C94BD22978A8B2006AA200 /* DataPersistenceManager.swift */; };
 		39D3A8B02972D47200B9C797 /* BranchBankCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D3A8AF2972D47200B9C797 /* BranchBankCalloutView.swift */; };
 		39D3A8B22972DB8100B9C797 /* ServiceTerminalCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D3A8B12972DB8100B9C797 /* ServiceTerminalCalloutView.swift */; };
 		39D3A8BE2974951900B9C797 /* MKAnnotatedFacility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D3A8BD2974951900B9C797 /* MKAnnotatedFacility.swift */; };
@@ -55,6 +56,7 @@
 		39B7455D295B7FEE000AACE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		39B7455F295B7FEE000AACE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39C94BCE2978A3C6006AA200 /* ClvrtcTaskFourDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ClvrtcTaskFourDataModel.xcdatamodel; sourceTree = "<group>"; };
+		39C94BD22978A8B2006AA200 /* DataPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistenceManager.swift; sourceTree = "<group>"; };
 		39D3A8AF2972D47200B9C797 /* BranchBankCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchBankCalloutView.swift; sourceTree = "<group>"; };
 		39D3A8B12972DB8100B9C797 /* ServiceTerminalCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTerminalCalloutView.swift; sourceTree = "<group>"; };
 		39D3A8BD2974951900B9C797 /* MKAnnotatedFacility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKAnnotatedFacility.swift; sourceTree = "<group>"; };
@@ -161,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				39B74566295B80DA000AACE1 /* Application */,
-				39F8E352295F336500C841F7 /* NetworkManager */,
+				39C94BD02978A767006AA200 /* Managers */,
 				3935E4C2295B816A00530BD5 /* Controllers */,
 				39F8E355295F339600C841F7 /* Models */,
 				39F8E35E29639DC600C841F7 /* Views */,
@@ -189,6 +191,23 @@
 				39B7455F295B7FEE000AACE1 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		39C94BD02978A767006AA200 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				39C94BD12978A788006AA200 /* DataPersistenceManager */,
+				39F8E352295F336500C841F7 /* NetworkManager */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		39C94BD12978A788006AA200 /* DataPersistenceManager */ = {
+			isa = PBXGroup;
+			children = (
+				39C94BD22978A8B2006AA200 /* DataPersistenceManager.swift */,
+			);
+			path = DataPersistenceManager;
 			sourceTree = "<group>";
 		};
 		39D3A8B629737A2000B9C797 /* CalloutViews */ = {
@@ -422,6 +441,7 @@
 				39F8E357295F33B700C841F7 /* ATMData.swift in Sources */,
 				39F8E34F295CC37B00C841F7 /* MapViewController.swift in Sources */,
 				399FCA742968CDA80050C814 /* CardsFormatter.swift in Sources */,
+				39C94BD32978A8B2006AA200 /* DataPersistenceManager.swift in Sources */,
 				399FCA7029662C840050C814 /* ATMDetailedInfoViewController.swift in Sources */,
 				39C94BCF2978A3C6006AA200 /* ClvrtcTaskFourDataModel.xcdatamodeld in Sources */,
 				399FCA722968C18D0050C814 /* ServicesFormatter.swift in Sources */,
