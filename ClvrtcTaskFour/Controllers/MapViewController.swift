@@ -20,6 +20,7 @@ class MapViewController: UIViewController {
     var annotatedATMData = [MKAnnotatedATM]()
     var annotatedBranchBankData = [MKAnnotatedBranchBank]()
     var annotatedServiceTerminalData = [MKAnnotatedServiceTerminal]()
+    var annotatedFacilityData = [MKAnnotatedFacility]()
     var currentLocation: CLLocation?
     
     //    MARK: - UI Elements
@@ -154,11 +155,6 @@ class MapViewController: UIViewController {
                 for atmDataItem in atmData {
                     self.annotatedATMData.append(MKAnnotatedATM(atmID: atmDataItem.atmID, type: atmDataItem.type.rawValue, baseCurrency: atmDataItem.baseCurrency.rawValue, currency: atmDataItem.currency.rawValue, cards: cardsFormatter(atmDataItem.cards), currentStatus: atmDataItem.currentStatus.rawValue, streetName: atmDataItem.address.streetName, townName: atmDataItem.address.townName, buildingNumber: atmDataItem.address.buildingNumber, addressLine: atmDataItem.address.addressLine, addressDiscription: atmDataItem.address.addressDescription.rawValue, latitude: atmDataItem.address.geolocation.geographicCoordinates.latitude, longitude: atmDataItem.address.geolocation.geographicCoordinates.longitude, serviceType: servicesFormatter(atmDataItem.services), access24Hours: atmDataItem.availability.access24Hours, isRescticted: atmDataItem.availability.isRestricted, sameAsOrganization: atmDataItem.availability.sameAsOrganization, standardAvailability: atmDatesFormatter(atmDataItem.availability.standardAvailability.day), contactDetails: atmDataItem.contactDetails.phoneNumber))
                     
-//
-//
-//
-//                    self.annotatedATMData.append(MKAnnotatedATM(atmID: atmDataItem.atmID, type: atmDataItem.type, baseCurrency: atmDataItem.baseCurrency, currency: atmDataItem.currency, cards: atmDataItem.cards, currentStatus: atmDataItem.currentStatus, address: atmDataItem.address, services: atmDataItem.services, availability: atmDataItem.availability, contactDetails: atmDataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(atmDataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(atmDataItem.address.geolocation.geographicCoordinates.longitude)!)))
-                    
                     facilityData.append(MKAnnotatedFacility(id: atmDataItem.atmID, currency: atmDataItem.currency.rawValue, townName: atmDataItem.address.townName, streetName: atmDataItem.address.streetName, buildingNumber: atmDataItem.address.buildingNumber, addressLine: atmDataItem.address.buildingNumber, availability: atmDatesFormatter(atmDataItem.availability.standardAvailability.day), latitude: Double(atmDataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(atmDataItem.address.geolocation.geographicCoordinates.longitude)!))
                 }
                 
@@ -167,9 +163,6 @@ class MapViewController: UIViewController {
                 for branchBankDataItem in branchBankData {
                     self.annotatedBranchBankData.append(MKAnnotatedBranchBank(branchID: branchBankDataItem.branchId, name: branchBankDataItem.name, cbu: branchBankDataItem.cbu, equeue: branchBankDataItem.equeue, wifi: branchBankDataItem.wifi, streetName: branchBankDataItem.address.streetName, buildingNumber: branchBankDataItem.address.buildingNumber, department: branchBankDataItem.address.department, townName: branchBankDataItem.address.townName, addressLine: branchBankDataItem.address.addressLine, addressDescription: branchBankDataItem.address.description, latitude: branchBankDataItem.address.geoLocation.geographicCoordinates.latitude, longitude: branchBankDataItem.address.geoLocation.geographicCoordinates.longitude, standardAvailability:branchBankDatesFormatter(branchBankDataItem.information.availability.standardAvailability.day), currency: branchBankDataItem.services.currencyExchange.description))
                     
-                    
-//                    self.annotatedBranchBankData.append(MKAnnotatedBranchBank(branchID: branchBankDataItem.branchId, name: branchBankDataItem.name, cbu: branchBankDataItem.cbu, accountNumber: branchBankDataItem.accountNumber, equeue: branchBankDataItem.equeue, wifi: branchBankDataItem.wifi, accessibilities: branchBankDataItem.accessibilities, branchBankAddress: branchBankDataItem.address, information: branchBankDataItem.information, services: branchBankDataItem.services, coordinate: CLLocationCoordinate2D(latitude: Double(branchBankDataItem.address.geoLocation.geographicCoordinates.latitude)!, longitude: Double(branchBankDataItem.address.geoLocation.geographicCoordinates.longitude)!)))
-                    
                     facilityData.append(MKAnnotatedFacility(id: branchBankDataItem.branchId, currency: "", townName: branchBankDataItem.address.townName, streetName: branchBankDataItem.address.streetName, buildingNumber: branchBankDataItem.address.buildingNumber, addressLine: branchBankDataItem.address.addressLine, availability: branchBankDatesFormatter(branchBankDataItem.information.availability.standardAvailability.day), latitude: Double(branchBankDataItem.address.geoLocation.geographicCoordinates.latitude)!, longitude: Double(branchBankDataItem.address.geoLocation.geographicCoordinates.longitude)!))
                 }
                 
@@ -177,8 +170,6 @@ class MapViewController: UIViewController {
                 
                 for serviceTerminalItem in serviceTerminalData {
                     self.annotatedServiceTerminalData.append(MKAnnotatedServiceTerminal(infoID: serviceTerminalItem.infoID, city: serviceTerminalItem.city, addressType: serviceTerminalItem.addressType.rawValue, address: serviceTerminalItem.address, house: serviceTerminalItem.house, installPlace: serviceTerminalItem.installPlace, locationNameDesc: serviceTerminalItem.locationNameDesc, workTime: serviceTerminalItem.workTime, timeLong: serviceTerminalItem.timeLong, gpsX: serviceTerminalItem.gpsX, gpsY: serviceTerminalItem.gpsY, currency: serviceTerminalItem.currency.rawValue, cashInExist: serviceTerminalItem.cashInExist.rawValue))
-                    
-//                    self.annotatedServiceTerminalData.append(MKAnnotatedServiceTerminal(infoID: serviceTerminalItem.infoID, area: serviceTerminalItem.area, cityType: serviceTerminalItem.cityType, city: serviceTerminalItem.city, addressType: serviceTerminalItem.addressType, address: serviceTerminalItem.address, house: serviceTerminalItem.house, installPlace: serviceTerminalItem.installPlace, locationNameDesc: serviceTerminalItem.locationNameDesc, workTime: serviceTerminalItem.workTime, timeLong: serviceTerminalItem.timeLong, gpsX: serviceTerminalItem.gpsX, gpsY: serviceTerminalItem.gpsY, serviceTerminalCurrency: serviceTerminalItem.currency, infType: serviceTerminalItem.infType, cashInExist: serviceTerminalItem.cashIn, cashIn: serviceTerminalItem.cashIn, typeCashIn: serviceTerminalItem.cashIn, infPrinter: serviceTerminalItem.infPrinter, regionPlatej: serviceTerminalItem.regionPlatej, popolneniePlatej: serviceTerminalItem.popolneniePlatej, infStatus: serviceTerminalItem.infStatus, coordinate: CLLocationCoordinate2D(latitude: Double(serviceTerminalItem.gpsX)!, longitude: Double(serviceTerminalItem.gpsY)!)))
                     
                     facilityData.append(MKAnnotatedFacility(id: serviceTerminalItem.infoID.description, currency: serviceTerminalItem.currency.rawValue, townName: serviceTerminalItem.city, streetName: serviceTerminalItem.address, buildingNumber: serviceTerminalItem.house, addressLine: serviceTerminalItem.locationNameDesc, availability: serviceTerminalItem.workTime, latitude: Double(serviceTerminalItem.gpsX)!, longitude: Double(serviceTerminalItem.gpsY)!))
                 }
@@ -189,8 +180,8 @@ class MapViewController: UIViewController {
                 self.mapView.addAnnotations(self.annotatedServiceTerminalData)
                 self.mapView.addAnnotations(self.annotatedBranchBankData)
                 
-                facilityData = facilityData.sorted { $0.distance(to: self.currentLocation ?? self.defaultLocation) < $1.distance(to: self.currentLocation ?? self.defaultLocation) }
-                listVC?.groupedData = Dictionary(grouping: facilityData, by: { $0.townName })
+                self.annotatedFacilityData = facilityData.sorted { $0.distance(to: self.currentLocation ?? self.defaultLocation) < $1.distance(to: self.currentLocation ?? self.defaultLocation) }
+                listVC?.groupedData = Dictionary(grouping: self.annotatedFacilityData, by: { $0.townName })
                 
                 DispatchQueue.main.async {
                     listVC?.collectionView.reloadData()
@@ -199,14 +190,6 @@ class MapViewController: UIViewController {
                 self.activityIndicatorContainer.isHidden = true
                 self.makeUIActive()
                 self.saveDataToDB()
-                
-                facilityData.forEach { DataPersistenceManager.shared.storeMKAnnotatedFacility(model: $0) { result in
-                    switch result {
-                    case .success(): break
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    }
-                }}
             }
             
         } else {
@@ -234,7 +217,7 @@ class MapViewController: UIViewController {
                                                                                   sameAsOrganization: $0.sameAsOrganization,
                                                                                   standardAvailability: $0.standardAvailability!,
                                                                                   contactDetails: $0.contactDetails!)) }
-                                        
+                    
                     DispatchQueue.main.async {
                         self.mapView.addAnnotations(self.annotatedATMData)
                         self.activityIndicatorContainer.isHidden = true
@@ -260,14 +243,14 @@ class MapViewController: UIViewController {
                                                                                                        addressDescription: $0.addressDescription!, latitude: $0.latitude!,
                                                                                                        longitude: $0.longitude!,
                                                                                                        standardAvailability: $0.standardAvailability!, currency: $0.currency!)) }
-
+                    
                     DispatchQueue.main.async {
                         self.mapView.addAnnotations(self.annotatedBranchBankData)
                     }
                 case .failure(_): break
                 }
             }
-
+            
             DataPersistenceManager.shared.fetchingMKAnnotatedServiceTerminalData { result in
                 switch result {
                 case .success(let serviceTerminalData):
@@ -284,14 +267,14 @@ class MapViewController: UIViewController {
                                                                                                                       gpsY: $0.gpsY!,
                                                                                                                       currency: $0.currency!,
                                                                                                                       cashInExist: $0.cashInExist!)) }
-
+                    
                     DispatchQueue.main.async {
                         self.mapView.addAnnotations(self.annotatedServiceTerminalData)
                     }
                 case .failure(_): break
                 }
             }
-
+            
             DataPersistenceManager.shared.fetchingMKAnnotatedFacilityData { result in
                 switch result {
                 case .success(let fetchedFacilityData):
@@ -304,7 +287,7 @@ class MapViewController: UIViewController {
                                                                                           availability: $0.availability!,
                                                                                           latitude: $0.latitude,
                                                                                           longitude: $0.longitude)) }
-
+                    
                     DispatchQueue.main.async {
                         listVC?.groupedData = Dictionary(grouping: facilityData, by: { $0.townName })
                         listVC?.collectionView.reloadData()
@@ -332,8 +315,16 @@ class MapViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }}
-
+        
         annotatedServiceTerminalData.forEach { DataPersistenceManager.shared.storeMKAnnotatedServiceTerminal(model: $0) { result in
+            switch result {
+            case .success(): break
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }}
+        
+        annotatedFacilityData.forEach { DataPersistenceManager.shared.storeMKAnnotatedFacility(model: $0) { result in
             switch result {
             case .success(): break
             case .failure(let error):
@@ -561,9 +552,9 @@ extension MapViewController: ATMCalloutViewDelegate, BranchBankCalloutViewDelega
         guard let annotatedATMData = annotation as? MKAnnotatedATM else { return }
         
         let atmDetailedVC = ATMDetailedInfoViewController()
-//        let operatingHours = atmDatesFormatter(annotatedATMData.availability.standardAvailability.day)
-//        let cards = cardsFormatter(annotatedATMData.cards)
-//        let services = servicesFormatter(annotatedATMData.services)
+        //        let operatingHours = atmDatesFormatter(annotatedATMData.availability.standardAvailability.day)
+        //        let cards = cardsFormatter(annotatedATMData.cards)
+        //        let services = servicesFormatter(annotatedATMData.services)
         
         atmDetailedVC.idLabel.text = "Идентификатор банкомата: \(annotatedATMData.atmID)"
         
