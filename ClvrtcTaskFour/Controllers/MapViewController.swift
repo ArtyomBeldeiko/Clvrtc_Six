@@ -496,8 +496,14 @@ extension MapViewController: CLLocationManagerDelegate {
                 locationManager.requestWhenInUseAuthorization()
                 
             case .authorizedAlways, .authorizedWhenInUse:
-                locationManager.requestWhenInUseAuthorization()
-                locationManager.startUpdatingLocation()
+                
+                if Reachability.isConnectedToNetwork() {
+                    locationManager.requestWhenInUseAuthorization()
+                    locationManager.startUpdatingLocation()
+                } else {
+                    renderLocation(defaultLocation)
+                    currentLocation = defaultLocation
+                }
                 
             case .denied, .restricted:
                 showGeoDataRequestAlert()
@@ -511,8 +517,14 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             locationManager.stopUpdatingLocation()
-            renderLocation(location)
-            currentLocation = location
+            
+            if Reachability.isConnectedToNetwork() {
+                renderLocation(location)
+                currentLocation = location
+            } else {
+                renderLocation(defaultLocation)
+                currentLocation = defaultLocation
+            }
         }
     }
     
