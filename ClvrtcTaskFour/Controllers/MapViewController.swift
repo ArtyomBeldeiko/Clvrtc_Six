@@ -215,10 +215,26 @@ class MapViewController: UIViewController {
             DataPersistenceManager.shared.fetchingMKAnnotatedATMData { result in
                 switch result {
                 case .success(let atmData):
-                    for item in atmData {
-                        self.annotatedATMData.append(MKAnnotatedATM(atmID: item.atmID!, type: item.type!, baseCurrency: item.baseCurrency!, currency: item.currency!, cards: item.cards!, currentStatus: item.currentStatus!, streetName: item.streetName!, townName: item.townName!, buildingNumber: item.buildingNumber!, addressLine: item.addressLine!, addressDiscription: item.addressDiscription!, latitude: item.latitude!, longitude: item.longitude!, serviceType: item.serviceType!, access24Hours: item.access24Hours, isRescticted: item.isRescticted, sameAsOrganization: item.sameAsOrganization, standardAvailability: item.standardAvailability!, contactDetails: item.contactDetails!))
-                    }
-                    
+                    atmData.forEach { self.annotatedATMData.append(MKAnnotatedATM(atmID: $0.atmID!,
+                                                                                  type: $0.type!,
+                                                                                  baseCurrency: $0.baseCurrency!,
+                                                                                  currency: $0.currency!,
+                                                                                  cards: $0.cards!,
+                                                                                  currentStatus: $0.currentStatus!,
+                                                                                  streetName: $0.streetName!,
+                                                                                  townName: $0.townName!,
+                                                                                  buildingNumber: $0.buildingNumber!,
+                                                                                  addressLine: $0.addressLine!,
+                                                                                  addressDiscription: $0.addressDiscription!,
+                                                                                  latitude: $0.latitude!,
+                                                                                  longitude: $0.longitude!,
+                                                                                  serviceType: $0.serviceType!,
+                                                                                  access24Hours: $0.access24Hours,
+                                                                                  isRescticted: $0.isRescticted,
+                                                                                  sameAsOrganization: $0.sameAsOrganization,
+                                                                                  standardAvailability: $0.standardAvailability!,
+                                                                                  contactDetails: $0.contactDetails!)) }
+                                        
                     DispatchQueue.main.async {
                         self.mapView.addAnnotations(self.annotatedATMData)
                         self.activityIndicatorContainer.isHidden = true
@@ -228,42 +244,74 @@ class MapViewController: UIViewController {
                 }
             }
             
-//            DataPersistenceManager.shared.fetchingMKAnnotatedBranchBankData { result in
-//                switch result {
-//                case .success(let branchBankData):
-//                    self.annotatedBranchBankData = branchBankData as! [MKAnnotatedBranchBank]
-//
-//                    DispatchQueue.main.async {
-//                        self.mapView.addAnnotations(self.annotatedBranchBankData)
-//                    }
-//                case .failure(_): break
-//                }
-//            }
-//
-//            DataPersistenceManager.shared.fetchingMKAnnotatedServiceTerminalData { result in
-//                switch result {
-//                case .success(let serviceTerminalData):
-//                    self.annotatedServiceTerminalData = serviceTerminalData as! [MKAnnotatedServiceTerminal]
-//
-//                    DispatchQueue.main.async {
-//                        self.mapView.addAnnotations(self.annotatedServiceTerminalData)
-//                    }
-//                case .failure(_): break
-//                }
-//            }
-//
-//            DataPersistenceManager.shared.fetchingMKAnnotatedFacilityData { result in
-//                switch result {
-//                case .success(let fetchedFacilityData):
-//                    facilityData = fetchedFacilityData as! [MKAnnotatedFacility]
-//
-//                    DispatchQueue.main.async {
-//                        listVC?.groupedData = Dictionary(grouping: facilityData, by: { $0.townName })
-//                        listVC?.collectionView.reloadData()
-//                    }
-//                case .failure(_): break
-//                }
-//            }
+            DataPersistenceManager.shared.fetchingMKAnnotatedBranchBankData { result in
+                switch result {
+                case .success(let branchBankData):
+                    branchBankData.forEach { self.annotatedBranchBankData.append(MKAnnotatedBranchBank(branchID: $0.branchID!,
+                                                                                                       name: $0.name!,
+                                                                                                       cbu: $0.cbu!,
+                                                                                                       equeue:  Int($0.equeue),
+                                                                                                       wifi:  Int($0.wifi),
+                                                                                                       streetName: $0.streetName!,
+                                                                                                       buildingNumber: $0.buildingNumber!,
+                                                                                                       department: $0.department!,
+                                                                                                       townName: $0.townName!,
+                                                                                                       addressLine: $0.addressLine!,
+                                                                                                       addressDescription: $0.addressDescription!, latitude: $0.latitude!,
+                                                                                                       longitude: $0.longitude!,
+                                                                                                       standardAvailability: $0.standardAvailability!, currency: $0.currency!)) }
+
+                    DispatchQueue.main.async {
+                        self.mapView.addAnnotations(self.annotatedBranchBankData)
+                    }
+                case .failure(_): break
+                }
+            }
+
+            DataPersistenceManager.shared.fetchingMKAnnotatedServiceTerminalData { result in
+                switch result {
+                case .success(let serviceTerminalData):
+                    serviceTerminalData.forEach { self.annotatedServiceTerminalData.append(MKAnnotatedServiceTerminal(infoID: Int($0.infoID),
+                                                                                                                      city: $0.city!,
+                                                                                                                      addressType: $0.addressType!,
+                                                                                                                      address: $0.address!,
+                                                                                                                      house: $0.house!,
+                                                                                                                      installPlace: $0.installPlace!,
+                                                                                                                      locationNameDesc: $0.locationNameDesc!,
+                                                                                                                      workTime: $0.workTime!,
+                                                                                                                      timeLong: $0.timeLong!,
+                                                                                                                      gpsX: $0.gpsX!,
+                                                                                                                      gpsY: $0.gpsY!,
+                                                                                                                      currency: $0.currency!,
+                                                                                                                      cashInExist: $0.cashInExist!)) }
+
+                    DispatchQueue.main.async {
+                        self.mapView.addAnnotations(self.annotatedServiceTerminalData)
+                    }
+                case .failure(_): break
+                }
+            }
+
+            DataPersistenceManager.shared.fetchingMKAnnotatedFacilityData { result in
+                switch result {
+                case .success(let fetchedFacilityData):
+                    fetchedFacilityData.forEach { facilityData.append(MKAnnotatedFacility(id: $0.id!,
+                                                                                          currency: $0.currency!,
+                                                                                          townName: $0.townName!,
+                                                                                          streetName: $0.streetName!,
+                                                                                          buildingNumber: $0.buildingNumber!,
+                                                                                          addressLine: $0.addressLine!,
+                                                                                          availability: $0.availability!,
+                                                                                          latitude: $0.latitude,
+                                                                                          longitude: $0.longitude)) }
+
+                    DispatchQueue.main.async {
+                        listVC?.groupedData = Dictionary(grouping: facilityData, by: { $0.townName })
+                        listVC?.collectionView.reloadData()
+                    }
+                case .failure(_): break
+                }
+            }
         }
     }
     
