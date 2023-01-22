@@ -12,6 +12,18 @@
 		394C4A40296EFDB200E01FB3 /* BranchBankData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394C4A3F296EFDB200E01FB3 /* BranchBankData.swift */; };
 		394C4A42296F6BAC00E01FB3 /* MKAnnotatedBranchBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394C4A41296F6BAC00E01FB3 /* MKAnnotatedBranchBank.swift */; };
 		394C4A44296F70A200E01FB3 /* MKAnnotatedServiceTerminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394C4A43296F70A200E01FB3 /* MKAnnotatedServiceTerminal.swift */; };
+		39764654297C725E006BEC26 /* MainScenePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3976464E297C725E006BEC26 /* MainScenePresenter.swift */; };
+		39764655297C725E006BEC26 /* MainSceneWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3976464F297C725E006BEC26 /* MainSceneWorker.swift */; };
+		39764656297C725E006BEC26 /* MainSceneRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39764650297C725E006BEC26 /* MainSceneRouter.swift */; };
+		39764657297C725E006BEC26 /* MainSceneModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39764651297C725E006BEC26 /* MainSceneModels.swift */; };
+		39764658297C725E006BEC26 /* MainSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39764652297C725E006BEC26 /* MainSceneViewController.swift */; };
+		39764659297C725E006BEC26 /* MainSceneInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39764653297C725E006BEC26 /* MainSceneInteractor.swift */; };
+		39764663297C7F37006BEC26 /* MapScenePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3976465D297C7F37006BEC26 /* MapScenePresenter.swift */; };
+		39764665297C7F37006BEC26 /* MapSceneRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3976465F297C7F37006BEC26 /* MapSceneRouter.swift */; };
+		39764666297C7F37006BEC26 /* MapSceneModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39764660297C7F37006BEC26 /* MapSceneModels.swift */; };
+		39764667297C7F37006BEC26 /* MapSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39764661297C7F37006BEC26 /* MapSceneViewController.swift */; };
+		39764668297C7F37006BEC26 /* MapSceneInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39764662297C7F37006BEC26 /* MapSceneInteractor.swift */; };
+		3976466D297CA6B0006BEC26 /* MapSceneDBWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3976466C297CA6B0006BEC26 /* MapSceneDBWorker.swift */; };
 		399FCA7029662C840050C814 /* ATMDetailedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FCA6F29662C840050C814 /* ATMDetailedInfoViewController.swift */; };
 		399FCA722968C18D0050C814 /* ServicesFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FCA712968C18D0050C814 /* ServicesFormatter.swift */; };
 		399FCA742968CDA80050C814 /* CardsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FCA732968CDA80050C814 /* CardsFormatter.swift */; };
@@ -45,6 +57,18 @@
 		394C4A3F296EFDB200E01FB3 /* BranchBankData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchBankData.swift; sourceTree = "<group>"; };
 		394C4A41296F6BAC00E01FB3 /* MKAnnotatedBranchBank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKAnnotatedBranchBank.swift; sourceTree = "<group>"; };
 		394C4A43296F70A200E01FB3 /* MKAnnotatedServiceTerminal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKAnnotatedServiceTerminal.swift; sourceTree = "<group>"; };
+		3976464E297C725E006BEC26 /* MainScenePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScenePresenter.swift; sourceTree = "<group>"; };
+		3976464F297C725E006BEC26 /* MainSceneWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneWorker.swift; sourceTree = "<group>"; };
+		39764650297C725E006BEC26 /* MainSceneRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneRouter.swift; sourceTree = "<group>"; };
+		39764651297C725E006BEC26 /* MainSceneModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneModels.swift; sourceTree = "<group>"; };
+		39764652297C725E006BEC26 /* MainSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneViewController.swift; sourceTree = "<group>"; };
+		39764653297C725E006BEC26 /* MainSceneInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneInteractor.swift; sourceTree = "<group>"; };
+		3976465D297C7F37006BEC26 /* MapScenePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScenePresenter.swift; sourceTree = "<group>"; };
+		3976465F297C7F37006BEC26 /* MapSceneRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSceneRouter.swift; sourceTree = "<group>"; };
+		39764660297C7F37006BEC26 /* MapSceneModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSceneModels.swift; sourceTree = "<group>"; };
+		39764661297C7F37006BEC26 /* MapSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSceneViewController.swift; sourceTree = "<group>"; };
+		39764662297C7F37006BEC26 /* MapSceneInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSceneInteractor.swift; sourceTree = "<group>"; };
+		3976466C297CA6B0006BEC26 /* MapSceneDBWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSceneDBWorker.swift; sourceTree = "<group>"; };
 		399FCA6F29662C840050C814 /* ATMDetailedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATMDetailedInfoViewController.swift; sourceTree = "<group>"; };
 		399FCA712968C18D0050C814 /* ServicesFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesFormatter.swift; sourceTree = "<group>"; };
 		399FCA732968CDA80050C814 /* CardsFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsFormatter.swift; sourceTree = "<group>"; };
@@ -132,6 +156,41 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		3976465A297C7277006BEC26 /* MainScene */ = {
+			isa = PBXGroup;
+			children = (
+				3976464E297C725E006BEC26 /* MainScenePresenter.swift */,
+				3976464F297C725E006BEC26 /* MainSceneWorker.swift */,
+				39764650297C725E006BEC26 /* MainSceneRouter.swift */,
+				39764651297C725E006BEC26 /* MainSceneModels.swift */,
+				39764652297C725E006BEC26 /* MainSceneViewController.swift */,
+				39764653297C725E006BEC26 /* MainSceneInteractor.swift */,
+			);
+			path = MainScene;
+			sourceTree = "<group>";
+		};
+		3976465B297C7297006BEC26 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				3976465A297C7277006BEC26 /* MainScene */,
+				3976465C297C7F0B006BEC26 /* MapScene */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		3976465C297C7F0B006BEC26 /* MapScene */ = {
+			isa = PBXGroup;
+			children = (
+				3976465D297C7F37006BEC26 /* MapScenePresenter.swift */,
+				3976466C297CA6B0006BEC26 /* MapSceneDBWorker.swift */,
+				3976465F297C7F37006BEC26 /* MapSceneRouter.swift */,
+				39764660297C7F37006BEC26 /* MapSceneModels.swift */,
+				39764661297C7F37006BEC26 /* MapSceneViewController.swift */,
+				39764662297C7F37006BEC26 /* MapSceneInteractor.swift */,
+			);
+			path = MapScene;
+			sourceTree = "<group>";
+		};
 		399FCA752969DCCE0050C814 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +223,7 @@
 			children = (
 				39B74566295B80DA000AACE1 /* Application */,
 				39C94BD02978A767006AA200 /* Managers */,
+				3976465B297C7297006BEC26 /* Scenes */,
 				3935E4C2295B816A00530BD5 /* Controllers */,
 				39F8E355295F339600C841F7 /* Models */,
 				39F8E35E29639DC600C841F7 /* Views */,
@@ -422,12 +482,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39764656297C725E006BEC26 /* MainSceneRouter.swift in Sources */,
 				39F8E3652964C46A00C841F7 /* ATMCalloutView.swift in Sources */,
+				39764665297C7F37006BEC26 /* MapSceneRouter.swift in Sources */,
 				39DF2995296B0CF3001194A1 /* ATMCollectionHeader.swift in Sources */,
 				39D3A8B02972D47200B9C797 /* BranchBankCalloutView.swift in Sources */,
 				39F8E354295F338500C841F7 /* NetworkManager.swift in Sources */,
 				394C4A40296EFDB200E01FB3 /* BranchBankData.swift in Sources */,
 				394C4A44296F70A200E01FB3 /* MKAnnotatedServiceTerminal.swift in Sources */,
+				39764666297C7F37006BEC26 /* MapSceneModels.swift in Sources */,
+				3976466D297CA6B0006BEC26 /* MapSceneDBWorker.swift in Sources */,
+				39764657297C725E006BEC26 /* MainSceneModels.swift in Sources */,
+				39764668297C7F37006BEC26 /* MapSceneInteractor.swift in Sources */,
 				39F8E351295CC3DF00C841F7 /* ATMViewController.swift in Sources */,
 				3935E4C4295B81CC00530BD5 /* MainViewController.swift in Sources */,
 				39D3A8BE2974951900B9C797 /* MKAnnotatedFacility.swift in Sources */,
@@ -437,13 +503,19 @@
 				39B74552295B7FED000AACE1 /* AppDelegate.swift in Sources */,
 				39D3A8B22972DB8100B9C797 /* ServiceTerminalCalloutView.swift in Sources */,
 				394C4A42296F6BAC00E01FB3 /* MKAnnotatedBranchBank.swift in Sources */,
+				39764659297C725E006BEC26 /* MainSceneInteractor.swift in Sources */,
 				39B74554295B7FED000AACE1 /* SceneDelegate.swift in Sources */,
 				39F8E357295F33B700C841F7 /* ATMData.swift in Sources */,
 				39F8E34F295CC37B00C841F7 /* MapViewController.swift in Sources */,
+				39764655297C725E006BEC26 /* MainSceneWorker.swift in Sources */,
+				39764663297C7F37006BEC26 /* MapScenePresenter.swift in Sources */,
+				39764654297C725E006BEC26 /* MainScenePresenter.swift in Sources */,
 				399FCA742968CDA80050C814 /* CardsFormatter.swift in Sources */,
 				39C94BD32978A8B2006AA200 /* DataPersistenceManager.swift in Sources */,
 				399FCA7029662C840050C814 /* ATMDetailedInfoViewController.swift in Sources */,
+				39764667297C7F37006BEC26 /* MapSceneViewController.swift in Sources */,
 				39C94BCF2978A3C6006AA200 /* ClvrtcTaskFourDataModel.xcdatamodeld in Sources */,
+				39764658297C725E006BEC26 /* MainSceneViewController.swift in Sources */,
 				399FCA722968C18D0050C814 /* ServicesFormatter.swift in Sources */,
 				39DF299E296B9AD1001194A1 /* Reachability.swift in Sources */,
 				39F8E3612964218300C841F7 /* MKAnnotatedATM.swift in Sources */,
