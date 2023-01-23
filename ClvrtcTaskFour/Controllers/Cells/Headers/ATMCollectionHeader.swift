@@ -11,7 +11,7 @@ class ATMCollectionHeader: UICollectionReusableView {
     
     static let identifier = "ATMCollectionHeader"
     
-    let label: UILabel = {
+    lazy var label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 24, weight: .bold)

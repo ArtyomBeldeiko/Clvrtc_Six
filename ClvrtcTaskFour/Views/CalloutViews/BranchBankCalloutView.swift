@@ -52,7 +52,6 @@ class BranchBankCalloutView: UIView {
         closeButton.setImage(image, for: .normal)
         addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.snp.makeConstraints { make in
             make.top.equalTo(snp.top).offset(-8)
             make.height.equalTo(25)
@@ -66,7 +65,6 @@ class BranchBankCalloutView: UIView {
         addressLabel.text = "Адрес: \(mkAnnotatedBranchBank.townName), \(mkAnnotatedBranchBank.streetName), \(mkAnnotatedBranchBank.buildingNumber)"
         addressLabel.numberOfLines = 0
         addSubview(addressLabel)
-        addressLabel.translatesAutoresizingMaskIntoConstraints = false
         addressLabel.snp.makeConstraints { make in
             make.top.equalTo(snp.top)
             make.left.equalTo(snp.left)
@@ -76,13 +74,10 @@ class BranchBankCalloutView: UIView {
     
     private func setupOperatingHoursLabel() {
     
-//        let formattedDate = branchBankDatesFormatter(mkAnnotatedBranchBank.information.availability.standardAvailability.day)
-        
         operatingHoursLabel.font = .systemFont(ofSize: 12, weight: .regular)
         operatingHoursLabel.text = "Режим работы: \(mkAnnotatedBranchBank.standardAvailability)"
         operatingHoursLabel.numberOfLines = 0
         addSubview(operatingHoursLabel)
-        operatingHoursLabel.translatesAutoresizingMaskIntoConstraints = false
         operatingHoursLabel.snp.makeConstraints { make in
             make.top.equalTo(addressLabel.snp.bottom).offset(5)
             make.left.equalTo(snp.left)

@@ -17,7 +17,6 @@ class MainViewController: UIViewController {
     var mapVC = MapViewController()
     var ATMListVC = ATMViewController()
     
-    //    MARK: - UI Elements
     
     lazy var viewContainerSegmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: containerViewModes)
@@ -28,13 +27,11 @@ class MainViewController: UIViewController {
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font : normalText], for: .normal)
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font : selectedText], for: .selected)
         segmentedControl.addTarget(self, action: #selector(segmentedControlAction), for: .valueChanged)
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentedControl
     }()
     
     private let containerView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -92,8 +89,6 @@ class MainViewController: UIViewController {
     
     @objc private func uploadAction() {
         let backgroundQueue = DispatchQueue(label: "ClvrtcTaskFour.Beldeiko.Clevertec.backgroundQueue", qos: .background, attributes: .concurrent)
-        let annotatedBranchBankData = self.mapVC.annotatedBranchBankData
-        let annotattedServiceTerminal = self.mapVC.annotatedServiceTerminalData
         
         var atmData = [ATM]()
         var branchBankData = [BankBranch]()
@@ -101,13 +96,16 @@ class MainViewController: UIViewController {
     
         if Reachability.isConnectedToNetwork() {
             
-            DispatchQueue.main.async {
-                self.mapVC.activityIndicatorContainer.isHidden = false
-                self.mapVC.makeUIInactive()
-                self.mapVC.mapView.removeAnnotations(self.mapVC.mapView.annotations)
+            DispatchQueue.main.async { [weak self] in
+                self?.mapVC.activityIndicatorContainer.isHidden = false
+                self?.mapVC.makeUIInactive()
+                self?.mapVC.mapView.removeAnnotations(self?.mapVC.mapView.annotations ?? [])
             }
             
-            NetworkManager.shared.getATMData { result in
+            NetworkManager.shared.getATMData { [weak self] result in
+                
+                guard let self = self else { return }
+                
                 switch result {
                 case .success(let data):
                     self.mapVC.annotatedATMData.removeAll()
@@ -118,12 +116,25 @@ class MainViewController: UIViewController {
                 }
                 
                 for atmDataItem in atmData {
-                    self.mapVC.annotatedATMData.append(MKAnnotatedATM(atmID: atmDataItem.atmID, type: atmDataItem.type.rawValue, baseCurrency: atmDataItem.baseCurrency.rawValue, currency: atmDataItem.currency.rawValue, cards: cardsFormatter(atmDataItem.cards), currentStatus: atmDataItem.currentStatus.rawValue, streetName: atmDataItem.address.streetName, townName: atmDataItem.address.townName, buildingNumber: atmDataItem.address.buildingNumber, addressLine: atmDataItem.address.addressLine, addressDiscription: atmDataItem.address.addressDescription.rawValue, latitude: atmDataItem.address.geolocation.geographicCoordinates.latitude, longitude: atmDataItem.address.geolocation.geographicCoordinates.longitude, serviceType: servicesFormatter(atmDataItem.services), access24Hours: atmDataItem.availability.access24Hours, isRescticted: atmDataItem.availability.isRestricted, sameAsOrganization: atmDataItem.availability.sameAsOrganization, standardAvailability: atmDatesFormatter(atmDataItem.availability.standardAvailability.day), contactDetails: atmDataItem.contactDetails.phoneNumber))
-                    
-                    
-                    
-                    
-//                    self.mapVC.annotatedATMData.append(MKAnnotatedATM(atmID: atmDataItem.atmID, type: atmDataItem.type, baseCurrency: atmDataItem.baseCurrency, currency: atmDataItem.currency, cards: atmDataItem.cards, currentStatus: atmDataItem.currentStatus, address: atmDataItem.address, services: atmDataItem.services, availability: atmDataItem.availability, contactDetails: atmDataItem.contactDetails, coordinate: CLLocationCoordinate2D(latitude: Double(atmDataItem.address.geolocation.geographicCoordinates.latitude)!, longitude: Double(atmDataItem.address.geolocation.geographicCoordinates.longitude)!)))
+                    self.mapVC.annotatedATMData.append(MKAnnotatedATM(atmID: atmDataItem.atmID,
+                                                                      type: atmDataItem.type.rawValue,
+                                                                      baseCurrency: atmDataItem.baseCurrency.rawValue,
+                                                                      currency: atmDataItem.currency.rawValue,
+                                                                      cards: cardsFormatter(atmDataItem.cards),
+                                                                      currentStatus: atmDataItem.currentStatus.rawValue,
+                                                                      streetName: atmDataItem.address.streetName,
+                                                                      townName: atmDataItem.address.townName,
+                                                                      buildingNumber: atmDataItem.address.buildingNumber,
+                                                                      addressLine: atmDataItem.address.addressLine,
+                                                                      addressDiscription: atmDataItem.address.addressDescription.rawValue,
+                                                                      latitude: atmDataItem.address.geolocation.geographicCoordinates.latitude,
+                                                                      longitude: atmDataItem.address.geolocation.geographicCoordinates.longitude,
+                                                                      serviceType: servicesFormatter(atmDataItem.services),
+                                                                      access24Hours: atmDataItem.availability.access24Hours,
+                                                                      isRescticted: atmDataItem.availability.isRestricted,
+                                                                      sameAsOrganization: atmDataItem.availability.sameAsOrganization,
+                                                                      standardAvailability: atmDatesFormatter(atmDataItem.availability.standardAvailability.day),
+                                                                      contactDetails: atmDataItem.contactDetails.phoneNumber))
                 }
                 
                 self.mapVC.annotatedATMData = self.mapVC.annotatedATMData.sorted { $0.distance(to: self.mapVC.currentLocation ?? self.mapVC.defaultLocation) < $1.distance(to: self.mapVC.currentLocation ?? self.mapVC.defaultLocation) }
@@ -135,7 +146,10 @@ class MainViewController: UIViewController {
                 }
             }
             
-            backgroundQueue.async {
+            backgroundQueue.async { [weak self] in
+                
+                guard let self = self else { return }
+                
                 NetworkManager.shared.getBranchBankData { result in
                     switch result {
                     case .success(let data):
@@ -147,9 +161,21 @@ class MainViewController: UIViewController {
                     }
                     
                     for branchBankDataItem in branchBankData {
-                        self.mapVC.annotatedBranchBankData.append(MKAnnotatedBranchBank(branchID: branchBankDataItem.branchId, name: branchBankDataItem.name, cbu: branchBankDataItem.cbu, equeue: branchBankDataItem.equeue, wifi: branchBankDataItem.wifi, streetName: branchBankDataItem.address.streetName, buildingNumber: branchBankDataItem.address.buildingNumber, department: branchBankDataItem.address.department, townName: branchBankDataItem.address.townName, addressLine: branchBankDataItem.address.addressLine, addressDescription: branchBankDataItem.address.description, latitude: branchBankDataItem.address.geoLocation.geographicCoordinates.latitude, longitude: branchBankDataItem.address.geoLocation.geographicCoordinates.longitude, standardAvailability:branchBankDatesFormatter(branchBankDataItem.information.availability.standardAvailability.day), currency: branchBankDataItem.services.currencyExchange.description))
-                        
-//                        self.mapVC.annotatedBranchBankData.append(MKAnnotatedBranchBank(branchID: branchBankDataItem.branchId, name: branchBankDataItem.name, cbu: branchBankDataItem.cbu, accountNumber: branchBankDataItem.accountNumber, equeue: branchBankDataItem.equeue, wifi: branchBankDataItem.wifi, accessibilities: branchBankDataItem.accessibilities, branchBankAddress: branchBankDataItem.address, information: branchBankDataItem.information, services: branchBankDataItem.services, coordinate: CLLocationCoordinate2D(latitude: Double(branchBankDataItem.address.geoLocation.geographicCoordinates.latitude)!, longitude: Double(branchBankDataItem.address.geoLocation.geographicCoordinates.longitude)!)))
+                        self.mapVC.annotatedBranchBankData.append(MKAnnotatedBranchBank(branchID: branchBankDataItem.branchId,
+                                                                                         name: branchBankDataItem.name,
+                                                                                         cbu: branchBankDataItem.cbu,
+                                                                                         equeue: branchBankDataItem.equeue,
+                                                                                         wifi: branchBankDataItem.wifi,
+                                                                                         streetName: branchBankDataItem.address.streetName,
+                                                                                         buildingNumber: branchBankDataItem.address.buildingNumber,
+                                                                                         department: branchBankDataItem.address.department,
+                                                                                         townName: branchBankDataItem.address.townName,
+                                                                                         addressLine: branchBankDataItem.address.addressLine,
+                                                                                         addressDescription: branchBankDataItem.address.description,
+                                                                                         latitude: branchBankDataItem.address.geoLocation.geographicCoordinates.latitude,
+                                                                                         longitude: branchBankDataItem.address.geoLocation.geographicCoordinates.longitude,
+                                                                                         standardAvailability:branchBankDatesFormatter(branchBankDataItem.information.availability.standardAvailability.day),
+                                                                                         currency: branchBankDataItem.services.currencyExchange.description))
                     }
                     
                     self.mapVC.annotatedBranchBankData = self.mapVC.annotatedBranchBankData.sorted { $0.distance(to: self.mapVC.currentLocation ?? self.mapVC.defaultLocation) < $1.distance(to: self.mapVC.currentLocation ?? self.mapVC.defaultLocation) }
@@ -160,7 +186,10 @@ class MainViewController: UIViewController {
                 }
             }
             
-            backgroundQueue.async {
+            backgroundQueue.async { [weak self] in
+                
+                guard let self = self else { return }
+                
                 NetworkManager.shared.getServiceTerminalData { result in
                     switch result {
                     case .success(let data):
@@ -177,10 +206,19 @@ class MainViewController: UIViewController {
                     }
                     
                     for serviceTerminalItem in serviceTerminalData {
-                        self.mapVC.annotatedServiceTerminalData.append(MKAnnotatedServiceTerminal(infoID: serviceTerminalItem.infoID, city: serviceTerminalItem.city, addressType: serviceTerminalItem.addressType.rawValue, address: serviceTerminalItem.address, house: serviceTerminalItem.house, installPlace: serviceTerminalItem.installPlace, locationNameDesc: serviceTerminalItem.locationNameDesc, workTime: serviceTerminalItem.workTime, timeLong: serviceTerminalItem.timeLong, gpsX: serviceTerminalItem.gpsX, gpsY: serviceTerminalItem.gpsY, currency: serviceTerminalItem.currency.rawValue, cashInExist: serviceTerminalItem.cashInExist.rawValue))
-                        
-                        
-//                        self.mapVC.annotatedServiceTerminalData.append(MKAnnotatedServiceTerminal(infoID: serviceTerminalItem.infoID, area: serviceTerminalItem.area, cityType: serviceTerminalItem.cityType, city: serviceTerminalItem.city, addressType: serviceTerminalItem.addressType, address: serviceTerminalItem.address, house: serviceTerminalItem.house, installPlace: serviceTerminalItem.installPlace, locationNameDesc: serviceTerminalItem.locationNameDesc, workTime: serviceTerminalItem.workTime, timeLong: serviceTerminalItem.timeLong, gpsX: serviceTerminalItem.gpsX, gpsY: serviceTerminalItem.gpsY, serviceTerminalCurrency: serviceTerminalItem.currency, infType: serviceTerminalItem.infType, cashInExist: serviceTerminalItem.cashIn, cashIn: serviceTerminalItem.cashIn, typeCashIn: serviceTerminalItem.cashIn, infPrinter: serviceTerminalItem.infPrinter, regionPlatej: serviceTerminalItem.regionPlatej, popolneniePlatej: serviceTerminalItem.popolneniePlatej, infStatus: serviceTerminalItem.infStatus, coordinate: CLLocationCoordinate2D(latitude: Double(serviceTerminalItem.gpsX)!, longitude: Double(serviceTerminalItem.gpsY)!)))
+                        self.mapVC.annotatedServiceTerminalData.append(MKAnnotatedServiceTerminal(infoID: serviceTerminalItem.infoID,
+                                                                                                  city: serviceTerminalItem.city,
+                                                                                                  addressType: serviceTerminalItem.addressType.rawValue,
+                                                                                                  address: serviceTerminalItem.address,
+                                                                                                  house: serviceTerminalItem.house,
+                                                                                                  installPlace: serviceTerminalItem.installPlace,
+                                                                                                  locationNameDesc: serviceTerminalItem.locationNameDesc,
+                                                                                                  workTime: serviceTerminalItem.workTime,
+                                                                                                  timeLong: serviceTerminalItem.timeLong,
+                                                                                                  gpsX: serviceTerminalItem.gpsX,
+                                                                                                  gpsY: serviceTerminalItem.gpsY,
+                                                                                                  currency: serviceTerminalItem.currency.rawValue,
+                                                                                                  cashInExist: serviceTerminalItem.cashInExist.rawValue))
                     }
                     
                     self.mapVC.annotatedServiceTerminalData = self.mapVC.annotatedServiceTerminalData.sorted { $0.distance(to: self.mapVC.currentLocation ?? self.mapVC.defaultLocation) < $1.distance(to: self.mapVC.currentLocation ?? self.mapVC.defaultLocation) }

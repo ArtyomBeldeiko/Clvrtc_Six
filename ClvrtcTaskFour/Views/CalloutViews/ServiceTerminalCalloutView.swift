@@ -56,7 +56,6 @@ class ServiceTerminalCalloutView: UIView {
         closeButton.setImage(image, for: .normal)
         addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.snp.makeConstraints { make in
             make.top.equalTo(snp.top).offset(-8)
             make.height.equalTo(25)
@@ -70,7 +69,6 @@ class ServiceTerminalCalloutView: UIView {
         installationPlaceLabel.text = "Mecто установки: \(mkAnnotatedServiceTerminal.address.description), \(mkAnnotatedServiceTerminal.house)"
         installationPlaceLabel.numberOfLines = 0
         addSubview(installationPlaceLabel)
-        installationPlaceLabel.translatesAutoresizingMaskIntoConstraints = false
         installationPlaceLabel.snp.makeConstraints { make in
             make.top.equalTo(snp.top)
             make.left.equalTo(snp.left)
@@ -84,7 +82,6 @@ class ServiceTerminalCalloutView: UIView {
         operatingHoursLabel.text = "Режим работы: \(mkAnnotatedServiceTerminal.workTime)"
         operatingHoursLabel.numberOfLines = 0
         addSubview(operatingHoursLabel)
-        operatingHoursLabel.translatesAutoresizingMaskIntoConstraints = false
         operatingHoursLabel.snp.makeConstraints { make in
             make.top.equalTo(installationPlaceLabel.snp.bottom).offset(5)
             make.left.equalTo(snp.left)
@@ -97,7 +94,6 @@ class ServiceTerminalCalloutView: UIView {
         currencyLabel.text = "Валюта: \(mkAnnotatedServiceTerminal.currency.dropLast(1))"
         currencyLabel.numberOfLines = 0
         addSubview(currencyLabel)
-        currencyLabel.translatesAutoresizingMaskIntoConstraints = false
         currencyLabel.snp.makeConstraints { make in
             make.top.equalTo(operatingHoursLabel.snp.bottom).offset(5)
             make.left.equalTo(snp.left)
@@ -116,7 +112,6 @@ class ServiceTerminalCalloutView: UIView {
         cashInAvailabilityLabel.font = .systemFont(ofSize: 12, weight: .regular)
         cashInAvailabilityLabel.numberOfLines = 0
         addSubview(cashInAvailabilityLabel)
-        cashInAvailabilityLabel.translatesAutoresizingMaskIntoConstraints = false
         cashInAvailabilityLabel.snp.makeConstraints { make in
             make.top.equalTo(currencyLabel.snp.bottom).offset(5)
             make.left.equalTo(snp.left)

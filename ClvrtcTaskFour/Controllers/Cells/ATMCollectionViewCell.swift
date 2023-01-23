@@ -12,33 +12,30 @@ class ATMCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "ATMCollectionViewCell"
     
-    let atmInstallationPlaceLabel: UILabel = {
+    lazy var atmInstallationPlaceLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 8, weight: .medium)
         label.textColor = .black
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let operatingHoursLabel: UILabel = {
+    lazy var operatingHoursLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 8, weight: .medium)
         label.textColor = .black
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let dispensedCurrencyLabel: UILabel = {
+    lazy var dispensedCurrencyLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 8, weight: .medium)
         label.textColor = .black
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     

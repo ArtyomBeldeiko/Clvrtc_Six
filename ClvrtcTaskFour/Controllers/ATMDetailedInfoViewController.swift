@@ -24,7 +24,6 @@ class ATMDetailedInfoViewController: UIViewController {
         scrollView.backgroundColor = UIColor(named: "background")
         scrollView.contentSize = contentSize
         scrollView.showsVerticalScrollIndicator = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
@@ -39,134 +38,119 @@ class ATMDetailedInfoViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Построить маршрут", for: .normal)
         button.setTitleColor(.red, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(showOnMap), for: .touchUpInside)
         return button
     }()
     
-    let idLabel: UILabel = {
+    lazy var idLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let typeLabel: UILabel = {
+    lazy var typeLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let baseCurrencyLabel: UILabel = {
+    lazy var baseCurrencyLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let currencyLabel: UILabel = {
+    lazy var currencyLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let cardsLabel: UILabel = {
+    lazy var cardsLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let currentStatusLabel: UILabel = {
+    lazy var currentStatusLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let addressLabel: UILabel = {
+    lazy var addressLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let geolocationLabel: UILabel = {
+    lazy var geolocationLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let servicesLabel: UILabel = {
+    lazy var servicesLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let access24hoursLabel: UILabel = {
+    lazy var access24hoursLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let restrictedAccessLabel: UILabel = {
+    lazy var restrictedAccessLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let organizationOperatingHoursLabel: UILabel = {
+    lazy var organizationOperatingHoursLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let standardAvailabilityLabel: UILabel = {
+    lazy var standardAvailabilityLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let contactDetailsLabel: UILabel = {
+    lazy var contactDetailsLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(named: "titleColor")
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -310,6 +294,7 @@ class ATMDetailedInfoViewController: UIViewController {
     @objc private func showOnMap() {
         let coordinate = CLLocationCoordinate2D(latitude: atmItemLatitude, longitude: atmItemLongitude)
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary: nil))
+        
         mapItem.name = atmItemTitle
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
     }

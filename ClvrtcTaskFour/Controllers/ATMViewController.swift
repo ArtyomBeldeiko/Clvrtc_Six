@@ -24,13 +24,13 @@ class ATMViewController: UIViewController {
         return collectionView
     }()
     
-    let activityIndicatorContainer: UIView = {
+    lazy var activityIndicatorContainer: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "background")
         return view
     }()
     
-    let activityIndicator: UIActivityIndicatorView = {
+    lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator.color = UIColor(named: "titleColor")
         return activityIndicator
@@ -68,9 +68,9 @@ class ATMViewController: UIViewController {
     func showAtmFetchFailureAlert() {
         let networkFetchFailureAlert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить данные о банкоматах", preferredStyle: .alert)
         
-        let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
+        let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { [weak self] _ in
             
-            let mapVC = self.parent?.children[0] as? MapViewController
+            let mapVC = self?.parent?.children[0] as? MapViewController
             mapVC?.fetchData()
         }
         
@@ -81,17 +81,17 @@ class ATMViewController: UIViewController {
         networkFetchFailureAlert.addAction(retryAction)
         networkFetchFailureAlert.addAction(cancelAction)
         
-        DispatchQueue.main.async {
-            self.present(networkFetchFailureAlert, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.present(networkFetchFailureAlert, animated: true)
         }
     }
     
     func showBranchBankFetchFailureAlert() {
         let networkFetchFailureAlert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить данные о подразделениях банка", preferredStyle: .alert)
         
-        let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
+        let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { [weak self] _ in
             
-            let mapVC = self.parent?.children[0] as? MapViewController
+            let mapVC = self?.parent?.children[0] as? MapViewController
             mapVC?.fetchData()
         }
         
@@ -102,17 +102,17 @@ class ATMViewController: UIViewController {
         networkFetchFailureAlert.addAction(retryAction)
         networkFetchFailureAlert.addAction(cancelAction)
         
-        DispatchQueue.main.async {
-            self.present(networkFetchFailureAlert, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.present(networkFetchFailureAlert, animated: true)
         }
     }
     
     func showServiceTerminalFetchFailureAlert() {
         let networkFetchFailureAlert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить данные об инфокиосках", preferredStyle: .alert)
         
-        let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { _ in
+        let retryAction = UIAlertAction(title: "Повторить еще раз", style: .default) { [weak self] _ in
             
-            let mapVC = self.parent?.children[0] as? MapViewController
+            let mapVC = self?.parent?.children[0] as? MapViewController
             mapVC?.fetchData()
         }
         
@@ -123,8 +123,8 @@ class ATMViewController: UIViewController {
         networkFetchFailureAlert.addAction(retryAction)
         networkFetchFailureAlert.addAction(cancelAction)
         
-        DispatchQueue.main.async {
-            self.present(networkFetchFailureAlert, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.present(networkFetchFailureAlert, animated: true)
         }
     }
     
@@ -137,8 +137,8 @@ class ATMViewController: UIViewController {
         
         noInternerConnectionAlert.addAction(okAction)
         
-        DispatchQueue.main.async {
-            self.present(noInternerConnectionAlert, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.present(noInternerConnectionAlert, animated: true)
         }
     }
 }

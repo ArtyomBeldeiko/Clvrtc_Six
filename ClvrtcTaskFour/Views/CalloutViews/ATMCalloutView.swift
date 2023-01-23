@@ -59,7 +59,6 @@ class ATMCalloutView: UIView {
         closeButton.setImage(image, for: .normal)
         addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.snp.makeConstraints { make in
             make.top.equalTo(snp.top).offset(-8)
             make.height.equalTo(25)
@@ -73,7 +72,6 @@ class ATMCalloutView: UIView {
         installationPlaceLabel.text = "Mecто установки: \(mkAnnotatedATM.addressLine)"
         installationPlaceLabel.numberOfLines = 0
         addSubview(installationPlaceLabel)
-        installationPlaceLabel.translatesAutoresizingMaskIntoConstraints = false
         installationPlaceLabel.snp.makeConstraints { make in
             make.top.equalTo(snp.top)
             make.left.equalTo(snp.left)
@@ -82,14 +80,11 @@ class ATMCalloutView: UIView {
     }
     
     private func setupOperatingHoursLabel() {
-        
-//        let formattedDate = atmDatesFormatter(mkAnnotatedATM.availability.standardAvailability.day)
-        
+                
         operatingHoursLabel.font = .systemFont(ofSize: 12, weight: .regular)
         operatingHoursLabel.text = "Режим работы: \(mkAnnotatedATM.standardAvailability)"
         operatingHoursLabel.numberOfLines = 0
         addSubview(operatingHoursLabel)
-        operatingHoursLabel.translatesAutoresizingMaskIntoConstraints = false
         operatingHoursLabel.snp.makeConstraints { make in
             make.top.equalTo(installationPlaceLabel.snp.bottom).offset(5)
             make.left.equalTo(snp.left)
@@ -102,7 +97,6 @@ class ATMCalloutView: UIView {
         currencyLabel.text = "Выдаваемая валюта: \(mkAnnotatedATM.baseCurrency)"
         currencyLabel.numberOfLines = 0
         addSubview(currencyLabel)
-        currencyLabel.translatesAutoresizingMaskIntoConstraints = false
         currencyLabel.snp.makeConstraints { make in
             make.top.equalTo(operatingHoursLabel.snp.bottom).offset(5)
             make.left.equalTo(snp.left)
@@ -113,8 +107,6 @@ class ATMCalloutView: UIView {
     private func setupCashInAvailabilityLabel() {
         
         if mkAnnotatedATM.serviceType.hasPrefix("Прием наличных") {
-        
-//        if mkAnnotatedATM.serviceType.contains(where: { $0.serviceType.rawValue.hasPrefix("Прием наличных")}) {
             cashInAvailabilityLabel.text = "Прием наличных: доступно"
         } else {
             cashInAvailabilityLabel.text = "Прием наличных: недоступно"
@@ -123,7 +115,6 @@ class ATMCalloutView: UIView {
         cashInAvailabilityLabel.font = .systemFont(ofSize: 12, weight: .regular)
         cashInAvailabilityLabel.numberOfLines = 0
         addSubview(cashInAvailabilityLabel)
-        cashInAvailabilityLabel.translatesAutoresizingMaskIntoConstraints = false
         cashInAvailabilityLabel.snp.makeConstraints { make in
             make.top.equalTo(currencyLabel.snp.bottom).offset(5)
             make.left.equalTo(snp.left)
@@ -136,7 +127,6 @@ class ATMCalloutView: UIView {
         detailButton.setTitleColor(.red, for: .normal)
         addSubview(detailButton)
         detailButton.addTarget(self, action: #selector(presentDetailedATMInfoVC), for: .touchUpInside)
-        detailButton.translatesAutoresizingMaskIntoConstraints = false
         detailButton.snp.makeConstraints { make in
             make.top.equalTo(cashInAvailabilityLabel.snp.bottom).offset(5)
             make.left.equalTo(snp.left)
